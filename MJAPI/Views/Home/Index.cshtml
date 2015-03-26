@@ -1,0 +1,299 @@
+﻿@{
+    Layout = null;
+    
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .item {
+            background-color: #f6f6f6;
+            margin-bottom: 20px;
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .hd {
+            font-size: 15px;
+            color: #036;
+            font-weight: 700;
+            padding: 6px;
+        }
+
+        .hurl {
+            margin-left: 20px;
+            margin-bottom: 3px;
+            font-size: 16px;
+        }
+
+        .bb {
+            font-family: "Classic Grotesque W01", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei",Arial,SimSun,sans-serif;
+            margin-left: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+  @*  {"userid":"10010","kct":"2","sf":"4"}*@
+
+    <div class="item">
+        <div class="hd">
+            一. 修改用户信息 &nbsp;&nbsp;api/UpdateUser
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/UpdateUser?userid=5680&name=大鹏&address=北京&gender=1" target="_blank">http://mobile.mj100.com/api/UpdateUser?userid=用户id&name=姓名&address=地址&gender=男传1女传0</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend> userid=用户id&name=姓名&address=地址&gender=男传1女传0      userid必传 其它可传可不传
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+         {
+"success": "true",
+"msg": "更新成功"
+}
+ 
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="hd">
+           二. 发送找回密码短信 &nbsp;&nbsp;api/SendReSetPwdMsg
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/SendReSetPwdMsg?phone=你的手机号" target="_blank">http://mobile.mj100.com/api/SendReSetPwdMsg?phone=你的手机号 </a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend> phone  找回密码用的手机号
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+        {
+"success": "true",
+"msg": "找回密码验证码发送成功"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="item">
+        <div class="hd">
+            一. 重设密码 &nbsp;&nbsp;api/ReSetPwd
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/ReSetPwd?phone=你的手机号&code=收到的验证码&newpwd=新密码" target="_blank">http://mobile.mj100.com/api/ReSetPwd?phone=你的手机号&code=收到的验证码&newpwd=新密码</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend> phone=你的手机号&code=收到的验证码&newpwd=新密码
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+     {
+"success": "true",
+"msg": "更新成功"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="hd">
+            一. 发送注册短信 &nbsp;&nbsp;api/SendRegistMSg
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/SendRegistMSg?phone=你的手机号" target="_blank">http://mobile.mj100.com/api/SendRegistMSg?phone=注册手机号</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>phone 是用户注册输入的手机号  
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+           {
+"success": "false",
+"msg": "此手机号已被注册"
+}
+
+                    {
+"success": "true",
+"msg": "发送成功"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="hd">
+            一. 验证验证码是否正确 &nbsp;&nbsp;api/validatecode
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/validatecode?phone=你的手机号&code=收到的验证码" target="_blank">http://mobile.mj100.com/api/validatecode?phone=你的手机号&code=收到的验证码</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>phone 是用户注册输入的手机号 ， code: 你收到的验证码 
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+     {
+"success": "false",
+"msg": "验证码错误",
+"code": 628115,
+"code2": "506505"
+}
+
+                    {
+"success": "true",
+"msg": "验证码正确",
+"code": 506505,
+"code2": "506505"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="item">
+        <div class="hd">
+            一. 注册 &nbsp;&nbsp;api/Regist
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/Regist?phone=注册用的手机号&pwd=明文密码&name=用户名&gender=男就传1女就传0" target="_blank">http://mobile.mj100.com/api/Regist?phone=注册用的手机号&pwd=明文密码&name=用户名&gender=男就传1女就传0</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>phone=注册用的手机号&pwd=明文密码&name=用户名&gender=男就传1女就传0 
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+     {
+"success": "true",
+"msg": "注册成功",
+"userid": "5671"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="item">
+        <div class="hd">
+            一. 登录 &nbsp;&nbsp;api/login
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/login?loginname=123456&pwd=123" target="_blank">http://mobile.mj100.com/api/login?loginname=123456&pwd=123</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>loginname 是用户输入的手机号  pwd是密码<br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+           {
+           "success": "false",
+           "msg": "用户名或密码错误"
+           }
+
+           {
+            "success": "true",
+            "userid": "55",
+            "loginname": "110",
+            "usermphone": ""
+           } 
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="hd">
+            二. 模版房间列表 &nbsp;&nbsp;api/GetModelList
+        </div>
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/GetModelList?roomtype=kct&order" target="_blank">http://mobile.mj100.com/api/GetModelList?roomtype=kct&order</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>roomtype 房间类型拼音简写 如客餐厅 为 kct   &nbsp;&nbsp; order是排序  传值则按价格倒序 
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+          [
+{
+"did": "3582",
+"roomtype": "客,餐厅",
+"roomName": "ELD380A",
+"price": "373",
+"frontCover": "http://www.mj100.com/UploadFile/295/201409/kt-1-s-p-033324.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/295/201409/kt-1-s-p-033324.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-2-s-p-033331.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-1-s-z-033328.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-2-s-z-033333.jpg"
+]
+},
+{
+"did": "3595",
+"roomtype": "客,餐厅",
+"roomName": "CLD580B",
+"price": "409",
+"frontCover": "http://www.mj100.com/UploadFile/295/201409/kt-1-s-p-023117.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/295/201409/kt-1-s-p-023117.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-2-s-p-023118.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-1-s-z-023120.jpg",
+"http://www.mj100.com/UploadFile/295/201409/kt-2-s-z-023121.jpg"
+]
+}
+]
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</body>
+</html>
+
+

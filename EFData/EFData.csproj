@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0EA7D7A1-5847-43D4-9CB5-DAA6A28134D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFData</RootNamespace>
+    <AssemblyName>EFData</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AA.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AngleDelivery.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AxisDaily.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Brand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CheckJd.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="classes.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Color.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comment.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Construction.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cxsxz.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Daily.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Delivery.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Demand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DemandShowRoomProduct.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DemandShowRooms.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DemandYppCenter.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Design.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DesignerGrade.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DesignProject.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dp_Col_Proc_Result.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dp_news_Proc_Result.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Engineering.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FindProduct.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FindProject.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Help.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpClass.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="indexNew.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JKMJ.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JKMJ.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JKMJ.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JKMJ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JKMJ.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LayerLibrary.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mclassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Middle.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mj100HouseLabelType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mj100HouseLableClass.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mj100HouseLableDetails.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MJ100_HOUSE.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MJ100_HOUSE_TAG.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelclas.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="money.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mroom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Note.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetail.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMessage.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PecluliarityProperty.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Peculiarity.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeculiarityClass.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeculiarityClassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeculiarityValue.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Photos.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pic.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectLx.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectPrice.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectPriceDemand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectPty.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pvalue.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reply.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportItem.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportTable.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rm_Style_ys.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Room.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seller.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shares.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="shenqi.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Showroom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShowroomGroup.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShowroomProduct.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sina.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="smtp.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stage.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Style.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supporting.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="suu.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S_City.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S_District.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S_Province.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TempZj.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tentent.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestWeiXin.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unit.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfoGroup.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ActivityAndUser.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_AmountRoomBySJSID.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Brand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_BrandByMclassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_classesbyclassid.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Color.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ComProduct.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ComUsSm.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Construction.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_cq.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_DabaoqianPro.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_DabiaoqianProducts.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_DailyList.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Demand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Demandsp.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_DemandWhereShowRoom_smt.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_DemandYpp_Project.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Design.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_DesignProject.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_FindProduct_user.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_GradeUsers.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Help.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_HelpClass.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_inwUser.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Middle.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Modelclas.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ModelclasByMclassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_OrderDetail.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_OrderMessage.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_OrderMessageT.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_OrderType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PecluliarityProperty.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Peculiarity.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PeculiarityClass.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PeculiarityClassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PeculiarityValue.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_PMroom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ProductPrice.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductRoom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_Products.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductsAll.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductsByMclassify.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductsDetail.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductsSINGLE.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ProductsWalls.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PropertyByProducts.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ProvinceCity.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_pType.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_RandUsers.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Reply.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ReportItem.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ReportItem_ReportTable.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ReportTable.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Room_userInfo.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Seach.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_SelectDesignByUserid.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_selectWx.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_SellerByBrand.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ShenQi.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Showroom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_showroomimage.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_sp.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_sp2.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_ssq.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Stype.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_SupervisionDetail.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Supporting.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_SupportingUserStyle.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_UserInfoGroup.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_UserRoom_rm.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_VView_Con.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_WhereShowRoom_smt.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_XinProducts.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_xinProjectList.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Ypp.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Ypp_Project.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebChartUser.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webchat.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webchatmessage.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WhereShowRoom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WinXinE.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WShowroom.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XProjectM.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YPPCenter.cs">
+      <DependentUpon>JKMJ.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="JKMJ.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>JKMJ.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="JKMJ.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JKMJ.edmx</DependentUpon>
+      <LastGenOutput>JKMJ.Context.cs</LastGenOutput>
+    </None>
+    <None Include="JKMJ.edmx.diagram">
+      <DependentUpon>JKMJ.edmx</DependentUpon>
+    </None>
+    <None Include="JKMJ.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JKMJ.edmx</DependentUpon>
+      <LastGenOutput>JKMJ.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
