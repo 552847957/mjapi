@@ -37,7 +37,113 @@
 </head>
 <body>
 
-  @*  {"userid":"10010","kct":"2","sf":"4"}*@
+    @*  {"userid":"10010","kct":"2","sf":"4"}*@
+
+    <div class="item">
+        <div class="hd">
+            一. 添加用户module &nbsp;&nbsp;api/Addroommodule
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/Addroommodule?parm=一个json串" target="_blank">http://mobile.mj100.com/api/Addroommodule?parm=一个json串</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>
+                <pre>{"userid":"10010","kct":"2","sf":"4"}</pre>
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+         {
+"success": "true",
+"msg": "添加成功"
+}
+ 
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="hd">
+            一. 得到用户module（模块） &nbsp;&nbsp;api/GetUserModule
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/GetUserModule?userid=10010" target="_blank">http://mobile.mj100.com/api/GetUserModule?userid=用户id</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>userid 用户id
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+       [
+{
+"userroomid": "18991",   ---用户moudle模块编号
+"roomName": "客餐厅",
+"demandId": "2891",     ---需求编号
+"FrontCover": "",    ---封面图  如果用户尚未为此房间模块选择模版  则为空
+"mj": ""    ---面积
+},
+{
+"userroomid": "18992",
+"roomName": "客餐厅",
+"demandId": "2891",
+"FrontCover": "",
+"mj": ""
+},
+{
+"userroomid": "18993",
+"roomName": "书房",
+"demandId": "2891",
+"FrontCover": "",
+"mj": ""
+},
+{
+"userroomid": "18994",
+"roomName": "书房",
+"demandId": "2891",
+"FrontCover": "",
+"mj": ""
+} 
+]
+ 
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="item">
+        <div class="hd">
+            一. 删除某一个用户的单独模块 &nbsp;&nbsp;api/DeleteSingleModule
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/DeleteSingleModule?userid=10010&userromid=10010" target="_blank">http://mobile.mj100.com/api/GetUserModule?userid=用户id&userromid=10010</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>userid 用户id   userromid 用户模块id
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+      
+ {
+"success": "true",
+"msg": "删除18991成功"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
 
     <div class="item">
         <div class="hd">
@@ -49,7 +155,7 @@
         </div>
         <div class="bb">
             <fieldset>
-                <legend>输入参数</legend> userid=用户id&name=姓名&address=地址&gender=男传1女传0      userid必传 其它可传可不传
+                <legend>输入参数</legend>userid=用户id&name=姓名&address=地址&gender=男传1女传0      userid必传 其它可传可不传
                 <br />
             </fieldset>
             <fieldset style="border: 1px solid red">
@@ -67,7 +173,7 @@
 
     <div class="item">
         <div class="hd">
-           二. 发送找回密码短信 &nbsp;&nbsp;api/SendReSetPwdMsg
+            二. 发送找回密码短信 &nbsp;&nbsp;api/SendReSetPwdMsg
         </div>
 
         <div class="hurl">
@@ -75,7 +181,7 @@
         </div>
         <div class="bb">
             <fieldset>
-                <legend>输入参数</legend> phone  找回密码用的手机号
+                <legend>输入参数</legend>phone  找回密码用的手机号
                 <br />
             </fieldset>
             <fieldset style="border: 1px solid red">
@@ -101,7 +207,7 @@
         </div>
         <div class="bb">
             <fieldset>
-                <legend>输入参数</legend> phone=你的手机号&code=收到的验证码&newpwd=新密码
+                <legend>输入参数</legend>phone=你的手机号&code=收到的验证码&newpwd=新密码
                 <br />
             </fieldset>
             <fieldset style="border: 1px solid red">
@@ -287,6 +393,309 @@
         </div>
     </div>
 
+
+    <div class="item">
+        <div class="hd">
+            二. 模版房间工艺明细 &nbsp;&nbsp;api/GetGyMx
+        </div>
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/GetGyMx?did=3582" target="_blank">http://mobile.mj100.com/api/GetGyMx?did=模版间did</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>did=模版间did
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+         {
+"顶面": [
+{
+"tp": "顶面",
+"extension": "墙顶面披、刮腻子",
+"univalent": "39.16",
+"unit": "m²",
+"price": "939.84",
+"ProductAmount": "乳胶漆"
+},
+{
+"tp": "顶面",
+"extension": "滚涂乳胶漆",
+"univalent": "39.16",
+"unit": "m²",
+"price": "78.32",
+"ProductAmount": "乳胶漆"
+}
+],
+"墙面": [
+{
+"tp": "墙面",
+"extension": "墙顶面披、刮腻子",
+"univalent": "103.38",
+"unit": "m²",
+"price": "2481.12",
+"ProductAmount": "乳胶漆"
+}
+],
+"地面": [
+{
+"tp": "地面",
+"extension": "基层清光找平",
+"univalent": "36.37",
+"unit": "m²",
+"price": "1382.06",
+"ProductAmount": "铺地板"
+},
+{
+"tp": "地面",
+"extension": "门槛石铺贴",
+"univalent": "2.7",
+"unit": "m",
+"price": "108.0",
+"ProductAmount": "贴砖"
+}
+],
+"dl": [
+{
+"tp": "dl",
+"extension": "照明、插座强电布施",
+"univalent": "39.16",
+"unit": "m²",
+"price": "2741.20",
+"ProductAmount": "强弱电安装"
+},
+{
+"tp": "dl",
+"extension": "网络、电话弱电布施",
+"univalent": "39.16",
+"unit": "m²",
+"price": "979.00",
+"ProductAmount": "强弱电安装"
+},
+{
+"tp": "dl",
+"extension": "施工阶段建材运杂费",
+"univalent": "29.6",
+"unit": "m²",
+"price": "296.0",
+"ProductAmount": "杂费"
+},
+{
+"tp": "dl",
+"extension": "施工阶段卫生清理费",
+"univalent": "29.6",
+"unit": "m²",
+"price": "207.2",
+"ProductAmount": "杂费"
+},
+{
+"tp": "dl",
+"extension": "成品保护费",
+"univalent": "29.6",
+"unit": "m²",
+"price": "148.0",
+"ProductAmount": "杂费"
+},
+{
+"tp": "dl",
+"extension": "竣工保洁费",
+"univalent": "29.6",
+"unit": "m²",
+"price": "148.0",
+"ProductAmount": "杂费"
+}
+]
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="item">
+        <div class="hd">
+            二. 模版房间建材明细 &nbsp;&nbsp;api/GetJcMx
+        </div>
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/GetGyMx?did=3582" target="_blank">http://mobile.mj100.com/api/GetGyMx?did=模版间did</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>did=模版间did
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+        {
+"墙面": [
+{
+"productid": "1473",
+"num": "3",
+"price": "52.95",
+"unit": "个",
+"tp": "墙面",
+"netprice": "17.65",
+"pname": "TCL罗格朗美驭系列三开单控插座",
+"bnmae": "TCL罗格朗",
+"pmodel": "美驭系列三开单控",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614221202358523.jpg"
+},
+{
+"productid": "902",
+"num": "12.89",
+"price": "287.447",
+"unit": "升",
+"tp": "墙面",
+"netprice": "22.30",
+"pname": "多乐士家丽安净味墙面漆乳胶漆",
+"bnmae": "多乐士",
+"pmodel": "家丽安净味墙面漆",
+"gg": "5L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201403/QZTL_C_2014032615125503900081.jpg"
+},
+{
+"productid": "1455",
+"num": "1",
+"price": "7.8",
+"unit": "个",
+"tp": "墙面",
+"netprice": "7.8",
+"pname": "三雄极光雅白K6单开单控开关",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6单开单控",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614215402072477.jpg"
+},
+{
+"productid": "1456",
+"num": "1",
+"price": "9",
+"unit": "个",
+"tp": "墙面",
+"netprice": "9",
+"pname": "三雄极光雅白K6单开双控开关",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6单开双控",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220202941985.jpg"
+},
+{
+"productid": "1466",
+"num": "1",
+"price": "25.9",
+"unit": "个",
+"tp": "墙面",
+"netprice": "25.9",
+"pname": "三雄极光雅白K6电话插插座",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6电话插",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220902553363.jpg"
+},
+{
+"productid": "1467",
+"num": "2",
+"price": "59.6",
+"unit": "个",
+"tp": "墙面",
+"netprice": "29.8",
+"pname": "三雄极光雅白K6电脑插插座",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6电脑插",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220902878381.jpg"
+},
+{
+"productid": "1465",
+"num": "1",
+"price": "16.9",
+"unit": "个",
+"tp": "墙面",
+"netprice": "16.9",
+"pname": "三雄极光雅白K6电视插插座",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6电视插",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220902187342.jpg"
+},
+{
+"productid": "1458",
+"num": "2",
+"price": "28",
+"unit": "个",
+"tp": "墙面",
+"netprice": "14",
+"pname": "三雄极光雅白K6双开双控开关",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6双开双控",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220502425127.jpg"
+},
+{
+"productid": "1462",
+"num": "8",
+"price": "80",
+"unit": "个",
+"tp": "墙面",
+"netprice": "10",
+"pname": "三雄极光雅白K6五孔插插座",
+"bnmae": "三雄极光",
+"pmodel": "雅白K6五孔插",
+"gg": "86型",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DSWJ_C_2014050614220702262232.jpg"
+},
+{
+"productid": "1423",
+"num": "16.9",
+"price": "2028",
+"unit": "米",
+"tp": "墙面",
+"netprice": "120.00",
+"pname": "升达多层板门（窗）套",
+"bnmae": "升达",
+"pmodel": "单面套",
+"gg": "现场定制",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201404/MCLT_O_2014040117553205816505.jpg"
+}
+],
+"顶面": [
+{
+"productid": "902",
+"num": "7.83",
+"price": "174.609",
+"unit": "升",
+"tp": "顶面",
+"netprice": "22.30",
+"pname": "多乐士家丽安净味墙面漆乳胶漆",
+"bnmae": "多乐士",
+"pmodel": "家丽安净味墙面漆",
+"gg": "5L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201403/QZTL_C_2014032615125503900081.jpg"
+}
+],
+"地面": [
+{
+"productid": "1501",
+"num": "45.29",
+"price": "3125.01",
+"unit": "m²",
+"tp": "地面",
+"netprice": "69",
+"pname": "圣象N7115复合木地板",
+"bnmae": "圣象",
+"pmodel": "N7115",
+"gg": "1286*194*6.5",
+"smallpic": "http://www.mj100.com/admin/UploadFile/100X65/201405/DBCZ_C_2014050614593302843729.jpg"
+}
+]
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
     <br />
     <br />
     <br />

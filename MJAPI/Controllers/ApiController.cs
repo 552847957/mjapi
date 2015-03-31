@@ -272,5 +272,23 @@ namespace MJAPI.Controllers
             return bll.GetUserModule(userid);
 
         }
+
+        /// <summary>
+        /// 单独删除用户的某一个模块
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="userromid"></param>
+        /// <returns></returns>
+        public string DeleteSingleModule(string userid, string userromid)
+        {
+            if (userid.IsEmpty() || userromid.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ; ;
+            }
+            BLL.UserRoom bll = new BLL.UserRoom();
+
+
+            return bll.DeleteSingleModule(userid, userromid);
+        }
     }
 }
