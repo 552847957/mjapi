@@ -96,5 +96,41 @@ view_sp.Extension1='房间' group by ShowroomId,Bname,Pmodel,unit
 
             return returnstr;
         }
+
+
+        /// <summary>
+        /// 推荐主材
+        /// </summary>
+        /// <param name="productid"></param>
+        /// <returns></returns>
+        public string RecommendZc(string productid)
+        {
+
+            string sql = @" select top 6 a.BID , PID,Unit,Netprice,Pname,Pmodel,  gg, 
+
+ smallpic ,Brand.Bname from
+(select top 6 BID , PID,Unit,Netprice,Pname,Pmodel,extension1 as gg, 
+
+extension as smallpic from Products where MOID in(
+select MOID from Products where PID=@productid
+) and pid<>@productid) as a left join Brand on a.BID=Brand.BID";
+
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@productid",productid)
+            };
+            List<object> lis = new List<object>();
+
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow row=dt.Rows[i];
+
+                var zxobj = new { productid = row["pid"].ToSafeString(), unit = row["unit"].ToSafeString(), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/100X65/" + row["smallpic"].ToSafeString().Replace("\\", "/") };
+                lis.Add(zxobj);
+            }
+
+
+            return JsonConvert.SerializeObject(lis);
+        }
     }
 }

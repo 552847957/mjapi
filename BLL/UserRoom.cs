@@ -63,38 +63,62 @@ namespace BLL
         public string AddRom(string pra)
         {
             //pra = "{\"userid\":\"10010\",\"kct\":\"2\",\"sf\":\"4\"}";
-
-            object obj = JsonConvert.DeserializeObject(pra);
-
-            Newtonsoft.Json.Linq.JObject js = obj as Newtonsoft.Json.Linq.JObject;//把上面的obj转换为 Jobject对象
-
-            #region 得到用户id和需求id
-            string userid = js["userid"].ToSafeString();
-
-            string DemandId = GetDemandId(userid);
-            if (DemandId.IsEmpty())
+            try
             {
-                DemandId = AddDemand(userid);
-            }
-            #endregion
 
-            #region 循环添加
-            foreach (var item in js)
-            {
-                if (item.Key != "userid")
+
+                object obj = JsonConvert.DeserializeObject(pra);
+
+                Newtonsoft.Json.Linq.JObject js = obj as Newtonsoft.Json.Linq.JObject;//把上面的obj转换为 Jobject对象
+
+                #region 得到用户id和需求id
+                string userid = js["userid"].ToSafeString();
+                if (userid.IsEmpty() || userid == "0")
                 {
-                    int count = Convert.ToInt32(item.Value.ToSafeString());
-                    for (int i = 0; i < count; i++)
+                    return "{\"success\":\"false\",\"msg\":\"用户id不能为空\"}";
+                }
+
+                string DemandId = GetDemandId(userid);
+                if (DemandId.IsEmpty())
+                {
+                    DemandId = AddDemand(userid);
+                }
+                #endregion
+                
+                List<object> lis = new List<object>();
+                #region 循环添加
+                foreach (var item in js)
+                {
+                    if (item.Key != "userid")
                     {
-                        //加到数据库
-                        AddRoom(userid, DemandId, EXNumber(item.Key), EX(item.Key));
+                        int count = Convert.ToInt32(item.Value.ToSafeString());
+                        for (int i = 0; i < count; i++)
+                        {
+                            //加到数据库
+                            string id = AddRoom(userid, DemandId, EXNumber(item.Key), EX(item.Key));
+
+                            //"userroomid": "18998",
+                            //"roomName": "客餐厅",
+                            //"demandId": "2891",
+                            //"FrontCover": "",
+                            //"mj": ""
+
+                            var or = new { userroomid = id, roomName = EX(item.Key), demandId = DemandId, FrontCover = "", mj = "" };
+                            lis.Add(or);
+                        }
                     }
                 }
+                #endregion
+
+
+                return "{\"success\":\"true\",\"msg\":\"添加用户module成功\",\"data\":" +JsonConvert.SerializeObject(lis) + "}";
+
             }
-            #endregion
+            catch (Exception)
+            {
 
-
-            return js["userid"].ToSafeString();
+                return "{\"success\":\"false\",\"msg\":\"添加用户module失败\"}";
+            }
         }
 
         /// <summary>
@@ -309,6 +333,9 @@ namespace BLL
 
                 //UseModelRoom(userroomid, DemandId, did);
 
+                //  JArray products = JArray.Parse(item["products"].ToSafeString());
+
+
                 return userid + ":" + did + ":" + mj;
             }
 
@@ -354,6 +381,62 @@ namespace BLL
 
 
             return JsonConvert.SerializeObject(lis);
+        }
+
+
+        /// <summary>
+        /// 删除某一个用户的单独模块
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="userromid"></param>
+        /// <returns></returns>
+        public string DeleteSingleModule(string userid, string userromid)
+        {
+
+            try
+            {
+                #region 删除操作
+                string sql = @"begin tran
+declare @error int
+set @error=0
+delete from UserRoom where userId=@userid and id=@userroomid
+set @error=@error+@@ERROR
+delete from DemandYppCenter where projectTypeId=@userroomid
+set @error=@error+@@ERROR
+delete from DemandShowRoomProduct where ProjectTypeId=@userroomid
+set @error=@error+@@ERROR
+if @error>0
+begin
+rollback tran
+end
+else
+begin
+commit tran
+end";
+
+
+                SqlParameter[] arr = new SqlParameter[]
+            {
+               new SqlParameter("@userid",userid),
+               new SqlParameter("@userroomid",userromid)
+                
+            };
+
+                int v = SqlHelper.ExecuteNonQuery(sql, arr);
+
+
+
+                return "{\"success\":\"true\",\"msg\":\"删除" + userromid + "成功\"}"; ;
+                #endregion
+            }
+            catch (Exception)
+            {
+                return "{\"success\":\"false\",\"msg\":\"删除" + userromid + "失败\"}";
+
+            }
+
+
+
         }
 
     }

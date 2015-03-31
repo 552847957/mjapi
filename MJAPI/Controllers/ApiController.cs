@@ -83,6 +83,19 @@ namespace MJAPI.Controllers
         }
 
         /// <summary>
+        /// 得到推荐主材
+        /// </summary>
+        /// <returns></returns>
+        public string TjZc(string productid)
+        {
+            if (productid.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"productid参数有空值\"}"; ;
+            }
+            return new BLL.ZC().RecommendZc(productid);
+        }
+
+        /// <summary>
         /// 添加房间
         /// </summary>
         /// <param name="pra"></param>
