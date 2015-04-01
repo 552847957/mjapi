@@ -35,7 +35,7 @@
     <div id='content'>
         <img src='img/666wap.png' class='img' />
         <div class='bottom'>
-            <a href="tel:18688888888">
+            <a href="tel:4001023100">
                 <img src="img/phone.png" class="o" /></a>
             <img src="img/join.png" class="t" />
         </div>
