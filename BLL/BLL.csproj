@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GY.cs" />
+    <Compile Include="Hdbll.cs" />
     <Compile Include="LoginBll.cs" />
     <Compile Include="ModelRoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

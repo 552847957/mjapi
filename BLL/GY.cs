@@ -80,6 +80,9 @@ namespace BLL
                 case "cj":
                     returnstr = "厨具";
                     break;
+                case "":
+                    returnstr = "其它";
+                    break;
                 default:
                     break;
             }

@@ -146,10 +146,10 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
              new SqlParameter("@LoginName", phone),
              new SqlParameter("@UserMPhone", phone)
             };
-            object o = SqlHelper.ExecuteNonQuery(sql, arr); 
+            object o = SqlHelper.ExecuteNonQuery(sql, arr);
             #endregion
 
-            if (Convert.ToInt32(o)>0)
+            if (Convert.ToInt32(o) > 0)
             {
                 return "{\"success\":\"true\",\"msg\":\"更新成功\"}";
             }
@@ -157,7 +157,44 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             {
                 return "{\"success\":\"false\",\"msg\":\"异常情况\"}";
             }
-            
+
         }
+
+
+        /// <summary>
+        /// 提建议
+        /// </summary>
+        /// <param name="userid">用户id</param>
+        /// <param name="content">内容</param>
+        /// <returns></returns>
+        public string AddComment(string userid, string content)
+        {
+            //model.UserId = usreid;
+            //model.Type = "问题";
+            //model.CreateTime = DateTime.Now.ToString();
+            //model.CommentCon = comment;
+            //model.Extension2 = "未审核";
+
+
+            #region MyRegion
+            string sql = @"insert into Comment (userid,type,CreateTime,commentcon,Extension2)
+    
+    values (@userid,@type,@CreateTime,@commentcon,@Extension2);";
+
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@userid",userid),
+             new SqlParameter("@type","问题"),
+              new SqlParameter("@CreateTime",DateTime.Now.ToString("yy-MM-dd hh:mm:ss")),
+               new SqlParameter("@commentcon",content),
+               new SqlParameter("@Extension2",userid)
+            };
+
+            SqlHelper.ExecuteNonQuery(sql, arr);
+            #endregion
+            return "{\"success\":\"true\",\"msg\":\"建议成功\"}"; ;
+        }
+
+
+
     }
 }
