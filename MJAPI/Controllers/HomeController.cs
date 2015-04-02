@@ -21,9 +21,29 @@ namespace MJAPI.Controllers
         }
 
 
-        public string Test(string key)
+        public JsonResult Test(string key)
         {
-            return "我勒个去"+key;
+            List<Person> lis = new List<Person>();
+            Person p = new Person();
+            p.name = "2222";
+            p.age = "3333";
+            lis.Add(p);
+            lis.Add(p);
+
+            lis.Select(u => {return
+                new { name=u.name}; });
+            var liss = from u in lis
+                       select new {u.name }
+                       ;
+
+            return Json(liss, JsonRequestBehavior.AllowGet);
         }
+    }
+
+    public class Person
+    {
+        public string name;
+
+        public string age;
     }
 }
