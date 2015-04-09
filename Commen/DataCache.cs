@@ -43,5 +43,8 @@ namespace Commen
 			System.Web.Caching.Cache objCache = HttpRuntime.Cache;
 			objCache.Insert(CacheKey, objObject,null,absoluteExpiration,slidingExpiration);
 		}
+
+
+
 	}
 }

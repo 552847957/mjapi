@@ -516,6 +516,42 @@ end";
 
         }
 
+
+
+        public string GetModelDetail(string did)
+        {
+            StringBuilder sb = new StringBuilder();
+            string s = Commen.DataCache.GetCache(did).ToSafeString();
+            if (!s.IsEmpty())
+            {
+                return s;
+            }
+            else
+            {
+                #region 详细查询
+
+                sb.Append("[");
+                string room = new BLL.ModelRoom().GetModelRoomSExt(did);
+                sb.Append(room);
+                sb.Append(",");
+                string zcstr = new BLL.ZC().GetZcMx(did);
+                sb.Append(zcstr);
+                sb.Append(",");
+                string gystr = new GY().GetGyMx(did);
+                sb.Append(gystr);
+                sb.Append("]");
+                #endregion
+
+
+                Commen.DataCache.SetCache(did, sb, DateTime.Now.AddMonths(1), TimeSpan.Zero);
+
+            //    cache.Insert("DD", "滑动过期测试", null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromSeconds(10));
+
+                return sb.ToSafeString();
+
+            }
+        }
+
     }
 
 

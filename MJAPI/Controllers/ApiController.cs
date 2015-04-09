@@ -9,13 +9,14 @@ using System.Web.Mvc;
 
 namespace MJAPI.Controllers
 {
+    [CustomException]
     public class ApiController : Controller
     {
         /// <summary>
         /// api测试
         /// </summary>
         /// <returns></returns>
-        public string Test()
+        public string Test(string v)
         {
             return "这是一个测试";
         }
@@ -302,6 +303,22 @@ namespace MJAPI.Controllers
 
 
             return bll.DeleteSingleModule(userid, userromid);
+        }
+
+
+        /// <summary>
+        /// 详情合并 某个房间详情
+        /// </summary>
+        /// <param name="did"></param>
+        /// <returns></returns>
+        public string GetModelDetail(string did)
+        {
+            if (string.IsNullOrEmpty(did))
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}";
+            }
+            BLL.UserRoom bll = new BLL.UserRoom();
+            return bll.GetModelDetail(did); ;
         }
     }
 }

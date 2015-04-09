@@ -14,7 +14,7 @@ namespace BLL
         {
             #region sql语句
             string sql = @"select  types,YPPCenter.extension,YPPCenter.extension1 as univalent,unit,YPPCenter.extension2 as price,ProductAmount  from YPPCenter      left join product   on yppcenter.projectid=product.productid
- where YPPCenter.TypeId=@did";
+ where YPPCenter.TypeId=@did and ProductAmount<>'杂费'";
             SqlParameter[] arr = new SqlParameter[] { 
             new SqlParameter("@did",did)
             };
@@ -31,11 +31,11 @@ namespace BLL
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow row = dt.Rows[i];
-               
+
                 //types	extension	univalent	unit	price	ProductAmount
 
                 var zxobj = new { tp = ExChange(row["types"].ToSafeString()), extension = row["extension"].ToSafeString(), univalent = row["univalent"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString(), ProductAmount = row["ProductAmount"].ToSafeString(), };
- 
+
                 if (dic.ContainsKey(zxobj.tp))
                 {
                     List<object> listemp = dic[zxobj.tp];
@@ -53,6 +53,52 @@ namespace BLL
 
 
             return JsonConvert.SerializeObject(dic);
+
+        }
+
+        public Dictionary<string, List<object>> GetGyMxExt(string did)
+        {
+            #region sql语句
+            string sql = @"select  types,YPPCenter.extension,YPPCenter.extension1 as univalent,unit,YPPCenter.extension2 as price,ProductAmount  from YPPCenter      left join product   on yppcenter.projectid=product.productid
+ where YPPCenter.TypeId=@did and ProductAmount<>'杂费'";
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@did",did)
+            };
+
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
+
+            #endregion
+            //     Num	price	ShowroomId	Bname	Pmodel	unit	netPrice	extension	Marketprice	pname	cName	ProductId	projectTypeId	SmallPic	tp
+
+
+            #region 按组序列化
+            Dictionary<string, List<object>> dic = new Dictionary<string, List<object>>();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow row = dt.Rows[i];
+
+                //types	extension	univalent	unit	price	ProductAmount
+
+                var zxobj = new { tp = ExChange(row["types"].ToSafeString()), extension = row["extension"].ToSafeString(), univalent = row["univalent"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString(), ProductAmount = row["ProductAmount"].ToSafeString(), };
+
+                if (dic.ContainsKey(zxobj.tp))
+                {
+                    List<object> listemp = dic[zxobj.tp];
+                    listemp.Add(zxobj);
+                    dic[zxobj.tp] = listemp;
+                }
+                else
+                {
+                    List<object> listemp = new List<object>();
+                    listemp.Add(zxobj);
+                    dic.Add(zxobj.tp, listemp);
+                }
+            }
+            #endregion
+
+
+            return dic;
 
         }
 
@@ -80,6 +126,10 @@ namespace BLL
                 case "cj":
                     returnstr = "厨具";
                     break;
+                case "dl":
+                    returnstr = "电路";
+                    break;
+
                 case "":
                     returnstr = "其它";
                     break;

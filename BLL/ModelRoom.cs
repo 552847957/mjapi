@@ -88,5 +88,49 @@ namespace BLL
 
             return JsonConvert.SerializeObject(lis);
         }
+
+        /// <summary>
+        /// 某一个模版间的详情
+        /// </summary>
+        /// <param name="did"></param>
+        /// <returns></returns>
+        public string GetModelRoomSExt(string did)
+        {
+          
+
+
+            #region 查询
+            string sql = @"select Extension1, unit, roomId, did,Extension5 as roomtype, roomName,frontCover,Extension13,Extension14,
+ round((CAST(Extension1 as float)+CAST(Extension2 as float))/CAST(unit as float),0) 
+ as price from Room where did=@did";
+
+
+            SqlParameter[] parr = new SqlParameter[] { 
+            new SqlParameter("@did",did)
+            };
+            DataTable dt = SqlHelper.ExecuteDataTable(sql,parr);
+
+           
+                DataRow row = dt.Rows[0];
+
+                string htp = "http://www.mj100.com/UploadFile/610/";
+                string arrstr = row["Extension14"].ToSafeString() + row["Extension13"].ToSafeString();
+
+                List<string> lispic = new List<string>();
+                string[] arr = arrstr.Split(new char[] { ',', '’' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    lispic.Add(htp + arr[i]);
+                }
+
+                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = row["price"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, mj = row["unit"].ToSafeString(), gyzj = row["Extension1"].ToSafeString() };
+                
+            
+
+            #endregion
+
+
+                return JsonConvert.SerializeObject(room);
+        }
     }
 }
