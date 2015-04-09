@@ -42,11 +42,6 @@ namespace System
         /// <returns></returns>
         public static string ToSafeString(this object obj)
         {
-
-           
-           
-             
-
             if (obj==null)
             {
                 return "";
