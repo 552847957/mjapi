@@ -69,7 +69,7 @@ namespace BLL
             {
                 DataRow row = dt.Rows[d];
 
-                string htp = "http://www.mj100.com/UploadFile/295/";
+                string htp = "http://www.mj100.com/UploadFile/610/";
                 string arrstr = row["Extension14"].ToSafeString() + row["Extension13"].ToSafeString();
 
                 List<string> lispic = new List<string>();

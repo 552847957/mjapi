@@ -84,7 +84,7 @@ namespace BLL
                     DemandId = AddDemand(userid);
                 }
                 #endregion
-                
+
                 List<object> lis = new List<object>();
                 #region 循环添加
                 foreach (var item in js)
@@ -111,7 +111,7 @@ namespace BLL
                 #endregion
 
 
-                return "{\"success\":\"true\",\"msg\":\"添加用户module成功\",\"data\":" +JsonConvert.SerializeObject(lis) + "}";
+                return "{\"success\":\"true\",\"msg\":\"添加用户module成功\",\"data\":" + JsonConvert.SerializeObject(lis) + "}";
 
             }
             catch (Exception)
@@ -256,7 +256,9 @@ namespace BLL
              new SqlParameter("@Extension14",room.Extension14),
              new SqlParameter("@Rmpt",room.Rmpt),
              new SqlParameter("@Rpmt",room.Rpmt),
-             new SqlParameter("@Extension4",room.Extension4)
+             new SqlParameter("@Extension4",room.Extension4),
+              new SqlParameter("@roomid",roomid)
+
             };
 
 
@@ -296,52 +298,78 @@ namespace BLL
         /// <returns></returns>
         public string SyFj(string pra)
         {
-            //  { "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}
-
-
-            string userid = "";
-
-
-
-            object obj = JsonConvert.DeserializeObject(pra);
-
-            Newtonsoft.Json.Linq.JObject js = obj as Newtonsoft.Json.Linq.JObject;//把上面的obj转换为 Jobject对象
-
-            userid = js["userid"].ToSafeString();
-
-            string DemandId = GetDemandId(userid);
-
-            if (DemandId.IsEmpty())
-            {
-                DemandId = AddDemand(userid);
-            }
-
-
-
-
-            JArray jarr = JArray.Parse(js["data"].ToSafeString());
-
-            foreach (var item in jarr)
+            // { "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}
+            try
             {
 
 
-                string userroomid = item["userroomid"].ToSafeString();
-                string did = item["did"].ToSafeString();
-                string mj = item["mj"].ToSafeString();
-
-                //UpdateUserRoom(userroomid, mj, did);
-
-                //UseModelRoom(userroomid, DemandId, did);
-
-                //  JArray products = JArray.Parse(item["products"].ToSafeString());
+                #region 获取userid部分
+                string userid = "";
 
 
-                return userid + ":" + did + ":" + mj;
+
+                object obj = JsonConvert.DeserializeObject(pra);
+
+                Newtonsoft.Json.Linq.JObject js = obj as Newtonsoft.Json.Linq.JObject;//把上面的obj转换为 Jobject对象
+
+                userid = js["userid"].ToSafeString();
+                #endregion
+
+                #region 获取需求id部分
+                string DemandId = GetDemandId(userid);
+
+                if (DemandId.IsEmpty())
+                {
+                    DemandId = AddDemand(userid);
+                }
+                #endregion
+
+
+
+
+                JArray jarr = JArray.Parse(js["data"].ToSafeString());
+
+                foreach (var item in jarr)
+                {
+
+
+                    string userroomid = item["userroomid"].ToSafeString();
+                    string did = item["did"].ToSafeString();
+                    string mj = item["mj"].ToSafeString();
+
+                    UpdateUserRoom(userroomid, mj, did);
+
+                    UseModelRoom(userroomid, DemandId, did);
+
+                    #region 更新建材部分
+                    if (!item["products"].ToSafeString().IsEmpty())
+                    {
+                        JArray products = JArray.Parse(item["products"].ToSafeString());
+                        foreach (var iteme in products)
+                        {
+                            string oldpid = item["oldproductid"].ToSafeString();//jiu'jian'c
+                            string newpid = item["newproductid"].ToSafeString();//新建材id
+                            string lx = item["tp"].ToSafeString();//墙面  地面  什么的
+
+                            UpdateProduct(oldpid, newpid, lx, DemandId);
+                        }
+                    }
+                    #endregion
+
+
+
+                }
+
+
+
+                return "{\"success\":\"true\",\"msg\":\"使用成功\"}"; ;
+            }
+            catch (Exception e)
+            {
+                return "{\"success\":\"false\",\"msg\":\"失败,出现异常" + e.Message + "\"}"; ;
+
             }
 
-
-
-            return "";
         }
 
 
@@ -362,7 +390,7 @@ namespace BLL
             #endregion
 
             DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
-            string htp = "http://www.mj100.com/UploadFile/295/";
+            string htp = "http://www.mj100.com/UploadFile/610/";
             List<object> lis = new List<object>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -436,6 +464,55 @@ end";
             }
 
 
+
+        }
+
+
+        /// <summary>
+        /// 更新建材
+        /// </summary>
+        /// <param name="Pid"></param>
+        /// <param name="Newpid"></param>
+        /// <param name="lx"></param>
+        /// <param name="DemandShowroomId"></param>
+        /// <returns></returns>
+        public string UpdateProduct(string Pid, string Newpid, string lx, string DemandShowroomId)
+        {
+
+
+            #region 得到老建材
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@ProductId",Pid),
+            new SqlParameter("@lx",lx),
+            new SqlParameter("@DemandShowroomId",DemandShowroomId)
+            };
+            string sql = "select * from DemandShowRoomProduct where ProductId=@ProductId   and DemandShowroomId=@DemandShowroomId";
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
+            #endregion
+
+
+            #region 循环更新
+            double dj = Convert.ToInt32(SqlHelper.ExecuteScalar("select Netprice from Products where PID=@pid", new SqlParameter("@pid", Newpid)));//单价
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow row = dt.Rows[i];
+
+                string SroomPId = row["SroomPId"].ToSafeString();//用户房间建材id
+
+                string num = row["num"].ToSafeString();//总量
+
+                double zj = double.Parse(num) * dj;//总价
+
+                string sqlupdate = "update [DemandShowRoomProduct] set ProductId=@ProductId,Price=@Price where SroomPId=@SroomPId";
+
+                SqlHelper.ExecuteNonQuery(sqlupdate, new SqlParameter("@ProductId", Newpid), new SqlParameter("@Price", zj), new SqlParameter("@SroomPId", SroomPId));
+
+            }
+            #endregion
+
+
+            return "";
 
         }
 
