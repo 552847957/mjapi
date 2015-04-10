@@ -123,22 +123,28 @@ view_sp.Extension1='房间' group by ShowroomId,Bname,Pmodel,unit
             switch (input)
             {
                 case "qm":
-                    returnstr = "墙面";
+                    // returnstr = "墙面";//TheWall
+                    returnstr = "TheWall";//TheWall
                     break;
                 case "dm":
-                    returnstr = "顶面";
+                    //  returnstr = "顶面";//TheTop
+                    returnstr = "TheTop";//TheTop
                     break;
                 case "ld":
-                    returnstr = "地面";
+                    //  returnstr = "地面";//TheGround
+                    returnstr = "TheGround";//TheGround
                     break;
                 case "jj":
-                    returnstr = "洁具";
+                    //  returnstr = "洁具";//TheSanitary 
+                    returnstr = "TheSanitary";//TheSanitary 
                     break;
                 case "ju":
-                    returnstr = "家具";
+                    //  returnstr = "家具";//TheFurniture
+                    returnstr = "TheFurniture";//TheFurniture
                     break;
                 case "cj":
-                    returnstr = "厨具";
+                    //  returnstr = "厨具";//ThekitchenWare
+                    returnstr = "ThekitchenWare";//ThekitchenWare
                     break;
                 default:
                     break;
@@ -173,7 +179,7 @@ select MOID from Products where PID=@productid
             DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                DataRow row=dt.Rows[i];
+                DataRow row = dt.Rows[i];
 
                 var zxobj = new { productid = row["pid"].ToSafeString(), unit = row["unit"].ToSafeString(), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/100X65/" + row["smallpic"].ToSafeString().Replace("\\", "/") };
                 lis.Add(zxobj);

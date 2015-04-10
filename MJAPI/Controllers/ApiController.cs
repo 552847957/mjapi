@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -320,5 +321,84 @@ namespace MJAPI.Controllers
             BLL.UserRoom bll = new BLL.UserRoom();
             return bll.GetModelDetail(did); ;
         }
+
+        /// <summary>
+        /// 提交意见
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public string AddComment(string userid, string content)
+        {
+            if (userid.IsEmpty() || content.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}";
+            }
+
+            BLL.LoginBll bll = new BLL.LoginBll();
+
+            return bll.AddComment(userid, content);
+
+        }
+
+        /// <summary>
+        /// 得到装修清单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public string DecorateList(string userid)
+        {
+
+            return new BLL.UserRoom().DecorateList(userid);
+        }
+
+        /// <summary>
+        /// 发送预约短信
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public string SendOrderMsg(string phone)
+        {
+            if (!Regex.IsMatch(phone, "^\\d{11}$"))
+            {
+
+                return "{\"success\":\"false\",\"msg\":\"手机号格式错误\"}"; ;
+
+            }
+            if (phone.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
+            }
+            BLL.SenMSg bll = new BLL.SenMSg();
+
+
+            return bll.SendOrderMsg(phone);
+        }
+
+
+        /// <summary>
+        /// 预约量房
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="userid"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public string MakeAppointment(string name, string phone, string userid, string code)
+        {
+            if (!Regex.IsMatch(phone, "^\\d{11}$"))
+            {
+
+                return "{\"success\":\"false\",\"msg\":\"手机号格式错误\"}"; ;
+
+            }
+
+            if (name.IsEmpty() || phone.IsEmpty() || userid.IsEmpty() || code.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
+            }
+            return new BLL.UserRoom().MakeAppointment(name, phone, userid, code);
+        }
+
     }
 }

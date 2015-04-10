@@ -417,7 +417,7 @@
             </fieldset>
             <fieldset style="border: 1px solid red">
                 <legend>输出参数</legend>
-             
+
             </fieldset>
         </div>
     </div>
@@ -437,7 +437,7 @@
             </fieldset>
             <fieldset style="border: 1px solid red">
                 <legend>输出参数</legend>
-               
+
             </fieldset>
         </div>
     </div>
@@ -489,8 +489,9 @@
         </div>
         <div class="bb">
             <fieldset>
-                <legend>输入参数</legend><pre>{ "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}</pre>
-<img src="/Content/1.png" alt="" />
+                <legend>输入参数</legend>
+                <pre>{ "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}</pre>
+                <img src="/Content/1.png" alt="" />
                 <pre>
 {
 "userid": "用户id",
@@ -540,7 +541,7 @@
 
 
 
-      <div class="item">
+    <div class="item">
         <div class="hd">
             二. 模版间详情接口合并 &nbsp;&nbsp;api/GetModelDetail
         </div>
@@ -549,7 +550,8 @@
         </div>
         <div class="bb">
             <fieldset>
-                <legend>输入参数</legend><pre> 
+                <legend>输入参数</legend>
+                <pre> 
                             did=模版间did
                 <pre>
  
@@ -621,6 +623,127 @@
 "dl": []
 }
 ]
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+    <div class="item">
+        <div class="hd">
+            一. 提交意见 &nbsp;&nbsp;api/addcomment
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/addcomment?userid=10010&content=wlllll" target="_blank">http://mobile.mj100.com/api/addcomment?userid=10010&content=wlllll</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>userid 用户id   content 建议内容 此接口最好用post提交
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+      
+ {
+"success": "true",
+"msg": "建议成功"
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+
+    <div class="item">
+        <div class="hd">
+            一. 装修清单 &nbsp;&nbsp;api/DecorateList
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/DecorateList?userid=10010" target="_blank">http://mobile.mj100.com/api/DecorateList?userid=10010</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>userid 用户id   
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+      
+ {
+"totalprice": "37231.9611848825",  ---总价
+"totalarea": "100",         ----总面积
+"averageprice": "372.319611848825",  -----平均价格
+"jczj": "14991.0520939734",  ---建材总价
+"gyzj": "22240.9090909091", ----工艺总价
+"rooms": [],      -------------房间列表
+"jclist": [],          -------建材列表
+"gylist": []           --------工艺列表
+}
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+
+    <div class="item">
+        <div class="hd">
+            一. 发送预约短信 &nbsp;&nbsp;api/SendOrderMsg
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/SendOrderMsg?phone=你的手机号" target="_blank">http://mobile.mj100.com/api/SendOrderMsg?phone=你的手机号</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>phone  预约用的手机号   
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+      {
+"success": "true",
+"msg": "预约量房验证码发送成功"
+}
+  
+           </pre>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+
+     <div class="item">
+        <div class="hd">
+            一. 预约量房 &nbsp;&nbsp;api/SendOrderMsg
+        </div>
+
+        <div class="hurl">
+            <a href="http://mobile.mj100.com/api/MakeAppointment?name=大鹏&phone=15136134321&userid=10010&code=990154" target="_blank">http://mobile.mj100.com/api/MakeAppointment?name=大鹏&phone=15136134321&userid=10010&code=990154</a>
+        </div>
+        <div class="bb">
+            <fieldset>
+                <legend>输入参数</legend>name=姓名&phone=预约手机号&userid=用户id&code=收到的预约验证码
+                <br />
+            </fieldset>
+            <fieldset style="border: 1px solid red">
+                <legend>输出参数</legend>
+                <pre>
+      {
+"success": "true",
+"msg": "预约成功"
+}
+  
            </pre>
             </fieldset>
         </div>

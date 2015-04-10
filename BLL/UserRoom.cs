@@ -245,7 +245,7 @@ namespace BLL
 
 
             #region 更新房间
-            string sql = "update UserRoom set Extension1=@FrontCover,Extension3=@Unit,userRoomDes=@RoomDesp,szq=@Extension13,szh=@Extension14,mpt=@Rmpt,pmt=@Rpmt,extension4=@Extension4 where id=@roomid";
+            string sql = "update UserRoom set Extension1=@FrontCover,Extension3=@Unit,userRoomDes=@RoomDesp,szq=@Extension13,szh=@Extension14,mpt=@Rmpt,pmt=@Rpmt,extension4=@Extension4,roomId=@dide where id=@roomid";
 
 
             SqlParameter[] arr = new SqlParameter[] { 
@@ -257,7 +257,8 @@ namespace BLL
              new SqlParameter("@Rmpt",room.Rmpt),
              new SqlParameter("@Rpmt",room.Rpmt),
              new SqlParameter("@Extension4",room.Extension4),
-              new SqlParameter("@roomid",roomid)
+             new SqlParameter("@roomid",roomid),
+             new SqlParameter("@dide",did)
 
             };
 
@@ -347,9 +348,9 @@ namespace BLL
                         JArray products = JArray.Parse(item["products"].ToSafeString());
                         foreach (var iteme in products)
                         {
-                            string oldpid = item["oldproductid"].ToSafeString();//jiu'jian'c
-                            string newpid = item["newproductid"].ToSafeString();//新建材id
-                            string lx = item["tp"].ToSafeString();//墙面  地面  什么的
+                            string oldpid = iteme["oldproductid"].ToSafeString();//jiu'jian'c
+                            string newpid = iteme["newproductid"].ToSafeString();//新建材id
+                            string lx = iteme["tp"].ToSafeString();//墙面  地面  什么的
 
                             UpdateProduct(oldpid, newpid, lx, DemandId);
                         }
@@ -490,9 +491,9 @@ end";
             DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
             #endregion
 
-
+            object o = SqlHelper.ExecuteScalar("select Netprice from Products where PID=@pid", new SqlParameter("@pid", Newpid));
             #region 循环更新
-            double dj = Convert.ToInt32(SqlHelper.ExecuteScalar("select Netprice from Products where PID=@pid", new SqlParameter("@pid", Newpid)));//单价
+            double dj = Convert.ToDouble(o);//单价
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -517,7 +518,11 @@ end";
         }
 
 
-
+        /// <summary>
+        /// 单个模版房间详情
+        /// </summary>
+        /// <param name="did"></param>
+        /// <returns></returns>
         public string GetModelDetail(string did)
         {
             StringBuilder sb = new StringBuilder();
@@ -529,29 +534,251 @@ end";
             else
             {
                 #region 详细查询
-
-                sb.Append("[");
+                sb.Append("{");
                 string room = new BLL.ModelRoom().GetModelRoomSExt(did);
+                sb.Append("\"modleroom\":");
                 sb.Append(room);
                 sb.Append(",");
+                sb.Append("\"jiancai\":");
                 string zcstr = new BLL.ZC().GetZcMx(did);
                 sb.Append(zcstr);
                 sb.Append(",");
+                sb.Append("\"gongyi\":");
                 string gystr = new GY().GetGyMx(did);
                 sb.Append(gystr);
-                sb.Append("]");
+                sb.Append("}");
                 #endregion
 
 
                 Commen.DataCache.SetCache(did, sb, DateTime.Now.AddMonths(1), TimeSpan.Zero);
 
-            //    cache.Insert("DD", "滑动过期测试", null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromSeconds(10));
+                //    cache.Insert("DD", "滑动过期测试", null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromSeconds(10));
 
                 return sb.ToSafeString();
 
             }
         }
 
+
+
+        /// <summary>
+        /// 用户房间图片清单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public DataTable GetUserRoomQd(string userid)
+        {
+
+
+            string sql = @"select UserRoom.roomName, UserRoom.id, UserRoom.extension1 as frontcover,UserRoom.extension3 as mj,Room.unit as omj ,Room.Extension1 as gjjg
+
+, (select SUM( CAST(Price as float)) from DemandShowRoomProduct where ProjectTypeId=UserRoom.id)
+
+ as jcjg from UserRoom left join Room on UserRoom.roomId=Room.did where userId=@userid  ";
+
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, new SqlParameter("@userid", userid));
+
+
+            return dt;
+        }
+
+
+        /// <summary>
+        /// 用户房间建材清单
+        /// </summary>
+        /// <param name="DemandShowroomId"></param>
+        /// <returns></returns>
+        public DataTable getUserJcmx(string DemandShowroomId)
+        {
+            string sql = @"select ProductId,SUM(CAST( Num as float) ) as num ,SUM( cast( Price as float)) as price ,max(Pname) as pname ,MAX(Unit) as unit
+
+from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId=Products.PID  where DemandShowroomId=@DemandShowroomId group by ProductId
+";
+            return SqlHelper.ExecuteDataTable(sql, new SqlParameter("@DemandShowroomId", DemandShowroomId)); ;
+
+        }
+
+
+        /// <summary>
+        /// 用户房间工艺清单
+        /// </summary>
+        /// <param name="DemandShowroomId"></param>
+        /// <returns></returns>
+        public DataTable getUseGymx(string DemandShowroomId)
+        {
+            string sql = @"select ProjectId,MAX(DemandYppCenter.Extension) as pname,SUM( CAST ( DemandYppCenter.Extension1 as float)) as mj ,SUM( CAST ( DemandYppCenter.Extension2 as float)) as price from DemandYppCenter
+ left join product   on DemandYppCenter.projectid=product.productid
+ where
+ DemandYppCenter.TypeId=@DemandShowroomId  group by ProjectId
+";
+            return SqlHelper.ExecuteDataTable(sql, new SqlParameter("@DemandShowroomId", DemandShowroomId)); ;
+
+        }
+
+
+        /// <summary>
+        /// 装修清单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public string DecorateList(string userid)
+        {
+
+            #region 获取需求id部分
+            string DemandId = GetDemandId(userid);
+            if (DemandId.IsEmpty())
+            {
+                DemandId = AddDemand(userid);
+            }
+            #endregion
+
+
+
+            //图片清单
+            DataTable dtpic = GetUserRoomQd(userid);
+
+            if (dtpic.Rows.Count > 0)
+            {
+                double jczj = 0;//建材总价
+
+                double gyzj = 0;//工艺总价
+
+                double tzj = 0;//总价
+
+                double zmj = 0;//总面积
+
+
+
+                #region 图片清单
+                List<object> pics = new List<object>();
+
+                for (int i = 0; i < dtpic.Rows.Count; i++)
+                {
+                    DataRow row = dtpic.Rows[i];
+                    //roomName	id	frontcover	mj	omj 	gjjg	jcjg
+                    string gjjg = row["gjjg"].ToSafeString();//工艺价格
+                    string jcjg = row["jcjg"].ToSafeString();//建材价格
+                    string omj = row["omj"].ToSafeString();//原始面积
+                    string mj = row["mj"].ToSafeString();
+                    double price = 0;
+                    if (!gjjg.IsEmpty() && !jcjg.IsEmpty() && !mj.IsEmpty())
+                    {
+                        price = ((double.Parse(gjjg) + double.Parse(jcjg)) / double.Parse(omj)) * double.Parse(mj);
+                        tzj += price;
+                        jczj += ((double.Parse(jcjg)) / double.Parse(omj)) * double.Parse(mj);
+                        zmj += double.Parse(mj);
+                        gyzj += ((double.Parse(gjjg)) / double.Parse(omj)) * double.Parse(mj);
+                    }
+
+
+                    var opic = new { pic = "http://www.mj100.com/UploadFile/610/" + row["frontcover"].ToSafeString(), roomNmae = row["roomName"].ToSafeString(), mj = row["mj"].ToSafeString(), price = price.ToSafeString() };
+                    pics.Add(opic);
+                }
+                #endregion
+
+
+
+                #region 建材清单
+                //建材清单
+                List<object> lisjc = new List<object>();
+                DataTable dtjc = getUserJcmx(DemandId);
+                for (int i = 0; i < dtjc.Rows.Count; i++)
+                {
+                    //ProductId	num	price	pname	unit
+
+                    DataRow row = dtjc.Rows[i];
+
+                    var objjc = new { pname = row["pname"].ToSafeString(), num = row["num"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString() };
+
+                    lisjc.Add(objjc);
+                }
+                #endregion
+
+
+
+                #region 工艺清单
+                //工艺清单
+                List<object> listgy = new List<object>();
+                DataTable dtgy = getUseGymx(DemandId);
+                for (int i = 0; i < dtgy.Rows.Count; i++)
+                {
+                    //ProjectId	pname	mj	price
+
+                    DataRow row = dtgy.Rows[i];
+
+                    var objgy = new { pname = row["pname"].ToSafeString(), price = row["price"].ToSafeString() };
+
+                    listgy.Add(objgy);
+
+                }
+                #endregion
+
+
+
+                #region 拼接字符串
+                double avgprice = tzj / zmj;
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{");
+
+                sb.Append("\"totalprice\":\"" + tzj + "\",");
+
+                sb.Append("\"totalarea\":\"" + zmj + "\",");
+
+                sb.Append("\"averageprice\":\"" + avgprice + "\",");
+
+                sb.Append("\"jczj\":\"" + jczj + "\",");
+
+                sb.Append("\"gyzj\":\"" + gyzj + "\",");
+
+
+                sb.Append("\"rooms\":");
+                sb.Append(JsonConvert.SerializeObject(pics));
+                sb.Append(",");
+
+
+                sb.Append("\"jclist\":");
+                sb.Append(JsonConvert.SerializeObject(lisjc));
+                sb.Append(",");
+
+                sb.Append("\"gylist\":");
+                sb.Append(JsonConvert.SerializeObject(listgy));
+
+
+                sb.Append("}");
+                #endregion
+
+
+                return sb.ToSafeString();
+            }
+            else
+            {
+                return "{\"msg\":\"你尚未配置任何房间\"}";
+            }
+
+
+
+
+
+
+
+        }
+
+
+        /// <summary>
+        /// 预约
+        /// </summary>
+        /// <returns></returns>
+        public string MakeAppointment(string name, string phone, string userid, string code)
+        {
+            // name  mobile  uerid  code
+
+            if (code.IsEmpty() || Commen.DataCache.GetCache("order" + phone).ToSafeString() != code)
+            {
+                return "{\"success\":\"false\",\"msg\":\"验证码错误\"}"; ;
+            }
+
+            return "{\"success\":\"false\",\"msg\":\"预约成功\"}";
+        }
     }
 
 

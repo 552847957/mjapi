@@ -92,5 +92,35 @@ namespace BLL
 
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public string SendOrderMsg(string phone)
+        {
+
+             
+ 
+                #region 发送随机短信
+                Random r = new Random();
+
+                string s = r.Next(100000, 999999).ToString();
+
+                Commen.DataCache.SetCache("order" + phone, s);
+
+                Commen.SendMsg.FSong(phone, "你好，您正在预约量房，您的验证码是：" + s);
+                #endregion
+
+                return "{\"success\":\"true\",\"msg\":\"预约量房验证码发送成功\"}";
+           
+
+
+
+
+
+
+        }
     }
 }

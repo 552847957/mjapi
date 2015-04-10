@@ -109,29 +109,35 @@ namespace BLL
             switch (input)
             {
                 case "qm":
-                    returnstr = "墙面";
+                    //    returnstr = "墙面";
+                    returnstr = "TheWall";
                     break;
                 case "dm":
-                    returnstr = "顶面";
+                    //  returnstr = "顶面";
+                    returnstr = "TheTop";
                     break;
                 case "ld":
-                    returnstr = "地面";
+                    // returnstr = "地面";
+                    returnstr = "TheGround";//TheGround
                     break;
                 case "jj":
-                    returnstr = "洁具";
+                    // returnstr = "洁具";
+                    returnstr = "TheSanitary";//TheSanitary 
                     break;
                 case "ju":
-                    returnstr = "家具";
+                    //  returnstr = "家具";
+                    returnstr = "TheFurniture";//TheFurniture
                     break;
                 case "cj":
-                    returnstr = "厨具";
+                    //  returnstr = "厨具";
+                    returnstr = "ThekitchenWare";//ThekitchenWare
                     break;
                 case "dl":
-                    returnstr = "电路";
+                    // returnstr = "电路";
+                    returnstr = "TheCircuit";//电路
                     break;
-
                 case "":
-                    returnstr = "其它";
+                    returnstr = "other";
                     break;
                 default:
                     break;
