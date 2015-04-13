@@ -54,7 +54,22 @@ namespace BLL
                 //private int? _extension7;
                 //private string _extension8;
                 //private string _createtime;
-                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString() };
+
+                string headimg = row["HeadImage"].ToSafeString();
+                if (headimg.IndexOf("http") > 0)
+                {
+
+                }
+                else if (headimg.Length == 0)
+                {
+                    headimg = "http://www.mj100.com/img/defaultHead.png";
+                }
+                else
+                {
+                    headimg = "http://www.mj100.com/UploadFile/head/" + headimg;
+                }
+
+                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg };
                 #endregion
 
 
@@ -194,7 +209,21 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             return "{\"success\":\"true\",\"msg\":\"建议成功\"}"; ;
         }
 
-
-
+        /// <summary>
+        /// 更新头像
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        public string UpdateImg(string userid, string img)
+        {
+            string sql = "update Users set HeadImage=@HeadImage where UserId=@userid";
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@userid",userid),
+            new SqlParameter("@HeadImage",img)
+            };
+            SqlHelper.ExecuteNonQuery(sql, arr);
+            return "";
+        }
     }
 }

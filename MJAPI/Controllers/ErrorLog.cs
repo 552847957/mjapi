@@ -11,6 +11,8 @@ namespace MJAPI.Controllers
 
         public void OnException(ExceptionContext filterContext)
         {
+          string code=  filterContext.HttpContext.Response.Status;
+            
             if (filterContext.ExceptionHandled == true)
             {
                 HttpException httpExce = filterContext.Exception as HttpException;
@@ -20,28 +22,17 @@ namespace MJAPI.Controllers
                     return;
                 }
             }
-            HttpException httpException = filterContext.Exception as HttpException;
-            if (httpException != null)
-            {
-                filterContext.Controller.ViewBag.UrlRefer = filterContext.HttpContext.Request.UrlReferrer;
-                if (httpException.GetHttpCode() == 404)
-                {
-                    filterContext.HttpContext.Response.Redirect("~/home/index");
-                }
-                else if (httpException.GetHttpCode() == 500)
-                {
 
+            System.IO.File.AppendAllText(filterContext.HttpContext.Server.MapPath("") + "log.txt", filterContext.Exception + ":" + filterContext.Controller + ":" + (string)filterContext.RouteData.Values["action"] + ":" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+            // return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
+            filterContext.HttpContext.Response.Write("{\"success\":\"false\",\"msg\":\"异常错误，已捕捉\"}");
+            filterContext.HttpContext.Response.End();
 
-
-                    System.IO.File.AppendAllText(filterContext.HttpContext.Server.MapPath("") + "log.txt", httpException.Message + ":" + httpException.Source +  ":"+(string)filterContext.RouteData.Values["action"]+":" + DateTime.Now.ToSafeString() + "\r\n\r\n");
-                    // return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
-                    filterContext.HttpContext.Response.Write("{\"success\":\"false\",\"msg\":\"异常错误，已捕捉\"}");
-                    filterContext.HttpContext.Response.End();
-                   
-                }
-            }
             //写入日志 记录
             filterContext.ExceptionHandled = true;//设置异常已经处理
         }
+
+     
+
     }
 }

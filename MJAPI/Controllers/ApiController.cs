@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -398,6 +399,67 @@ namespace MJAPI.Controllers
                 return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
             }
             return new BLL.UserRoom().MakeAppointment(name, phone, userid, code);
+        }
+
+
+        /// <summary>
+        /// 上传头像
+        /// </summary>
+        /// <returns></returns>
+        public string UploadHeadImg(string userid)
+        {
+            if (userid.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
+            }
+            HttpPostedFileBase file = Request.Files[0];
+            if (file.ContentLength < 10)
+            {
+                return "{\"success\":\"false\",\"msg\":\"上传图片过小\"}"; ;
+            }
+
+            string fileext = Path.GetExtension(file.FileName);
+
+            if (fileext.ToLower() != ".jpg" && fileext.ToLower() != ".png" && fileext.ToLower() != ".gif")
+            {
+                return "{\"success\":\"false\",\"msg\":\"请上传图片\"}"; ;
+            }
+            string temppath = "~/UpLoad/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+
+            string path = System.Web.HttpContext.Current.Request.MapPath(temppath);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+            string filename = Guid.NewGuid().ToString().Substring(0, 6) + userid + fileext;
+
+            file.SaveAs(path + filename);
+
+
+            string url = "http://mobile.mj100.com" + temppath.Replace("~", "") + filename;
+
+
+            new BLL.LoginBll().UpdateImg(userid, url);
+
+            //UpLoad/2015/4/9c7bIMG_0843.JPG
+
+
+            return "{\"success\":\"false\",\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\"}";
+        }
+
+
+        /// <summary>
+        /// 删除方案
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public string DeleteAll(string userid)
+        {
+            if (userid.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ; ;
+            }
+
+            return new BLL.UserRoom().DeleteAll(userid);
         }
 
     }

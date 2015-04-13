@@ -213,10 +213,6 @@ namespace BLL
             return SqlHelper.ExecuteScalar(sql, arr).ToSafeString();
         }
 
-
-
-
-
         /// <summary>
         /// 更新房间
         /// </summary>
@@ -468,6 +464,64 @@ end";
 
         }
 
+        /// <summary>
+        /// 删除用户所有方案
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="demandid"></param>
+        /// <returns></returns>
+        public string DeleteAll(string userid, string DemandId = "")
+        {
+            try
+            {
+                #region 获取需求id部分
+                DemandId = GetDemandId(userid);
+                if (DemandId.IsEmpty())
+                {
+                    DemandId = AddDemand(userid);
+                }
+                #endregion
+
+                #region 删除操作
+                string sql = @"begin tran
+declare @error int
+set @error=0
+delete from UserRoom where userId=@userid  
+set @error=@error+@@ERROR
+delete from DemandYppCenter where TypeId=@demandid
+set @error=@error+@@ERROR
+delete from DemandShowRoomProduct where DemandShowroomId=@demandid
+set @error=@error+@@ERROR
+if @error>0
+begin
+rollback tran
+end
+else
+begin
+commit tran
+end";
+
+
+                SqlParameter[] arr = new SqlParameter[]
+            {
+               new SqlParameter("@userid",userid),
+               new SqlParameter("@demandid",DemandId)
+                
+            };
+
+                int v = SqlHelper.ExecuteNonQuery(sql, arr);
+
+
+
+                return "{\"success\":\"true\",\"msg\":\"删除成功\"}"; ;
+                #endregion
+            }
+            catch (Exception)
+            {
+                return "{\"success\":\"false\",\"msg\":\"删除失败\"}";
+
+            }
+        }
 
         /// <summary>
         /// 更新建材
