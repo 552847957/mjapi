@@ -25,7 +25,7 @@ namespace MJAPI.Controllers
 
             System.IO.File.AppendAllText(filterContext.HttpContext.Server.MapPath("") + "log.txt", filterContext.Exception + ":" + filterContext.Controller + ":" + (string)filterContext.RouteData.Values["action"] + ":" + DateTime.Now.ToSafeString() + "\r\n\r\n");
             // return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
-            filterContext.HttpContext.Response.Write("{\"success\":\"false\",\"msg\":\"异常错误，已捕捉\"}");
+            filterContext.HttpContext.Response.Write("{\"success\":\"false\",\"msg\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}");
             filterContext.HttpContext.Response.End();
 
             //写入日志 记录

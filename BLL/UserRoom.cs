@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using System.Data;
 using System.Data.SqlClient;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 namespace BLL
 {
     public class UserRoom
@@ -338,18 +339,17 @@ namespace BLL
 
                     UseModelRoom(userroomid, DemandId, did);
 
+
+
                     #region 更新建材部分
                     if (!item["products"].ToSafeString().IsEmpty())
                     {
-                        JArray products = JArray.Parse(item["products"].ToSafeString());
-                        foreach (var iteme in products)
-                        {
-                            string oldpid = iteme["oldproductid"].ToSafeString();//jiu'jian'c
-                            string newpid = iteme["newproductid"].ToSafeString();//新建材id
-                            string lx = iteme["tp"].ToSafeString();//墙面  地面  什么的
-
-                            UpdateProduct(oldpid, newpid, lx, DemandId);
-                        }
+                        #region 异步执行线程
+                        List<string> lis = new List<string> { DemandId, item["products"].ToSafeString() };
+                        Thread t2 = new Thread(new ParameterizedThreadStart(UpJc));
+                        t2.IsBackground = true;
+                        t2.Start(lis);
+                        #endregion
                     }
                     #endregion
 
@@ -368,7 +368,35 @@ namespace BLL
             }
 
         }
+        /// <summary>
+        /// 异步更新建材
+        /// </summary>
+        /// <param name="DemandId"></param>
+        /// <param name="item"></param>
+        private void UpJc(object o)
+        {
 
+
+            List<string> lis = o as List<string>;
+            string DemandId = lis[0];
+            string item = lis[1];
+
+
+            JArray products = JArray.Parse(item);
+            foreach (var iteme in products)
+            {
+                string oldpid = iteme["oldproductid"].ToSafeString();//jiu'jian'c
+                string newpid = iteme["newproductid"].ToSafeString();//新建材id
+                string lx = iteme["tp"].ToSafeString();//墙面  地面  什么的
+
+                UpdateProduct(oldpid, newpid, lx, DemandId);
+            }
+        }
+        public static void TestMethod(object data)
+        {
+            string datastr = data as string;
+
+        }
 
         /// <summary>
         /// 得到用户模块列表
@@ -663,7 +691,7 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
             string sql = @"select ProjectId,MAX(DemandYppCenter.Extension) as pname,SUM( CAST ( DemandYppCenter.Extension1 as float)) as mj ,SUM( CAST ( DemandYppCenter.Extension2 as float)) as price from DemandYppCenter
  left join product   on DemandYppCenter.projectid=product.productid
  where
- DemandYppCenter.TypeId=@DemandShowroomId  group by ProjectId
+ DemandYppCenter.TypeId=@DemandShowroomId and ProductAmount<>'杂费' group by ProjectId
 ";
             return SqlHelper.ExecuteDataTable(sql, new SqlParameter("@DemandShowroomId", DemandShowroomId)); ;
 
@@ -686,7 +714,52 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
             }
             #endregion
 
+            //CC820B
+            //EB650E
+            //TR2850B
+            //衣帽间
+            //多功能室
+            //EC550E
+            //影音室
+            //次卧室
+            //书房
+            //储物间
+            //景观阳台
+            //CLD580B
+            //ES520E
+            //客,餐厅
+            //主卧室
+            //子女房
+            //老人房
+            //厨房
+            //EB650B
+            //TB1100E
+            //客餐厅
+            //CB780B
+            //TS980B
+            //儿童房
+            //CS650B
+            //客、餐厅
+            //TLD800B
+            //ER1950E
+            //室外空间
+            //TK2150B
+            //CK2000E
+            //TB1100B
+            //CK2000B
+            //CC820E
+            //卧室
+            //卫生间
 
+            //厅 厨  卫  
+
+            int t = 0;
+
+            int c = 0;
+
+            int w = 0;
+
+            int ss=0;
 
             //图片清单
             DataTable dtpic = GetUserRoomQd(userid);
@@ -724,8 +797,26 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                         gyzj += ((double.Parse(gjjg)) / double.Parse(omj)) * double.Parse(mj);
                     }
 
+                    string url = row["frontcover"].ToSafeString().IsEmpty() ? "" : "http://www.mj100.com/UploadFile/610/" + row["frontcover"].ToSafeString();
+                    var opic = new { pic = url, roomNmae = row["roomName"].ToSafeString(), mj = row["mj"].ToSafeString(), price = price.ToSafeString() };
 
-                    var opic = new { pic = "http://www.mj100.com/UploadFile/610/" + row["frontcover"].ToSafeString(), roomNmae = row["roomName"].ToSafeString(), mj = row["mj"].ToSafeString(), price = price.ToSafeString() };
+                    if (opic.roomNmae.Contains("厅"))
+                    {
+                        t += 1;
+                    }
+                    else if (opic.roomNmae.Contains("厨"))
+                    {
+                        c += 1;
+                    }
+                    else if (opic.roomNmae.Contains("卫"))
+                    {
+                        w += 1;
+                    }
+                    else
+                    {
+                        ss += 1;
+                    }
+
                     pics.Add(opic);
                 }
                 #endregion
@@ -768,11 +859,42 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                 #endregion
 
 
-
+                double avgprice = 0;
                 #region 拼接字符串
-                double avgprice = tzj / zmj;
+                if (zmj.ToSafeString().IsEmpty() || zmj == 0)
+                {
+                    avgprice = 0;
+                }
+                else
+                {
+                    avgprice = tzj / zmj;
+                }
+                string title ="";
+                if (ss!=0)
+                {
+                    title += new BLL.MoneyHelperExt(ss).Convert() + "室";
+                }
+
+                if (t != 0)
+                {
+                    title += new BLL.MoneyHelperExt(t).Convert() + "厅";
+                }
+
+                if (c != 0)
+                {
+                    title +=new BLL.MoneyHelperExt(c).Convert() + "厨";
+                }
+
+                if (w != 0)
+                {
+                    title += new BLL.MoneyHelperExt(w).Convert() + "卫";
+                }
+                
+                title = title.Replace("零室", "").Replace("零厅", "").Replace("零厨","").Replace("零卫","");
                 StringBuilder sb = new StringBuilder();
                 sb.Append("{");
+
+                sb.Append("\"title\":\"" + title + "\",");
 
                 sb.Append("\"totalprice\":\"" + tzj + "\",");
 
@@ -808,11 +930,6 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
             {
                 return "{\"msg\":\"你尚未配置任何房间\"}";
             }
-
-
-
-
-
 
 
         }

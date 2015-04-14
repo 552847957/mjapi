@@ -56,3 +56,87 @@ System.ArgumentException: 列“address4”不属于表 Table。
    在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
    在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:login:2015/4/13 12:08:22
 
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:42:54
+
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:43:21
+
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:44:09
+
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:45:56
+
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:47:13
+
+System.FormatException: 你输入的数字格式不正确或不是数字!
+   在 BLL.MoneyHelperExt.Convert() 位置 e:\代码\MjApi\BLL\NUMBER.cs:行号 64
+   在 BLL.UserRoom.DecorateList(String userid) 位置 e:\代码\MjApi\BLL\UserRoom.cs:行号 872
+   在 MJAPI.Controllers.ApiController.DecorateList(String userid) 位置 e:\代码\MjApi\MJAPI\Controllers\ApiController.cs:行号 356
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName):MJAPI.Controllers.ApiController:DecorateList:2015/4/13 18:50:57
+

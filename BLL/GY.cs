@@ -136,6 +136,10 @@ namespace BLL
                     // returnstr = "电路";
                     returnstr = "TheCircuit";//电路
                     break;
+                case "sd":
+                    // returnstr = "电路";
+                    returnstr = "TheCircuit";//电路
+                    break;
                 case "":
                     returnstr = "other";
                     break;

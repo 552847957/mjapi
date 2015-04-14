@@ -46,6 +46,7 @@
     <Compile Include="Hdbll.cs" />
     <Compile Include="LoginBll.cs" />
     <Compile Include="ModelRoom.cs" />
+    <Compile Include="NUMBER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenMSg.cs" />
     <Compile Include="UserRoom.cs" />

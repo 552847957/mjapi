@@ -349,7 +349,10 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string DecorateList(string userid)
         {
-
+            if (userid.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
+            }
             return new BLL.UserRoom().DecorateList(userid);
         }
 
@@ -443,7 +446,7 @@ namespace MJAPI.Controllers
             //UpLoad/2015/4/9c7bIMG_0843.JPG
 
 
-            return "{\"success\":\"false\",\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\"}";
+            return "{\"success\":\"true\",\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\"}";
         }
 
 
