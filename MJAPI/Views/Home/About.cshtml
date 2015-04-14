@@ -6,3 +6,13 @@
 <p>
      将内容放置在此处。
 </p>
+@ViewBag.json
+
+
+<script>
+
+    var json="@ViewBag.json";
+    var j = json.replace(/&quot;/g, "\"");
+    alert(eval('('+j+')').name);
+
+</script>

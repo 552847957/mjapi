@@ -56,7 +56,7 @@ namespace BLL
                 //private string _createtime;
 
                 string headimg = row["HeadImage"].ToSafeString();
-                if (headimg.IndexOf("http") > 0)
+                if (headimg.Contains("http"))
                 {
 
                 }
@@ -69,7 +69,19 @@ namespace BLL
                     headimg = "http://www.mj100.com/UploadFile/head/" + headimg;
                 }
 
-                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg };
+
+                string sqlyy = "select CreateTime, UserId from Tentent where UserId='" + row["userid"].ToSafeString() + "'";
+
+                string isorder = "0";
+                string ordertime = "";
+                DataTable dtyy = SqlHelper.ExecuteDataTable(sqlyy);
+                if (dtyy.Rows.Count>0)
+                {
+                    isorder = "1";
+                    ordertime=dtyy.Rows[0]["CreateTime"].ToSafeString();
+                }
+
+                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg, isorder=isorder,ordertime=ordertime};
                 #endregion
 
 

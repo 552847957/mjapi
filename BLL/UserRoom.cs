@@ -759,7 +759,7 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
 
             int w = 0;
 
-            int ss=0;
+            int ss = 0;
 
             //图片清单
             DataTable dtpic = GetUserRoomQd(userid);
@@ -834,8 +834,11 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                     DataRow row = dtjc.Rows[i];
 
                     var objjc = new { pname = row["pname"].ToSafeString(), num = row["num"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString() };
+                    if (objjc.pname.Length > 0)
+                    {
+                        lisjc.Add(objjc);
+                    }
 
-                    lisjc.Add(objjc);
                 }
                 #endregion
 
@@ -869,8 +872,8 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                 {
                     avgprice = tzj / zmj;
                 }
-                string title ="";
-                if (ss!=0)
+                string title = "";
+                if (ss != 0)
                 {
                     title += new BLL.MoneyHelperExt(ss).Convert() + "室";
                 }
@@ -882,15 +885,15 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
 
                 if (c != 0)
                 {
-                    title +=new BLL.MoneyHelperExt(c).Convert() + "厨";
+                    title += new BLL.MoneyHelperExt(c).Convert() + "厨";
                 }
 
                 if (w != 0)
                 {
                     title += new BLL.MoneyHelperExt(w).Convert() + "卫";
                 }
-                
-                title = title.Replace("零室", "").Replace("零厅", "").Replace("零厨","").Replace("零卫","");
+
+                title = title.Replace("零室", "").Replace("零厅", "").Replace("零厨", "").Replace("零卫", "");
                 StringBuilder sb = new StringBuilder();
                 sb.Append("{");
 
@@ -945,8 +948,46 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
 
             if (code.IsEmpty() || Commen.DataCache.GetCache("order" + phone).ToSafeString() != code)
             {
-                return "{\"success\":\"false\",\"msg\":\"验证码错误\"}"; ;
+                return "{\"success\":\"false\",\"msg\":\"验证码错误\"}";
             }
+            var tent = new
+            {
+                userid = userid,
+                Tkey = "0",
+                Extension4 = name,
+                Extension1 = phone,
+                Extension2 = "",
+                Extension3 = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd"),
+                CreateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            };
+
+            #region MyRegion
+            if (!userid.Contains("-"))
+            {
+                object o = SqlHelper.ExecuteScalar(" select UserId from Tentent where UserId=@UserId", new SqlParameter("@UserId", userid));
+
+                if (o!=null)
+                {
+                 return "{\"success\":\"true\",\"msg\":\"你已预约，无需再次预约\"}";   
+                }
+
+                SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@UserId",userid),
+            new SqlParameter("@Tkey",tent.Tkey),
+            new SqlParameter("@Extension4",tent.Extension4),
+            new SqlParameter("@Extension1",tent.Extension1),
+            new SqlParameter("@Extension2",tent.Extension2),
+            new SqlParameter("@Extension3",tent.Extension3),
+            new SqlParameter("@CreateTime",tent.CreateTime)
+            };
+                SqlHelper.ExecuteNonQuery(@"insert into Tentent(UserId,Tkey,Extension4,Extension1,Extension2,Extension3,CreateTime)
+
+values(@UserId,@Tkey,@Extension4,@Extension1,@Extension2,@Extension3,@CreateTime)", arr);
+            }
+
+
+
+            #endregion
 
             return "{\"success\":\"false\",\"msg\":\"预约成功\"}";
         }

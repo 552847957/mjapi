@@ -17,6 +17,7 @@ namespace MJAPI.Controllers
 
         public ActionResult About()
         {
+            ViewBag.json = "{\"name\":\"dapeng\"}";
             return View();
         }
 
