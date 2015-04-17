@@ -116,12 +116,30 @@ namespace MJAPI.Controllers
 
 
         /// <summary>
+        /// 添加房间
+        /// </summary>
+        /// <param name="pra"></param>
+        /// <returns></returns>
+        public string Addroommodule2(string parm)
+        {
+            if (parm.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
+            }
+            BLL.UserRoom bll = new BLL.UserRoom();
+
+            return bll.AddRomExt(parm);
+        }
+
+
+        /// <summary>
         /// 使用模版房间
         /// </summary>
         /// <param name="pra"></param>
         /// <returns></returns>
         public string SyFj(string parm)
         {
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "sylog.txt", parm + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
             BLL.UserRoom bll = new BLL.UserRoom();
             return bll.SyFj(parm);
 
