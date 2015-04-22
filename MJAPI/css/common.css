@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* reset.css */
+body,p,h1,h2,h3,h4,h5,h6,dl,dd,ol,ul,form,input,span,textarea,select,blockquote,i{margin:0;font-size:12px; 
+font-family:Arial,Tahoma,"微软雅黑";}
+ul,ol,input,textarea,td,th{padding:0;}
+input,button,textarea，select{outline:0;}
+li{list-style:none;}
+b,em{ font-weight:normal;}
+i,strong{ font-style:normal;}
+table{border-collapse:collapse;}
+a{text-decoration: none;color: black;text-align: center;}
+img{border:none; vertical-align:top;}
+textarea{overflow:auto;resize:none;}
+.clear:after{content:'';display:block; clear:both;}
+.clear{zoom:1;}
+.cur_hover:hover{cursor:pointer;}
+.cur_zoom:hover{cursor:pointer;cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in;}
+.iline{display:inline-block;*display:inline;*zoom:1;}
+.bsizec{box-sizing:content-box;-moz-box-sizing:content-box;}/*border和padding不计算入width之内(default)---大*/
+.bsizep{box-sizing:padding-box;-moz-box-sizing:padding-box;}/*padding计算入width内*/
+.bsizeb{box-sizing:border-box;-moz-box-sizing:border-box;}/*border和padding计算入width之内*/
+.ellipsis{text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+::-moz-selection{background:#5d9cec; color:#FFFFFF;} 
+::selection {background:#5d9cec; color:#fff;} 
+._fl{float:left;}
+._fr{float:right;}
+#fMask{/*visibility:hidden;*/position:fixed;top:0px;left:0px;width:100%;height:100%;
+background:#000;filter:alpha(opacity=30);-moz-opacity:0.3;-khtml-opacity:0.3;opacity:0.3;
+z-index:10;display:none;}
+/* end reset.css */
+/*footer.css*/
+.l_footer{width:100%;background:#434a54;padding-top:64px;padding-bottom:60px;/*position:absolute;bottom:0px;*/}
+.l_footerContent{width:80%;min-width:1200px;margin:0 auto;color:#fff;position:relative;}
+.l_footerContent a.l_gklogo{position:absolute;left:2px;top:0px;}
+.l_footerContent a{color:#fff;}
+.l_footerLeft{float:left;padding-left:166px;}
+.l_footerLeft ul{float:left;padding-right:80px;font-size:14px;}
+.l_footerLeft ul li{padding:8px 0px;}
+.l_footerLeft ul li i{font-size:14px;}
+.l_footerLeft ul li i a:hover{color:#5d9cec;}
+.l_footerLeft ul b{font-size:16px;font-weight:bold;}
+.l_footerRight{float:right;font-size:14px;}
+.l_footerRight .l_img{float:left;}
+.l_footerRight div.l_con{width:355px;padding-bottom:15px;border-bottom:1px solid #fff;margin-bottom:10px;}
+.l_footerRight div.l_con h4{padding:5px 0px 5px 5px;}
+.l_footerRight div.l_tel{float:right;text-align: right;padding-top:20px;}
+.l_footerRight div.l_tel p{margin-top:10px;background:url(../img/footer/tel.png) no-repeat;width:192px;height:26px;}
+/*end footer*/

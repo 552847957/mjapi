@@ -80,8 +80,7 @@
         else if (str2 == "d") {
             return str1 * 24 * 60 * 60 * 1000;
         }
-    }
-    
+    }  
     function getCookie(name) {
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
 

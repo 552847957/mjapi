@@ -237,5 +237,17 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             SqlHelper.ExecuteNonQuery(sql, arr);
             return "";
         }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="uname"></param>
+        /// <returns></returns>
+        public string DeleteUser(string uname)
+        {
+            SqlHelper.ExecuteNonQuery("delete from users where loginname=@name or UserMPhone=@name", new SqlParameter("@name", uname));
+
+            return "";
+        }
     }
 }

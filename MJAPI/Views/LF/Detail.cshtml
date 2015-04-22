@@ -1,0 +1,345 @@
+﻿@{
+    Layout = null;
+
+    System.Data.DataRow row = ViewData["single"] as System.Data.DataRow;
+
+    DateTime time = Convert.ToDateTime(row["CreateTime"]);
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/detail.css" />
+    <script src="/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/js/detail.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="header clear">
+        <div class="headerLeft _fl">
+            <img src="/img/measure/logo.png" />
+        </div>
+        <div class="headerRight clear _fr">
+           	<p class="_fl"><img src="@Server.UrlDecode(Request.Cookies["headimg"].Value)"></p>
+				<span>@Request.Cookies["loginname"].Value</span>
+				<a id="loginout" href="javascript:;"><span>退出</span></a>
+        </div>
+    </div>
+    <div class="detail">
+        <form id="form">
+        <div class="detailCon">
+            <input type="hidden" name="id" value="@row["Constructionid"]" />
+            <div class="edit clear">
+                <span class="caption _fl">客户姓名</span>
+                <div class="type _fl">
+                    <input type="text"  name="CustomerName" value="@row["CustomerName"]" class="noBorder"  readonly="true"/>
+                </div>
+            </div>
+            <div class="edit clear">
+                <span class="caption _fl">联系方式</span>
+                <div class="type _fl tel">
+                    <input type="text"  name="phone" value="@row["phone"]" class="noBorder" readonly="true"/>
+                </div>
+            </div>
+            <div class="edit clear">
+                <span class="caption _fl">项目地址</span>
+                <div class="type _fl address">
+                    <input type="text"  name="address" value="@row["address"]" class="noBorder"  readonly="true" />
+                </div>
+            </div>
+            <div class="edit clear">
+                <span class="caption _fl">需求备注</span>
+                <div class="type _fl">
+                    <textarea class="noBorder" name="demanddesc" readonly="true">@row["demanddesc"]</textarea>
+                </div>
+            </div>
+            <div class="edit clear">
+                <span class="caption _fl">创建时间</span>
+                <div class="type _fl">
+                    <input type="text" value="@time.Year 年 @time.Month 月 @time.Day" readonly="true" style="border: 1px solid #5293e4;" />
+                </div>
+            </div>
+            <div class="editBtn">
+                <a href="javascript:;">修改</a>
+            </div>
+            <div class="saveBtn">
+                <a id="save" href="javascript:;">保存</a>
+            </div>
+        </div>
+            </form>
+    </div>
+    <div class="pic">
+        <img style="width:1024px;height:665px" src="@row["Thumbnailpic"]" />
+        @*<a href="javascript:;" class="icon1"></a>
+        <a href="javascript:;" class="icon2"></a>
+        <a href="javascript:;" class="icon3"></a>
+        <a href="javascript:;" class="icon4"></a>
+        <a href="javascript:;" class="icon5"></a>*@
+    </div>
+    <div class="down">
+        <a href="@row["fileurls"]">CAD文件下载</a>
+        <p>注：须使用Auto CAD2012以上版本打开；下载后使用“文件－导入－DXF文件”</p>
+    </div>
+    <div class="title">
+        <dl>
+            <dt>标注</dt>
+            <dd class="pro">项目</dd>
+            <dd class="cha">属性</dd>
+            <dd class="des">描述</dd>
+        </dl>
+    </div>
+    <div class="list">
+        <dl>
+            <dt>01</dt>
+            <dd class="pro">门</dd>
+            <dd class="cha">门高800mm／距顶200mm／门宽1200mm</dd>
+            <dd class="des">双开门</dd>
+        </dl>
+        <dl>
+            <dt>02</dt>
+            <dd class="pro">窗</dd>
+            <dd class="cha">窗高800mm／距顶200mm／宽1200mm</dd>
+            <dd class="des">飘窗</dd>
+        </dl>
+        <dl>
+            <dt>03</dt>
+            <dd class="pro">梁</dd>
+            <dd class="cha">梁高300mm</dd>
+            <dd class="des">&nbsp;</dd>
+        </dl>
+        <dl style="border: none;">
+            <dt>04</dt>
+            <dd class="pro">实景图</dd>
+            <dd class="cha">视角1/视角2/视角3/视角4</dd>
+            <dd class="des">卧室一角</dd>
+        </dl>
+    </div>
+    <div class="return">
+        <a href="/LF/Measure">返回到列表</a>
+    </div>
+    <script>
+        $(function () {
+            function load0() {
+                h = $(window).height();
+                w = $(window).width();
+                $('.zLayer .zo img').css('height', (0.8 * h - 2) + 'px');
+                $(' .zLayer ul').css('height', 0.2 * h + 'px');
+                $(' .zLayer ul li').css('width', (0.25 * w - 2) + 'px');
+            }
+            load0();
+            window.onresize = load0;
+        })
+    </script>
+    <style>
+        .zLayer {
+            width: 100%;
+            position: fixed;
+            z-index: 30;
+            top: 0;
+            margin: 0 auto;
+            background: url(/img/detail/zM.png) repeat;
+        }
+
+            .zLayer .zo img {
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .zLayer .zo {
+                margin-bottom: 2px;
+                width: 100%;
+            }
+
+            .zLayer ul {
+                width: 100%;
+            }
+
+                .zLayer ul li {
+                    height: 100%;
+                    float: left;
+                    margin-right: 2px;
+                }
+
+                    .zLayer ul li.o a {
+                        width: 100%;
+                        height: 100%;
+                        background: url(/img/detail/z1.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.t a {
+                        width: 100%;
+                        height: 100%;
+                        background: url(/img/detail/z2.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.th a {
+                        width: 100%;
+                        height: 100%;
+                        background: url(/img/detail/z3.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.fo a {
+                        width: 100%;
+                        height: 100%;
+                        background: url(/img/detail/z4.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.o span {
+                        width: 40px;
+                        height: 40px;
+                        background: url(/img/detail/zIcon.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.t span {
+                        width: 40px;
+                        height: 40px;
+                        background: url(/img/detail/zIcon.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.th span {
+                        width: 40px;
+                        height: 40px;
+                        background: url(/img/detail/zIcon.png) no-repeat center;
+                    }
+
+                    .zLayer ul li.fo span {
+                        width: 40px;
+                        height: 40px;
+                        background: url(/img/detail/zIcon.png) no-repeat center;
+                    }
+    </style>
+    <!--查看大图-->
+    <div class='zLayer' style="display: none;">
+        <div class="zo">
+            <img src="/img/detail/zD.png" />
+        </div>
+        <ul>
+            <li class='o'>
+                <a class="iline"></a>
+                <span class="iline"></span>
+                <p></p>
+            </li>
+            <li class='t'>
+                <a class="iline"></a>
+                <span class="iline"></span>
+                <p></p>
+            </li>
+            <li class='th'>
+                <a class="iline"></a>
+            </li>
+            <li class='fo'>
+                <a class="iline"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="l_footer">
+        <div class="l_footerContent clear">
+            <a href="index.html" class="l_gklogo">
+                <img src="/img/footer/l_gklogo.png"></a>
+            <div class="l_footerLeft clear">
+                <ul class="l_ul1">
+                    <li><b><a href="javascript:void(0);">产品</a></b>
+                    </li>
+                    <li><i><a href="javascript:void(0);">推荐方案</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">自由组合</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">推荐建材</a></i>
+                    </li>
+                </ul>
+                <ul class="l_ul2">
+                    <li><b><a href="javascript:void(0);">服务</a></b>
+                    </li>
+                    <li><i><a href="javascript:void(0);">预约量房</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">装修清单计算</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">家装日志</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">美家易贷</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">设计师平台</a></i>
+                    </li>
+                </ul>
+                <ul class="l_ul3">
+                    <li><b><a href="javascript:void(0);">支持</a></b>
+                    </li>
+                    <li><i><a href="javascript:void(0);">合作单位加盟</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">小美管家</a></i>
+                    </li>
+                    <li><i><a href="javascript:void(0);">施工工艺介绍</a></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="l_footerRight">
+                <div class="l_con">
+                    <h4>服务微信号</h4>
+                    <div class="clear">
+                        <div class="l_img">
+                            <img src="/img/footer/er.png">
+                        </div>
+                        <div class="l_tel">
+                            统一客服热线
+									<p></p>
+                        </div>
+                    </div>
+                </div>
+                Copyright © 2013-2015　京ICP备14036628号　北京极客易品科技有限公司 版权所有
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+
+    function setCookie(name, value, time) {
+        var strsec = getsec(time);
+        var exp = new Date();
+        exp.setTime(exp.getTime() + strsec * 1);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    function getsec(str) {
+        var str1 = str.substring(1, str.length) * 1;
+        var str2 = str.substring(0, 1);
+        if (str2 == "s") {
+            return str1 * 1000;
+        }
+        else if (str2 == "h") {
+            return str1 * 60 * 60 * 1000;
+        }
+        else if (str2 == "d") {
+            return str1 * 24 * 60 * 60 * 1000;
+        }
+    }
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+        if (arr = document.cookie.match(reg))
+
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+    $(function () {
+        $("#save").click(function () {
+
+            $.post("/lf/SaveItem", $("#form").serialize(), function (data) {
+              
+            });
+        });
+
+
+        $("#loginout").click(function () {
+            $.post("/LF/Loginout", {}, function () {
+                location.reload();
+            });
+
+           
+        });
+    });
+</script>

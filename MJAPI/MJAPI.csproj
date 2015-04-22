@@ -106,6 +106,7 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ErrorLog.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LFController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -179,12 +180,56 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\1.png" />
+    <Content Include="css\common.css" />
+    <Content Include="css\detail.css" />
+    <Content Include="css\l_login.css" />
+    <Content Include="css\measure.css" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\api发布.pubxml" />
+    <None Include="Properties\PublishProfiles\llll.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="hd.html" />
     <Content Include="hd.jpg" />
     <Content Include="1.html" />
+    <Content Include="img\detail\edit.png" />
+    <Content Include="img\detail\editBlue.png" />
+    <Content Include="img\detail\icon.png" />
+    <Content Include="img\detail\iconHover.png" />
+    <Content Include="img\detail\pic.png" />
+    <Content Include="img\detail\z1.png" />
+    <Content Include="img\detail\z2.png" />
+    <Content Include="img\detail\z3.png" />
+    <Content Include="img\detail\z4.png" />
+    <Content Include="img\detail\zD.png" />
+    <Content Include="img\detail\zIcon.png" />
+    <Content Include="img\detail\zM.png" />
+    <Content Include="img\footer\er.png" />
+    <Content Include="img\footer\l_gklogo.png" />
+    <Content Include="img\footer\l_gklogob.png" />
+    <Content Include="img\footer\tel.png" />
+    <Content Include="img\login\check.png" />
+    <Content Include="img\login\checkno.png" />
+    <Content Include="img\login\clo.png" />
+    <Content Include="img\login\cloh.png" />
+    <Content Include="img\login\headerLogo.png" />
+    <Content Include="img\login\loginBg.png" />
+    <Content Include="img\login\loginLogo.png" />
+    <Content Include="img\measure\ban.png" />
+    <Content Include="img\measure\banner.png" />
+    <Content Include="img\measure\bannerMax.png" />
+    <Content Include="img\measure\banR.png" />
+    <Content Include="img\measure\btn.png" />
+    <Content Include="img\measure\btnHover.png" />
+    <Content Include="img\measure\er.png" />
+    <Content Include="img\measure\headerBg.png" />
+    <Content Include="img\measure\headImg.jpg" />
+    <Content Include="img\measure\item.png" />
+    <Content Include="img\measure\lamp.png" />
+    <Content Include="img\measure\logo.png" />
+    <Content Include="js\detail.js" />
+    <Content Include="js\jquery-1.8.3.min.js" />
+    <Content Include="js\l_login.js" />
+    <Content Include="js\measure.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -222,6 +267,9 @@
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\LF\Index.cshtml" />
+    <Content Include="Views\LF\Measure.cshtml" />
+    <Content Include="Views\LF\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,6 +285,10 @@
     <ProjectReference Include="..\Commen\Commen.csproj">
       <Project>{a86a8c4f-78a3-4cf9-9614-1329755b7f5b}</Project>
       <Name>Commen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LFBLL\LFBLL.csproj">
+      <Project>{c2448f4b-d998-4ca1-b5d5-259154638d3b}</Project>
+      <Name>LFBLL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

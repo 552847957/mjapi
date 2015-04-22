@@ -1,0 +1,43 @@
+body{-webkit-backface-visibility: hidden;}
+.modal-active .row {
+-webkit-filter: blur(3px);
+-moz-filter: blur(3px);
+-o-filter: blur(3px);
+-ms-filter: blur(3px);
+filter: blur(3px);
+}
+.l_container{background:url(../img/login/loginBg.png) repeat-x #59c32e;}
+.l_header{height:36px;padding-top:20px;color:#fff;font-size:18px;border-bottom:1px solid #fff;margin:0px 22px;background:url(../img/login/headerLogo.png) no-repeat 0px 15px;}
+.l_headerLeft{padding-left:50px;float:left;}
+.l_headerRight{float:right;position: relative;}
+.l_headerRight a{margin-left:10px;color:#fff;}
+.l_headerRight p{width:38px;height:38px;border-radius:19px;border:1px solid #fff;position:absolute;top:-11px;left:-30px;}
+.l_headerRight p img{width:38px;height:38px;border-radius:19px;}
+.l_headerRight span{display: inline-block;font-size:18px;color:#fff;padding-left:20px;}
+
+.l_main{text-align: center;position:absolute;top:50%;margin-top:-215px;left:50%;margin-left:-490px;}
+.l_mainIntro{width:958px;padding-left:25px;margin-bottom:88px;}
+.l_mainIntro p{font-size:24px;color:#fff;text-align: left;margin:10px 0px;}
+.l_mainBtn a{display:inline-block;width:160px;height:160px;line-height:160px;font-size:65px;border-radius: 40px;background:#fff;color:#0070b2;margin:0px 18px;position:relative;}
+.l_mainBtn a i{position:absolute;right:25px;bottom:20px;font-size:18px;line-height:18px;}
+.l_mainBtn a b{position:absolute;bottom:-20px;right:5px;font-size:13px;line-height:13px;color:#fff;}
+.l_footer{position:absolute;bottom:50px;width:80%;font-size:13px;color:#fff;text-align: right;}
+.l_whiteBox{width:587px;height:488px;border-radius:10px;background:url(../img/login/loginLogo.png) no-repeat 34px 20px #fff;position:absolute;top:50%;margin-top:-253px;left:50%;margin-left:-274px;box-shadow: 0px 0px 20px black;z-index:22;display:none;}
+.l_whiteBox li{padding-left:47px;}
+.l_whiteBox .one{padding:30px 0px 90px 90px;}
+.l_whiteBox .one h2{padding-left:40px;padding-right:25px;font-size:31px;color:#0070b2;font-weight: normal;}
+.l_whiteBox .one h2 img{width:33px;height:32px;cursor: pointer;}
+.l_whiteBox .two{padding-bottom:17px;}
+.l_whiteBox .two span{width:110px;font-size:31px;color:#0070b2;height:58px;line-height:58px;}
+.l_whiteBox .two input{width:364px;height:54px;border:1px solid #0070b2;background:none;font-size:18px;color:#000;padding-left:10px;}
+.l_whiteBox .fou{padding-bottom:37px;font-size:18px;color:#0070b2;}
+.l_whiteBox .fou img{width:25px;height:25px;cursor: pointer;}
+.l_whiteBox .fou b{padding-left:10px;}
+.l_whiteBox .fou input.l_boxBtn{margin-left:28px;width:125px;height:35px;border:1px solid #0070b2;background:#0070b2;font-size:18px;color:#fff;cursor:pointer;}
+.l_whiteBox .fou span{width:115px;}
+.l_whiteBox .fou a.o:hover{color:#0070b2;}
+.l_whiteBox .fou a.t:hover{color:#0070b2;}
+.headerRight{padding-right:40px;height:75px;padding-top:25px;}
+.headerRight p{width:48px;height:48px;border-radius: 24px;border:1px solid #fff;}
+.headerRight p img{width:48px;height:48px;border-radius: 24px;}
+.headerRight span{display: inline-block;font-size:18px;color:#fff;padding-left:20px;padding-top: 15px;}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using DbHelper;
 namespace BLL
 {
     public class Hdbll
@@ -25,6 +26,10 @@ namespace BLL
             };
 
                 SqlHelper.ExecuteNonQuery(sql, arr);
+
+
+                MakeAnAppointment(phone,name);
+
                 return "预约成功";
 
             }
@@ -53,6 +58,39 @@ namespace BLL
 
             SqlHelper.ExecuteNonQuery(sql, arr);
             return "";
+        }
+
+
+
+        /// <summary>
+        /// 预约量房
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="phone"></param>
+        /// <param name="time"></param>
+        /// <param name="name"></param>
+        public  void MakeAnAppointment(string phone, string name)
+        {
+            string sql = "insert into Tentent(UserId,Extension1,Extension3,Extension4) values(@UserId,@phone,@time,@name);";
+            string userid = "";
+            object o = Sqlhelperhd.ExecuteScalar("select UserId from Users where LoginName=@phone or UserMPhone=@phone;", new SqlParameter("@phone", phone));
+            if (o != null)
+            {
+                userid = o.ToString();
+            }
+            else
+            {
+                o = Sqlhelperhd.ExecuteScalar("insert into Users(LoginName,UserMPhone)values(@phone,@phone) select @@IDENTITY;", new SqlParameter("@phone", phone));
+                userid = o.ToString();
+            }
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@UserId",userid),
+            new SqlParameter("@phone",phone),
+            new SqlParameter("@time",DateTime.Now.ToString("yy-MM-dd")),
+            new SqlParameter("@name",name)
+            };
+            SqlHelper.ExecuteNonQuery(sql, arr);
+
         }
     }
 }

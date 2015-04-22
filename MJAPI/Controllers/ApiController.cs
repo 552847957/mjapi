@@ -483,5 +483,21 @@ namespace MJAPI.Controllers
             return new BLL.UserRoom().DeleteAll(userid);
         }
 
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="loginname"></param>
+        /// <returns></returns>
+        public string DelteUser(string loginname)
+        {
+            if (loginname.IsEmpty())
+            {
+                return "hehe"; 
+            }
+            new BLL.LoginBll().DeleteUser(loginname);
+            return loginname+"已删除";
+        }
+
     }
 }

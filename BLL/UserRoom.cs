@@ -74,6 +74,11 @@ namespace BLL
 
                 #region 得到用户id和需求id
                 string userid = js["userid"].ToSafeString();
+
+                //SqlHelper.ExecuteNonQuery("delete from UserRoom where extension1 is null and userId=@userid", new SqlParameter("@userid", userid));
+
+                DeleteAll(userid);
+
                 if (userid.IsEmpty() || userid == "0")
                 {
                     return "{\"success\":\"false\",\"msg\":\"用户id不能为空\"}";
@@ -103,6 +108,71 @@ namespace BLL
                             //"demandId": "2891",
                             //"FrontCover": "",
                             //"mj": ""
+
+                            var or = new { userroomid = id, roomName = EX(item.Key), demandId = DemandId, FrontCover = "", mj = "" };
+                            lis.Add(or);
+                        }
+                    }
+                }
+                #endregion
+
+
+                return "{\"success\":\"true\",\"msg\":\"添加用户module成功\",\"data\":" + JsonConvert.SerializeObject(lis) + "}";
+
+            }
+            catch (Exception)
+            {
+
+                return "{\"success\":\"false\",\"msg\":\"添加用户module失败\"}";
+            }
+        }
+
+        /// <summary>
+        /// 添加房间模块，不清空以前的方案
+        /// </summary>
+        /// <param name="pra"></param>
+        /// <returns></returns>
+        public string AddRomExt(string pra)
+        {
+            //pra = "{\"userid\":\"10010\",\"kct\":\"2\",\"sf\":\"4\"}";
+            try
+            {
+
+
+                object obj = JsonConvert.DeserializeObject(pra);
+
+                Newtonsoft.Json.Linq.JObject js = obj as Newtonsoft.Json.Linq.JObject;//把上面的obj转换为 Jobject对象
+
+                #region 得到用户id和需求id
+                string userid = js["userid"].ToSafeString();
+
+                //SqlHelper.ExecuteNonQuery("delete from UserRoom where extension1 is null and userId=@userid", new SqlParameter("@userid", userid));
+
+              
+
+                if (userid.IsEmpty() || userid == "0")
+                {
+                    return "{\"success\":\"false\",\"msg\":\"用户id不能为空\"}";
+                }
+
+                string DemandId = GetDemandId(userid);
+                if (DemandId.IsEmpty())
+                {
+                    DemandId = AddDemand(userid);
+                }
+                #endregion
+
+                List<object> lis = new List<object>();
+                #region 循环添加
+                foreach (var item in js)
+                {
+                    if (item.Key != "userid")
+                    {
+                        int count = Convert.ToInt32(item.Value.ToSafeString());
+                        for (int i = 0; i < count; i++)
+                        {
+                            //加到数据库
+                            string id = AddRoom(userid, DemandId, EXNumber(item.Key), EX(item.Key));
 
                             var or = new { userroomid = id, roomName = EX(item.Key), demandId = DemandId, FrontCover = "", mj = "" };
                             lis.Add(or);
@@ -296,6 +366,8 @@ namespace BLL
         /// <returns></returns>
         public string SyFj(string pra)
         {
+
+           
             // { "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}
             try
             {
@@ -368,6 +440,9 @@ namespace BLL
             }
 
         }
+
+
+
         /// <summary>
         /// 异步更新建材
         /// </summary>
@@ -654,9 +729,9 @@ end";
 
             string sql = @"select UserRoom.roomName, UserRoom.id, UserRoom.extension1 as frontcover,UserRoom.extension3 as mj,Room.unit as omj ,Room.Extension1 as gjjg
 
-, (select SUM( CAST(Price as float)) from DemandShowRoomProduct where ProjectTypeId=UserRoom.id)
+, (select SUM( CAST(Price as float)) from DemandShowRoomProduct where ProjectTypeId=UserRoom.id )
 
- as jcjg from UserRoom left join Room on UserRoom.roomId=Room.did where userId=@userid  ";
+ as jcjg from UserRoom left join Room on UserRoom.roomId=Room.did where userId=@userid  and frontCover is not null ";
 
             DataTable dt = SqlHelper.ExecuteDataTable(sql, new SqlParameter("@userid", userid));
 
@@ -833,7 +908,7 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
 
                     DataRow row = dtjc.Rows[i];
 
-                    var objjc = new { pname = row["pname"].ToSafeString(), num = row["num"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString() };
+                    var objjc = new { pname = row["pname"].ToSafeString(), num = row["num"].ToSafeString(), unit = row["unit"].ToSafeString().Replace("m&sup2;", "㎡"), price = row["price"].ToSafeString() };
                     if (objjc.pname.Length > 0)
                     {
                         lisjc.Add(objjc);
@@ -958,7 +1033,7 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                 Extension1 = phone,
                 Extension2 = "",
                 Extension3 = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd"),
-                CreateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                CreateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")   //㎡
             };
 
             #region MyRegion

@@ -1,0 +1,168 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/l_login.css" />
+    <script src="/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/l_login.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="fMask"></div>
+    <div class="l_container">
+        <div class="l_header row">
+            <div class="l_headerLeft">
+                专业人士平台 Geek Pro
+            </div>
+            <div class="l_headerRight">
+              
+                  @if (Request.Cookies["userid"] != null)
+                  {
+                      <p class="_fl">
+                <img src="@Server.UrlDecode(Request.Cookies["headimg"].Value)"></p>
+				<span>@Request.Cookies["loginname"].Value</span>
+				<a id="loginout" href="javascript:;"><span>退出</span></a>
+                  }
+                  else
+                  {
+                  <a href="javascript:;" class="l_loginBtn nologin">登录</a>
+				  <a class="nologin" href="javascript:;">注册</a>
+                  }
+               
+                  
+				
+            </div>
+        </div>
+        <div class="l_main row">
+            <div class="l_mainIntro">
+                <p>Geek Pro是提供给装修施工专业人士使用的工具平台。</p>
+                <p>使用Geek Pro提高你的工作效率，第一时间与客户互动，与您的业务伙伴协同工作。</p>
+            </div>
+            <div class="l_mainBtn">
+                <a id="lf" href="javascript:;">量房<i>PRO</i><b class="l_new">NEW!</b></a>
+                <a href="javascript:;">谈单<i>PRO</i><b class="l_new">NEW!</b></a>
+                <a href="javascript:;">精算<i>PRO</i><b class="l_new">NEW!</b></a>
+                <a href="javascript:;">施工<i>PRO</i><b class="l_coming">即将推出</b></a>
+                <a href="javascript:;">监理<i>PRO</i><b class="l_coming">即将推出</b></a>
+            </div>
+        </div>
+        <div class="l_footer row" style="background: none;">
+            <p>Powerd By GeekHome</p>
+        </div>
+    </div>
+    <div class="l_whiteBox">
+        <ul>
+            <li class='one'>
+                <h2>专业人士平台<img src="/img/login/clo.png" class="_fr"></h2>
+            </li>
+            <li class='two'>
+                <span class="iline">用户名</span>
+                <input id="loginname" type="text" />
+            </li>
+            <li class='two'>
+                <span class="iline">密码</span>
+                <input id="pwd" type="text" />
+            </li>
+            <li class='fou'>
+                <span class="iline"></span>
+                <img id="saveme" src="/img/login/checkno.png" /><b>让我一直保持登录状态</b>
+                <input type="button" value="登 录" id="login" class="l_boxBtn" />
+            </li>
+            <li class='fou'>
+                <span class="iline"></span><a href="javascript:;" class="o">忘记密码？</a> <a href="javascript:;" class="t">忘记用户名？</a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
+<script>
+    
+    function setCookie(name, value, time) {
+        var strsec = getsec(time);
+        var exp = new Date();
+        exp.setTime(exp.getTime() + strsec * 1);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    function getsec(str) {
+        var str1 = str.substring(1, str.length) * 1;
+        var str2 = str.substring(0, 1);
+        if (str2 == "s") {
+            return str1 * 1000;
+        }
+        else if (str2 == "h") {
+            return str1 * 60 * 60 * 1000;
+        }
+        else if (str2 == "d") {
+            return str1 * 24 * 60 * 60 * 1000;
+        }
+    }
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+        if (arr = document.cookie.match(reg))
+
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+    $(function () {
+        //122523
+        $("#login").click(function () {
+            var loginname = $("#loginname").val();
+            var pwd = $("#pwd").val();
+            var saveme = ($("#saveme").attr("src") == '/img/login/check.png');
+
+            $.post("/LF/Login", { loginname: loginname, pwd: pwd }, function (data) {
+
+                if (data.success == "true") {
+                    if (saveme) {
+                        setCookie("loginname", loginname, "d100");
+                        setCookie("userid", data.userid, "d100");
+                        setCookie("headimg", data.headimg, "d100");
+                    } else {
+                        setCookie("loginname", loginname, "d1");
+                        setCookie("userid", data.userid, "d1");
+                        setCookie("headimg", data.headimg, "d1");
+                    }
+                    $('.l_whiteBox').hide();
+                    $('#fMask').hide();
+                    $('body').removeClass('modal-active');
+                    location.reload();
+
+                } else {
+                    alert("用户名或密码错误");
+                }
+
+            }, 'json');
+
+        });
+
+        $("#lf").click(function () {
+
+            var loginname = getCookie("loginname");
+
+            if (loginname) {
+                location.href = "/LF/Measure";
+            } else {
+                alert("请先登录");
+            }
+
+        });
+
+
+        $("#loginout").click(function () {
+
+            $.post("/LF/Loginout", {}, function () {
+                location.reload();
+            });
+           
+           
+        });
+    });
+   
+</script>
