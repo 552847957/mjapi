@@ -93,7 +93,7 @@ namespace LFBLL
         public DataTable GetDemandlist(string userid)
         {
 
-            string sql = @"select Constructionid, Start_jlxy as projectid,SupportingId as userid 
+            string sql = @"select Start_zfzbj as pics, Constructionid, Start_jlxy as projectid,SupportingId as userid 
 ,phone,Start as demanddesc ,Start_qht as address,ConstructionLxr as CustomerName,ProjectCost as fileurls, Start_kgjc as Thumbnailpic , CreateTime  from dbo.Construction where SupportingId=@userid  order by CreateTime desc";
 
 
@@ -109,7 +109,7 @@ namespace LFBLL
         /// <returns></returns>
         public DataTable Getsingle(string userid, string id)
         {
-            string sql = @"select Constructionid  , Start_jlxy as projectid,SupportingId as userid 
+            string sql = @"select Start_zfzbj as pics, Constructionid  , Start_jlxy as projectid,SupportingId as userid 
 ,phone,Start as demanddesc ,
 
 Start_qht as address,ConstructionLxr as CustomerName,ProjectCost as fileurls, 
