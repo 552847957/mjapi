@@ -93,5 +93,13 @@ namespace MJAPI
             _ResponseStream.Close();
             return _StrResponse;
         }
+
+
+        public string TEST()
+        {
+
+            new BLL.Hdbll().MakeAnAppointment("15136134321","大鹏测试");
+            return "";
+        }
     }
 }

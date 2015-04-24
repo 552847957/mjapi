@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="name"></param>
         public  void MakeAnAppointment(string phone, string name)
         {
-            string sql = "insert into Tentent(UserId,Extension1,Extension3,Extension4) values(@UserId,@phone,@time,@name);";
+            string sql = "insert into Tentent(Tkey,UserId,Extension1,Extension3,Extension4,CreateTime) values(@Tkey,@UserId,@phone,@time,@name,@CreateTime);";
             string userid = "";
             object o = Sqlhelperhd.ExecuteScalar("select UserId from Users where LoginName=@phone or UserMPhone=@phone;", new SqlParameter("@phone", phone));
             if (o != null)
@@ -86,10 +86,12 @@ namespace BLL
             SqlParameter[] arr = new SqlParameter[] { 
             new SqlParameter("@UserId",userid),
             new SqlParameter("@phone",phone),
-            new SqlParameter("@time",DateTime.Now.ToString("yy-MM-dd")),
-            new SqlParameter("@name",name)
+            new SqlParameter("@time",DateTime.Now.ToString("yyyy-MM-dd")),
+            new SqlParameter("@name",name),
+            new SqlParameter("@Tkey",20),//20  666活动页
+            new SqlParameter("@CreateTime",DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"))
             };
-            SqlHelper.ExecuteNonQuery(sql, arr);
+            Sqlhelperhd.ExecuteNonQuery(sql, arr);
 
         }
     }

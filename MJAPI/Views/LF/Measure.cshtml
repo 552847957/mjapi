@@ -17,6 +17,7 @@
 	</head>
 	<body>
 		<div class="header clear">
+            <div class="headerCon">
 			<div class="headerLeft _fl">
 				<img src="/img/measure/logo.png"/>
 			</div>
@@ -25,10 +26,11 @@
 				<span>@Request.Cookies["loginname"].Value</span>
 				<a id="loginout" href="javascript:;"><span>退出</span></a>
 			</div>
+            </div>
 		</div>
 		<div class="banner clear">
-			<div class="banL _fl"></div>
-			<div class="banR _fr"></div>
+			<div class="banL _fl row"></div>
+			<div class="banR _fr row"></div>
 			<div class="row">
 			<div class="lamp">
 				<img src="/img/measure/ban.png"/>
@@ -65,7 +67,7 @@
 			    <p class="_fl">@time.Year- <br>@time.Month 月 @time.Day 日</p>
 			    <div class="itemBtn">
 			    	<a href="/LF/Detail/@dt.Rows[i]["Constructionid"]">查看详情</a>
-			    	<a href="@dt.Rows[i]["fileurls"]" class="down">CAD文件下载</a>
+			    	<a href="http://gy.mj100.com/amount/UploadDps/@dt.Rows[i]["projectid"]/project.dxf" class="down">CAD文件下载</a>
 			    </div>
 			    <div class="deleteBtn">
 			    	<a  class="dela"  ids="@dt.Rows[i]["Constructionid"]" href="javascript:;">删除</a>

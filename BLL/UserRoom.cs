@@ -435,6 +435,7 @@ namespace BLL
             }
             catch (Exception e)
             {
+                
                 return "{\"success\":\"false\",\"msg\":\"失败,出现异常" + e.Message + "\"}"; ;
 
             }
@@ -686,7 +687,7 @@ end";
             string s = Commen.DataCache.GetCache(did).ToSafeString();
             if (!s.IsEmpty())
             {
-                return s;
+                return s.Replace("m&sup2;", "㎡").Replace("平米", "㎡"); ;
             }
             else
             {
@@ -711,7 +712,7 @@ end";
 
                 //    cache.Insert("DD", "滑动过期测试", null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromSeconds(10));
 
-                return sb.ToSafeString();
+                return sb.ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡"); ;
 
             }
         }
@@ -1002,7 +1003,7 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
                 #endregion
 
 
-                return sb.ToSafeString();
+                return sb.ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡");
             }
             else
             {

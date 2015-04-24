@@ -30,7 +30,7 @@ z-index:10;display:none;}
 /* end reset.css */
 /*footer.css*/
 .l_footer{width:100%;background:#434a54;padding-top:64px;padding-bottom:60px;/*position:absolute;bottom:0px;*/}
-.l_footerContent{width:80%;min-width:1200px;margin:0 auto;color:#fff;position:relative;}
+.l_footerContent{width:1300px;min-width:1200px;margin:0 auto;color:#fff;position:relative;}
 .l_footerContent a.l_gklogo{position:absolute;left:2px;top:0px;}
 .l_footerContent a{color:#fff;}
 .l_footerLeft{float:left;padding-left:166px;}

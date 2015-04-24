@@ -4,10 +4,9 @@
     System.Data.DataRow row = ViewData["single"] as System.Data.DataRow;
 
     DateTime time = Convert.ToDateTime(row["CreateTime"]);
-
-
-    Dictionary<string, string> pics = ViewBag.dic as Dictionary<string, string>; 
 }
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +19,16 @@
 </head>
 <body>
     <div class="header clear">
-        <div class="headerLeft _fl">
-            <img src="/img/measure/logo.png" />
-        </div>
-        <div class="headerRight clear _fr">
-            <p class="_fl">
-                <img src="@Server.UrlDecode(Request.Cookies["headimg"].Value)">
-            </p>
-            <span>@Request.Cookies["loginname"].Value</span>
-            <a id="loginout" href="javascript:;"><span>退出</span></a>
+        <div class="headerCon">
+            <div class="headerLeft _fl">
+                <img src="/img/measure/logo.png" />
+            </div>
+            <div class="headerRight clear _fr">
+                <p class="_fl">
+                    <img src="@Server.UrlDecode(Request.Cookies["headimg"].Value)"></p>
+                <span>@Request.Cookies["loginname"].Value</span>
+                <a id="loginout" href="javascript:;"><span>退出</span></a>
+            </div>
         </div>
     </div>
     <div class="detail">
@@ -76,11 +76,11 @@
     </div>
     <div class="pic">
         <img style="width:1024px;height:665px" src="@row["Thumbnailpic"]" />
-    @*    <a href="javascript:;" class="icon1"></a>
+        <a href="javascript:;" class="icon1"></a>
         <a href="javascript:;" class="icon2"></a>
         <a href="javascript:;" class="icon3"></a>
         <a href="javascript:;" class="icon4"></a>
-        <a href="javascript:;" class="icon5"></a>*@
+        <a href="javascript:;" class="icon5"></a>
     </div>
     <div class="down">
         <a href="http://gy.mj100.com/amount/UploadDps/@row["projectid"]/project.dxf">CAD文件下载</a>
@@ -91,79 +91,104 @@
             <dt>标注</dt>
             <dd class="pro">项目</dd>
             <dd class="cha">属性</dd>
-            <dd class="des">#</dd>
+            <dd class="des">描述</dd>
         </dl>
     </div>
     <div class="list">
-     @foreach (var item in pics)
-     {
-       <dl style="border: none;">
-            <dt>@item.Key</dt>
+        <dl>
+            <dt>01</dt>
+            <dd class="pro">门</dd>
+            <dd class="cha">门高800mm／距顶200mm／门宽1200mm</dd>
+            <dd class="des">双开门</dd>
+        </dl>
+        <dl>
+            <dt>02</dt>
+            <dd class="pro">窗</dd>
+            <dd class="cha">窗高800mm／距顶200mm／宽1200mm</dd>
+            <dd class="des">飘窗</dd>
+        </dl>
+        <dl>
+            <dt>03</dt>
+            <dd class="pro">梁</dd>
+            <dd class="cha">梁高300mm</dd>
+            <dd class="des">&nbsp;</dd>
+        </dl>
+        <dl style="border: none;">
+            <dt>04</dt>
             <dd class="pro">实景图</dd>
             <dd class="cha">视角1/视角2/视角3/视角4</dd>
-            <dd style="cursor:pointer; " class="des" urls="@item.Value">查看</dd>
-        </dl>  
-     }
+            <dd class="des">卧室一角</dd>
+        </dl>
     </div>
     <div class="return">
-        <a href="measure.html">返回到列表</a>
+        <a href="/LF/Measure">返回到列表</a>
     </div>
-    <!--查看大图--zxl-->
-    <div class='zLayer clear'>
-
-        <div class="zo _fl">
-            <a class="pre iline cur_hover"></a>
-            <img id="dp_big" src="/img/detail/zD.png" inx='0' />
-            <a class="nex iline cur_hover"></a>
-        </div>
-
-        <div class="_fl aUl">
-            <div class='topTit clear'>
-                <ul class="_fl">
-                    <li class="o">实景图</li>
-                    <li class="t">4视角</li>
-                </ul>
-                <a class='iline _fr cur_hover'></a>
-            </div>
-
-            <ul class="_fl littImg">
-                <li class='o'>
-                    <div class="iline active">
-                        <img id="dp_up" src="/img/detail/z1.png" inx="0" org="/img/detail/z1.png" class="cur_hover" />
-                        <span class="iline cur_hover"></span>
-                        <div class="ms"></div>
-                    </div>
-                    <a class="iline _fr cur_hover dp_bc" title="保存到本地" href="/img/detail/z1.png"></a>
-                </li>
-                <li class='t'>
-                    <div class="iline">
-                        <img id="dp_down" src="/img/detail/z1.png" inx="1" org="/img/detail/z1.png" class="cur_hover" />
-                        <span class="iline cur_hover"></span>
-                        <div class="ms"></div>
-                    </div>
-                    <a class="iline _fr cur_hover  dp_bc" title="保存到本地" href="/img/detail/z1.png"></a>
-                </li>
-                <li class='th'>
-                    <div class="iline">
-                        <img id="dp_left" src="/img/detail/z1.png" inx="2" org="/img/detail/z1.png" class="cur_hover" />
-                        <span class="iline cur_hover"></span>
-                        <div class="ms"></div>
-                    </div>
-                    <a class="iline _fr cur_hover dp_bc" title="保存到本地" href="/img/detail/z1.png"></a>
-                </li>
-                <li class='fo'>
-                    <div class="iline">
-                        <img id="dp_right" src="/img/detail/z1.png" org="/img/detail/z1.png" inx="3" class="cur_hover" />
-                        <span class="iline cur_hover"></span>
-                        <div class="ms"></div>
-                    </div>
-                    <a class="iline _fr cur_hover dp_bc" title="保存到本地" href="/img/detail/z4.png"></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
+    <script>
+        $(function () {
+            function load0() {
+                h = $(window).height();
+                w = $(window).width();
+                $('.zLayer .zo img').css('height', (0.8 * h - 2) + 'px');
+                $(' .zLayer ul').css('height', 0.2 * h + 'px');
+                $(' .zLayer ul li').css('width', (0.25 * w - 2) + 'px');
+            }
+            load0();
+            window.onresize = load0;
+        })
+    </script>
+    
+    <!--查看大图-->
+   <div class='zLayer clear'>
+			<div class="zo _fl">
+				<a class="pre iline cur_hover"></a>	
+				<img src="/img/detail/zD.png" inx='0'/>
+				<a class="nex iline cur_hover"></a>	
+			</div>
+			<div class="_fl aUl">
+			<div class='topTit clear'>
+				<ul class="_fl">
+					<li class="o">主卧室实景图</li>
+					<li class="t">4视角</li>
+				</ul>
+				<a class='iline _fr cur_hover'></a>
+			</div>
+			
+			<ul class="_fl littImg">
+				<li class='o'>
+					<div class="iline active">
+					<img src="/img/detail/z1.png" inx="0" org="/img/detail/z1.png" class="cur_hover" />
+					<span class="iline cur_hover"></span>
+					<div class="ms"></div>
+					</div>
+					<a class="iline _fr cur_hover" title="保存到本地" href="/img/detail/z1.png"></a>
+				</li>
+				<li class='t'>
+					<div class="iline">
+					<img src="/img/detail/z2.png" inx="1" org="/img/detail/z2.png" class="cur_hover" />
+					<span class="iline cur_hover"></span>
+					<div class="ms"></div>
+					</div>
+					<a class="iline _fr cur_hover" title="保存到本地" href="img/detail/z2.png"></a>
+				</li>
+				<li class='th'>
+					<div class="iline">
+					<img src="/img/detail/z3.png" inx="2" org="/img/detail/z3.png" class="cur_hover" />
+					<span class="iline cur_hover"></span>
+					<div class="ms"></div>
+					</div>
+					<a class="iline _fr cur_hover" title="保存到本地" href="/img/detail/z3.png"></a>
+				</li>
+				<li class='fo'>
+					<div class="iline">
+					<img src="/img/detail/z4.png" org="/img/detail/z4.png" inx="3" class="cur_hover" />
+					<span class="iline cur_hover"></span>
+					<div class="ms"></div>
+					</div>
+					<a class="iline _fr cur_hover" title="保存到本地" href="/img/detail/z4.png"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
 
 
     <div class="l_footer">
@@ -226,9 +251,6 @@
 
 </body>
 </html>
-
-
-
 <script>
 
     function setCookie(name, value, time) {
@@ -277,6 +299,3 @@
         });
     });
 </script>
-
-
- 

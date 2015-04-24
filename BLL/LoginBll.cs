@@ -75,13 +75,13 @@ namespace BLL
                 string isorder = "0";
                 string ordertime = "";
                 DataTable dtyy = SqlHelper.ExecuteDataTable(sqlyy);
-                if (dtyy.Rows.Count>0)
+                if (dtyy.Rows.Count > 0)
                 {
                     isorder = "1";
-                    ordertime=dtyy.Rows[0]["CreateTime"].ToSafeString();
+                    ordertime = dtyy.Rows[0]["CreateTime"].ToSafeString();
                 }
 
-                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg, isorder=isorder,ordertime=ordertime};
+                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg, isorder = isorder, ordertime = ordertime };
                 #endregion
 
 
@@ -89,6 +89,139 @@ namespace BLL
             }
 
         }
+
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="loginname"></param>
+        /// <param name="loginpwd"></param>
+        /// <returns></returns>
+        public string Login(string loginname, string loginpwd, string unicode)
+        {
+            #region 登录
+            string sql = "select * from users where (LoginName=@LoginName or UserMPhone=@LoginName ) and LoginPwd=@LoginPwd";
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@LoginName",loginname),
+            new SqlParameter("@LoginPwd",loginpwd.To16Md5())
+            };
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
+            #endregion
+            if (dt.Rows.Count < 1)
+            {
+                return "{\"success\":\"false\",\"msg\":\"用户名或密码错误\"}";
+            }
+            else
+            {
+                DataRow row = dt.Rows[0];
+                #region 各种字段
+                //private int _userid;
+                //private string _loginname;
+                //private string _loginpwd;
+                //private string _userphone;
+                //private string _usermphone;
+                //private string _email;
+                //private string _address;
+                //private string _headimage;
+                //private string _logintime;
+                //private string _extension;
+                //private string _extension1;
+                //private string _extension2;
+                //private string _extension3;
+                //private string _extension4;
+                //private string _extension5;
+                //private string _extension6;
+                //private int? _extension7;
+                //private string _extension8;
+                //private string _createtime;
+
+                string headimg = row["HeadImage"].ToSafeString();
+                if (headimg.Contains("http"))
+                {
+
+                }
+                else if (headimg.Length == 0)
+                {
+                    headimg = "http://www.mj100.com/img/defaultHead.png";
+                }
+                else
+                {
+                    headimg = "http://www.mj100.com/UploadFile/head/" + headimg;
+                }
+
+
+                string sqlyy = "select CreateTime, UserId from Tentent where UserId='" + row["userid"].ToSafeString() + "'";
+
+                string isorder = "0";
+                string ordertime = "";
+                DataTable dtyy = SqlHelper.ExecuteDataTable(sqlyy);
+                if (dtyy.Rows.Count > 0)
+                {
+                    isorder = "1";
+                    ordertime = dtyy.Rows[0]["CreateTime"].ToSafeString();
+                }
+
+                var person = new { success = "true", userid = row["userid"].ToSafeString(), loginname = row["loginname"].ToSafeString(), usermphone = row["usermphone"].ToSafeString(), name = row["Extension"].ToSafeString(), gender = row["Extension4"].ToSafeString(), address = row["address"].ToSafeString(), headimg = headimg, isorder = isorder, ordertime = ordertime, UniqueId = unicode };
+                #endregion
+
+                if (!unicode.IsEmpty())
+                {
+                    Hebing(person.userid,unicode);
+                }
+
+                return JsonConvert.SerializeObject(person);
+            }
+
+        }
+
+        /// <summary>
+        /// 合并未登录
+        /// </summary>
+        /// <param name="userid">userid</param>
+        /// <param name="fromuserid"></param>
+        private void Hebing(string userid,string fromuserid)
+        {
+
+            var userroom = new UserRoom();
+            string oDemandId = userroom.GetDemandId(fromuserid);//未登录用户需求编号   旧需求编号
+            if (oDemandId.IsEmpty())
+            {
+
+            }
+            else
+            {
+                #region 登录用户需求编号 新需求编号
+                string nDemandId = userroom.GetDemandId(userid);
+                if (nDemandId.IsEmpty())
+                {
+                    nDemandId = userroom.AddDemand(userid);
+                } 
+                #endregion
+
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("update UserRoom set userId=@nuserId ,demandId=@ndemandid where userId=@ouserId;");
+                sb.Append("update DemandYppCenter set ProjectId=@ndemandid where ProjectId=@odemandid;");
+                sb.Append("update DemandShowRoomProduct set DemandShowroomId=@ndemandid where DemandShowroomId=@odemandid ;");
+
+                SqlParameter[] arr = new SqlParameter[] {
+                new SqlParameter("@nuserId",userid),
+                new SqlParameter("@ouserId",fromuserid),
+                new SqlParameter("@ndemandid",nDemandId),
+                 new SqlParameter("@odemandid",oDemandId)
+
+                };
+
+                SqlHelper.ExecuteNonQuery(sb.ToSafeString(),arr);
+            }
+
+            // update UserRoom set userId='@新userid' ,demandId='@用户的需求编号' where userId='旧';
+
+            //update DemandYppCenter set ProjectId='@用户的需求编号' where ProjectId='@旧需求编号';
+
+            //update DemandShowRoomProduct set DemandShowroomId='@用户的需求编号' where DemandShowroomId='@旧需求编号';
+        }
+
 
         /// <summary>
         /// 注册帐号
@@ -248,6 +381,35 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             SqlHelper.ExecuteNonQuery("delete from users where loginname=@name or UserMPhone=@name", new SqlParameter("@name", uname));
 
             return "";
+        }
+
+
+        /// <summary>
+        /// 通过唯一标识得到userid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string Getuserid(string id)
+        {
+
+            string sqlexit = "select Userid from Users where LoginName=@id";
+
+            object o = SqlHelper.ExecuteScalar(sqlexit, new SqlParameter("@id", id));
+
+            if (o != null)
+            {
+
+            }
+            else
+            {
+                string sql = "insert into Users (LoginName) values(@id) select @@IDENTITY";
+
+                o = SqlHelper.ExecuteScalar(sql, new SqlParameter("@id", id));
+            }
+            var person = new { success = "true", userid = o.ToSafeString() };
+
+            return JsonConvert.SerializeObject(person);
+
         }
     }
 }

@@ -184,6 +184,7 @@
     <Content Include="css\detail.css" />
     <Content Include="css\l_login.css" />
     <Content Include="css\measure.css" />
+    <Content Include="detail.html" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\api发布.pubxml" />
     <None Include="Properties\PublishProfiles\llll.pubxml" />
@@ -196,6 +197,7 @@
     <Content Include="img\detail\icon.png" />
     <Content Include="img\detail\iconHover.png" />
     <Content Include="img\detail\pic.png" />
+    <Content Include="img\detail\xl.jpg" />
     <Content Include="img\detail\z1.png" />
     <Content Include="img\detail\z2.png" />
     <Content Include="img\detail\z3.png" />
@@ -203,6 +205,7 @@
     <Content Include="img\detail\zD.png" />
     <Content Include="img\detail\zIcon.png" />
     <Content Include="img\detail\zM.png" />
+    <Content Include="img\detail\zpreNex.png" />
     <Content Include="img\footer\er.png" />
     <Content Include="img\footer\l_gklogo.png" />
     <Content Include="img\footer\l_gklogob.png" />
@@ -226,6 +229,7 @@
     <Content Include="img\measure\item.png" />
     <Content Include="img\measure\lamp.png" />
     <Content Include="img\measure\logo.png" />
+    <Content Include="img\xl.jpg" />
     <Content Include="js\detail.js" />
     <Content Include="js\jquery-1.8.3.min.js" />
     <Content Include="js\l_login.js" />
@@ -270,6 +274,7 @@
     <Content Include="Views\LF\Index.cshtml" />
     <Content Include="Views\LF\Measure.cshtml" />
     <Content Include="Views\LF\Detail.cshtml" />
+    <Content Include="Views\LF\副本 Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

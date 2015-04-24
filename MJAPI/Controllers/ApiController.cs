@@ -41,6 +41,38 @@ namespace MJAPI.Controllers
             return bll.Login(loginname, pwd);
         }
 
+        /// <summary>
+        /// 登录扩展
+        /// </summary>
+        /// <param name="loginname"></param>
+        /// <param name="pwd"></param>
+        /// <param name="UniqueId"></param>
+        /// <returns></returns>
+        public string LoginExt(string loginname, string pwd, string UniqueId)
+        {
+
+           
+            if (loginname.IsEmpty() || pwd.IsEmpty())
+            {
+                return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
+            }
+            BLL.LoginBll bll = new BLL.LoginBll();
+
+            return bll.Login(loginname, pwd,UniqueId);
+        }
+
+        /// <summary>
+        /// 得到userid
+        /// </summary>
+        /// <param name="UniqueId"></param>
+        /// <returns></returns>
+        public string GetUseridByUniqueId(string UniqueId)
+        {
+            return new BLL.LoginBll().Getuserid(UniqueId);
+        }
+
+
+
 
         /// <summary>
         /// 模版房间列表
@@ -493,10 +525,10 @@ namespace MJAPI.Controllers
         {
             if (loginname.IsEmpty())
             {
-                return "hehe"; 
+                return "hehe";
             }
             new BLL.LoginBll().DeleteUser(loginname);
-            return loginname+"已删除";
+            return loginname + "已删除";
         }
 
     }
