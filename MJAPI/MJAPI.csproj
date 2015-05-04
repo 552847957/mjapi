@@ -102,6 +102,34 @@
     <Compile Include="666\666.aspx.designer.cs">
       <DependentUpon>666.aspx</DependentUpon>
     </Compile>
+    <Compile Include="666\666gy.aspx.cs">
+      <DependentUpon>666gy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="666\666gy.aspx.designer.cs">
+      <DependentUpon>666gy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="666\666gypyq.aspx.cs">
+      <DependentUpon>666gypyq.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="666\666gypyq.aspx.designer.cs">
+      <DependentUpon>666gypyq.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="666\666tjpyq.aspx.cs">
+      <DependentUpon>666tjpyq.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="666\666tjpyq.aspx.designer.cs">
+      <DependentUpon>666tjpyq.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="666\666tjwx.aspx.cs">
+      <DependentUpon>666tjwx.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="666\666tjwx.aspx.designer.cs">
+      <DependentUpon>666tjwx.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\ErrorLog.cs" />
@@ -118,6 +146,12 @@
     <Content Include="666\15-3.30-666active.html" />
     <Content Include="666\666.aspx" />
     <Content Include="666\666.css" />
+    <Content Include="666\666gy.aspx" />
+    <Content Include="666\666gypyq.aspx" />
+    <Content Include="666\666tjpyq.aspx" />
+    <Content Include="666\666tjwx.aspx" />
+    <Content Include="666\img\666gy.png" />
+    <Content Include="666\img\666tj.png" />
     <Content Include="666\img\666wap.png" />
     <Content Include="666\img\clo.png" />
     <Content Include="666\img\join.png" />

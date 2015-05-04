@@ -74,7 +74,7 @@ namespace MJAPI
 
             //添加操作记录
 
-            return new BLL.Hdbll().Add2(Request.UserHostAddress, "点击按钮");
+            return new BLL.Hdbll().Add2(Request.UserHostAddress,name+ "点击按钮");
 
         }
 
