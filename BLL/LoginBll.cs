@@ -244,7 +244,11 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             new SqlParameter("@Extension4",gender)
             };
             object o = SqlHelper.ExecuteScalar(sql, arr);
-            return "{\"success\":\"true\",\"msg\":\"注册成功\",\"userid\":\"" + o.ToSafeString() + "\"}"; ;
+
+            var person = new { success = "true", userid = o.ToSafeString(), loginname = phone, usermphone = phone, name = phone, gender = gender, address = "中国", headimg = "http://www.mj100.com/img/defaultHead.png", isorder = "0", ordertime = "" };
+
+            return JsonConvert.SerializeObject(person);
+          //  return "{\"success\":\"true\",\"msg\":\"注册成功\",\"userid\":\"" + o.ToSafeString() + "\"}"; ;
         }
 
         /// <summary>
