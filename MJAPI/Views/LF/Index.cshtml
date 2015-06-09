@@ -117,7 +117,7 @@
             var pwd = $("#pwd").val();
             var saveme = ($("#saveme").attr("src") == '/img/login/check.png');
 
-            $.post("/LF/Login", { loginname: loginname, pwd: pwd }, function (data) {
+            $.post("/xlf/LF/Login", { loginname: loginname, pwd: pwd }, function (data) {
 
                 if (data.success == "true") {
                     if (saveme) {

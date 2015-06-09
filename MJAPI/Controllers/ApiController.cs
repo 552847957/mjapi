@@ -71,19 +71,16 @@ namespace MJAPI.Controllers
             return new BLL.LoginBll().Getuserid(UniqueId);
         }
 
-
-
-
         /// <summary>
         /// 模版房间列表
         /// </summary>
         /// <returns></returns>
-        public string GetModelList(string roomtype, string order)
+        public string GetModelList(string roomtype, string order,string userroomid)
         {
             BLL.ModelRoom bll = new BLL.ModelRoom();
 
 
-            return bll.GetModelRoomS(roomtype, order);
+            return bll.GetModelRoomS2(roomtype, order,userroomid);
         }
 
 
@@ -171,7 +168,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string SyFj(string parm)
         {
-            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "sylog.txt", parm + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+            //System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "sylog.txt", parm + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
             BLL.UserRoom bll = new BLL.UserRoom();
             return bll.SyFj(parm);
 
