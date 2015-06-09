@@ -148,7 +148,7 @@ namespace BLL
 
                 //SqlHelper.ExecuteNonQuery("delete from UserRoom where extension1 is null and userId=@userid", new SqlParameter("@userid", userid));
 
-              
+
 
                 if (userid.IsEmpty() || userid == "0")
                 {
@@ -367,7 +367,7 @@ namespace BLL
         public string SyFj(string pra)
         {
 
-           
+
             // { "userid":"10010","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]}
             try
             {
@@ -435,7 +435,7 @@ namespace BLL
             }
             catch (Exception e)
             {
-                
+
                 return "{\"success\":\"false\",\"msg\":\"失败,出现异常" + e.Message + "\"}"; ;
 
             }
@@ -685,9 +685,11 @@ end";
         {
             StringBuilder sb = new StringBuilder();
             string s = Commen.DataCache.GetCache(did).ToSafeString();
+
+           // string s = "";
             if (!s.IsEmpty())
             {
-                return s.Replace("m&sup2;", "㎡").Replace("平米", "㎡"); ;
+                return s.Replace("m&sup2;", "㎡").Replace("平米", "㎡").Replace("dm", "顶面").Replace("ld", "地面").Replace("qm", "墙面").Replace("a顶面in","admin"); ;
             }
             else
             {
@@ -712,7 +714,7 @@ end";
 
                 //    cache.Insert("DD", "滑动过期测试", null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromSeconds(10));
 
-                return sb.ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡"); ;
+                return sb.ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡").Replace("dm", "顶面").Replace("ld", "地面").Replace("qm", "墙面").Replace("a顶面in", "admin");
 
             }
         }
@@ -1042,9 +1044,9 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
             {
                 object o = SqlHelper.ExecuteScalar(" select UserId from Tentent where UserId=@UserId", new SqlParameter("@UserId", userid));
 
-                if (o!=null)
+                if (o != null)
                 {
-                 return "{\"success\":\"true\",\"msg\":\"你已预约，无需再次预约\"}";   
+                    return "{\"success\":\"true\",\"msg\":\"你已预约，无需再次预约\"}";
                 }
 
                 SqlParameter[] arr = new SqlParameter[] { 

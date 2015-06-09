@@ -44,7 +44,7 @@ view_sp.Extension1='房间' group by ShowroomId,Bname,Pmodel,unit
                 DataRow row = dt.Rows[i];
 
                 //http://www.mj100.com/admin/UploadFile/5/201404/MCLT_C_2014040117553105537432.jpg   201405\\DSWJ_C_2014050614221202358523.jpg
-                var zxobj = new { productid = row["productid"].ToSafeString(), num = row["num"].ToSafeString(), price = row["price"].ToSafeString(), unit = row["unit"].ToSafeString(), tp = ExChange(row["tp"].ToSafeString()), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/550/" + row["smallpic"].ToSafeString().Replace("\\", "/") };
+                var zxobj = new { productid = row["productid"].ToSafeString(), num = row["num"].ToSafeString(), price = row["price"].ToSafeString(), unit = row["unit"].ToSafeString(), tp = ExChange(row["tp"].ToSafeString()), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/550/" + GetPic(row["extension"].ToSafeString()).Replace("\\", "/") };
 
                 if (dic.ContainsKey(zxobj.tp))
                 {
@@ -181,12 +181,34 @@ select MOID from Products where PID=@productid
             {
                 DataRow row = dt.Rows[i];
 
-                var zxobj = new { productid = row["pid"].ToSafeString(), unit = row["unit"].ToSafeString(), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/550/" + row["smallpic"].ToSafeString().Replace("\\", "/") };
+                var zxobj = new { productid = row["pid"].ToSafeString(), unit = row["unit"].ToSafeString(), netprice = row["netprice"].ToSafeString(), pname = row["pname"].ToSafeString(), bnmae = row["bname"].ToSafeString(), pmodel = row["pmodel"].ToSafeString(), gg = row["gg"].ToSafeString(), smallpic = "http://www.mj100.com/admin/UploadFile/550/" + GetPic(row["smallpic"].ToSafeString()).Replace("\\", "/") };
+
+               
+
                 lis.Add(zxobj);
             }
 
 
             return JsonConvert.SerializeObject(lis);
+        }
+
+
+        /// <summary>
+        /// 得到图片
+        /// </summary>
+        /// <param name="picarr"></param>
+        /// <returns></returns>
+        private string GetPic(string picarr)
+        {
+            if (picarr.IsEmpty())
+            {
+                return "";
+            }
+            else
+            {
+                return picarr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            }
+        
         }
     }
 }

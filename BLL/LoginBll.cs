@@ -208,14 +208,16 @@ namespace BLL
                 new SqlParameter("@nuserId",userid),
                 new SqlParameter("@ouserId",fromuserid),
                 new SqlParameter("@ndemandid",nDemandId),
-                 new SqlParameter("@odemandid",oDemandId)
+                new SqlParameter("@odemandid",oDemandId)
 
                 };
 
                 SqlHelper.ExecuteNonQuery(sb.ToSafeString(),arr);
             }
 
-            // update UserRoom set userId='@新userid' ,demandId='@用户的需求编号' where userId='旧';
+
+            SqlHelper.ExecuteNonQuery(" delete from Users where LoginPwd is null and UserId='"+fromuserid+"'");
+            //update UserRoom set userId='@新userid' ,demandId='@用户的需求编号' where userId='旧';
 
             //update DemandYppCenter set ProjectId='@用户的需求编号' where ProjectId='@旧需求编号';
 

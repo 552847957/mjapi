@@ -14,7 +14,7 @@ namespace BLL
         {
             #region sql语句
             string sql = @"select  types,YPPCenter.extension,YPPCenter.extension1 as univalent,unit,YPPCenter.extension2 as price,ProductAmount  from YPPCenter      left join product   on yppcenter.projectid=product.productid
- where YPPCenter.TypeId=@did and ProductAmount<>'杂费'";
+ where YPPCenter.TypeId=@did ";
             SqlParameter[] arr = new SqlParameter[] { 
             new SqlParameter("@did",did)
             };
