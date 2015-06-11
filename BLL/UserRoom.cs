@@ -732,7 +732,7 @@ end";
 
             string sql = @"select UserRoom.roomName, UserRoom.id, UserRoom.extension1 as frontcover,UserRoom.extension3 as mj,Room.unit as omj ,Room.Extension1 as gjjg
 
-, (select SUM( CAST(Price as float)) from DemandShowRoomProduct where ProjectTypeId=UserRoom.id )
+, (select SUM( CAST(Price as float)) from DemandShowRoomProduct where ProjectTypeId=cast(UserRoom.id as  nvarchar) )
 
  as jcjg from UserRoom left join Room on UserRoom.roomId=Room.did where userId=@userid  and frontCover is not null ";
 
@@ -783,6 +783,10 @@ from DemandShowRoomProduct left join Products on DemandShowRoomProduct.ProductId
         /// <returns></returns>
         public string DecorateList(string userid)
         {
+
+            System.Net.WebClient web = new System.Net.WebClient();
+            web.DownloadString("http://www.mj100.com/userDiy/Default.aspx?userId="+userid);
+
 
             #region 获取需求id部分
             string DemandId = GetDemandId(userid);
