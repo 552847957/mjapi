@@ -135,6 +135,9 @@
     <Compile Include="Controllers\ErrorLog.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LFController.cs" />
+    <Compile Include="Controllers\mjpayController.cs" />
+    <Compile Include="Controllers\testController.cs" />
+    <Compile Include="Controllers\WechartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,7 +279,9 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -309,6 +314,12 @@
     <Content Include="Views\LF\Measure.cshtml" />
     <Content Include="Views\LF\Detail.cshtml" />
     <Content Include="Views\LF\副本 Detail.cshtml" />
+    <Content Include="Views\Wechart\LoginOk.cshtml" />
+    <Content Include="Views\test\Index.cshtml" />
+    <Content Include="Views\test\Indexs.cshtml" />
+    <Content Include="Views\test\Xd.cshtml" />
+    <Content Include="Views\mjpay\Index.cshtml" />
+    <Content Include="Views\mjpay\Xd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,6 +340,10 @@
       <Project>{c2448f4b-d998-4ca1-b5d5-259154638d3b}</Project>
       <Name>LFBLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\tenpay\tenpay.csproj">
+      <Project>{35105397-456e-4bf7-8f5b-05001cc28078}</Project>
+      <Name>tenpay</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -346,7 +361,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>16278</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:13888/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
