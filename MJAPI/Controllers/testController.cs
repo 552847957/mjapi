@@ -191,5 +191,15 @@ namespace MJAPI.Controllers
 
         }
 
+
+        public string KK()
+        {
+
+            //string   return_string = string.Format("{0}", "极客美家");
+            //byte[] byteArray = Encoding.UTF8.GetBytes(return_string);
+            //return_string = Encoding.GetEncoding("GBK").GetString(byteArray);
+            return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; ; ;
+        }
+
     }
 }

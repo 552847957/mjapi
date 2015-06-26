@@ -50,7 +50,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string LoginExt(string loginname, string pwd, string UniqueId)
         {
-
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "UniqueId.txt", UniqueId + " ：》》》UniqueId    :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
            
             if (loginname.IsEmpty() || pwd.IsEmpty())
             {

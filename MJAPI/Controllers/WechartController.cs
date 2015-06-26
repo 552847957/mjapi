@@ -33,11 +33,52 @@ namespace MJAPI.Controllers
             //scope	是	应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
             //state	否	重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
             //#wechat_redirect	是	无论直接打开还是做页面302重定向时候，必须带此参数
+
+
+
             Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/mjpay/index?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+
+
+
+
 
             return "";
         }
+        /// <summary>
+        /// 微信登录授权
+        /// </summary>
+        /// <returns></returns>
+        public string Login2()
+        {
+            Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/App/Stepone?response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+           return "";
+        }
 
+
+        /// <summary>
+        /// 微信登录授权
+        /// </summary>
+        /// <returns></returns>
+        public string Login3()
+        {
+            Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/Wechart/Login4?response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+            return "";
+        }
+
+        public string Login4(string code)
+        {
+            #region 登录成功缓存用户信息
+            string post_data = "appid=" + "wx2c2f2e7b5b62daa1" + "&secret=" + "ed815afc669a9201a6070677d1771166" + "&code=" + code + "&grant_type=authorization_code";
+            string requestData = tenpay.TenpayUtil.PostXmlToUrl(tenpay.TenpayUtil.getAccess_tokenUrl(), post_data);
+            JavaScriptSerializer js = new JavaScriptSerializer();   //实例化一个能够序列化数据的类
+            JsApi.WeChartUser auth = js.Deserialize<JsApi.WeChartUser>(requestData);    //将json数据转化为对象类型并赋值给auth
+
+
+            #endregion
+
+
+            return auth.openid;
+        }
         /// <summary>
         /// 授权回调
         /// </summary>
@@ -124,3 +165,4 @@ namespace MJAPI.Controllers
 
     }
 }
+         

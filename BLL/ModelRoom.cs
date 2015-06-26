@@ -175,7 +175,7 @@ namespace BLL
                     {
                         lispic.Add(htp + arr[i]);
                     }
-                    var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = row["price"].ToSafeString(), mj = row["mj"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, beused = "1" };
+                    var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = S(row["price"].ToSafeString()), mj = row["mj"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, beused = "1" };
 
                     if (room.did == flagroomid)
                     {
@@ -203,7 +203,7 @@ namespace BLL
                 {
                     lispic.Add(htp + arr[i]);
                 }
-                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = row["price"].ToSafeString(), mj = row["mj"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, beused = "0" };
+                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = S(row["price"].ToSafeString()), mj = row["mj"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, beused = "0" };
 
                 if (room.did != flagroomid)
                 {
@@ -253,7 +253,7 @@ namespace BLL
                     lispic.Add(htp + arr[i]);
                 }
 
-                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = row["price"].ToSafeString(), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, mj = row["unit"].ToSafeString(), gyzj = row["Extension1"].ToSafeString() };
+                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = S(row["price"].ToSafeString()), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, mj =row["unit"].ToSafeString(), gyzj =  row["Extension1"].ToSafeString() };
                 
             
 
@@ -261,6 +261,24 @@ namespace BLL
 
 
                 return JsonConvert.SerializeObject(room);
+        }
+
+
+        public  string  S(string aa)
+        {
+            int a = int.Parse(aa);
+            int y = a % 10;
+
+            if (y <= 5)
+            {
+                a = a - y;
+            }
+            else
+            {
+                a = a + (10 - y);
+            }
+
+            return a.ToSafeString();
         }
     }
 }
