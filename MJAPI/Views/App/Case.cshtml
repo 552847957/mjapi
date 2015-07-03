@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+
+    IList<JsApi.DesignerWorksRoom> list = ViewBag.list as IList<JsApi.DesignerWorksRoom>;
+
+    JsApi.DesignWorks work = ViewBag.work as JsApi.DesignWorks;
+
+
+
+    JsApi.DesignerGrade desinger = ViewBag.desinger as JsApi.DesignerGrade;
+
+   
+}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width,height=device-height,target-densitydpi=medium-dpi,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title>作品案例详情</title>
+		<link href="/css/common.css" rel="stylesheet" />
+		<link href="/css/case.css" rel="stylesheet" />
+		<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="/js/feedback.js"></script>
+		</head>
+		<body style="background:#f6f6f6;">
+		<header>
+			<p><a href="zDesigner.html"><img src="http://www.mj100.com/GEEKPRO/img/head/@desinger.Extension3"/></a></p>
+			<h1>@desinger.DID</h1>
+			<h2>@work.ZpNamen</h2>
+			<h3>@work.FaLx @work.ZpUnit㎡</h3>
+			<h4>@work.ZpDis</h4>
+		</header>
+		<article>
+			<ul>
+				 
+
+                @foreach (var item in list)
+                {
+                 string s = "/img/l_img.png";
+                if (item.RoomPics.ToSafeString().Length > 0)
+                {
+                    s = "http://www.mj100.com/GEEKPRO/UploadFile/550/" + item.RoomPics.ToSafeString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                }
+                <li><a href="javascript:;"><img src="@s"/></a></li>
+                }
+			</ul>			
+		</article>
+		</body>
+</html>
+

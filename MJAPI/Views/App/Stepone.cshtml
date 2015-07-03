@@ -1,0 +1,428 @@
+﻿@{
+    Layout = null;
+
+    JsApi.DemandShowRooms drs = ViewBag.drs as JsApi.DemandShowRooms;
+
+
+
+
+
+
+    JsApi.Ustage u = new JsApi.Ustage(){serverId="",img_dp="",Description="2"};
+    if (Session["u"] != null)
+    {
+        u = Session["u"] as JsApi.Ustage;
+        u.Description = u.Description.Replace("<br>", "").Replace("<br/>",""); ;
+    }
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    @* <meta name="viewport" id="viewport" content="width=device-width,height=device-height,target-densitydpi=medium-dpi,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">*@
+
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+
+
+    <title>设计师预约</title>
+    <link href="/css/common.css" rel="stylesheet" />
+    <link href="/css/css.css" rel="stylesheet" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/index.js?999"></script>
+     <script src="/js/jquery.cookie.js"></script>
+    @* <style type="text/css">
+				.lwj0{display:none;position:absolute;top:0px;z-index:14;}
+			article img{width: 100%;height:50%;}
+			aside{background:url(/img/l_mbg.png) repeat;height:50%;position: relative;}
+			aside h2{font-size:14px;color:#fff;font-weight: normal;text-align: center;padding:22px 0px;}
+			aside ul{width:100%;margin:0 auto;text-align: center;}
+			aside li{width: 84px;height:70px;padding-top:14px;font-size:18px;color:#7d7d80;text-align:center;display:inline-block;border-radius: 8px;background: #ebebeb;margin:0px 9px;}
+		    aside li.l_active{color:#3b3b3c;background: url(/img/l_check.png) no-repeat #ebebeb 0 0;background-size: 22px 22px;}
+		    aside .l_btn{position: absolute;bottom:5px;left:50%;margin-left:-154px;}
+		    aside .l_btn a{display: inline-block;width:148px;margin: 0px 3px;height:40px;line-height:40px;font-size:18px;color:#fff;border-radius: 6px;}
+		    aside .l_btn a.l_return{background: #85a0b2;}
+		    aside .l_btn a.l_sure{background: #23aecc;}
+
+		</style>*@
+
+    <script>
+       @* alert('@ViewBag.id'+"ioptest");*@
+        wx.config({
+            debug: false,
+            appId: '@ViewBag.appid',
+            timestamp: "@ViewBag.timestamp",
+            nonceStr: '@ViewBag.nonceStr',
+            signature: '@ViewBag.signature',
+            jsApiList: ['getLocation', 'closeWindow', 'chooseImage', 'uploadImage', 'previewImage']
+        });
+        wx.ready(function () {
+            wx.getLocation({
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+
+                    $.ajax({
+                        url: "http://api.map.baidu.com/geocoder/v2/?ak=1735edad684487a9c4c82d1a94065632&output=json&pois=0&coordtype=wgs84ll",
+                        data: "location=" + latitude + "," + longitude,
+                        type: "post",
+                        processData: false,
+                        timeout: 15000,
+                        dataType: "jsonp",  // not "json" we'll parse
+
+                        success: function (d) {
+
+                            $(".city_dp").html(d.result.addressComponent.city);
+                            $(".district_dp").html(d.result.addressComponent.district);
+
+
+                            //跳转
+
+                        }
+                    });
+                }
+            });
+        });
+
+        wx.error(function (res) {
+            alert("出错了");
+
+        });
+    </script>
+
+</head>
+<body style='background: #ebedf0;'>
+    <header>
+        <div class='o iline'></div>
+        <div class='t iline clear ellipsis'>
+            <a class='oo iline'></a>
+            <span class='tt iline city_dp'></span>
+            <span class='tth iline district_dp'>定位中....</span>
+            <a class='ffo iline'></a>
+        </div>
+        <a class='th iline' href="tel:400-102-3100"></a>
+    </header>
+    <!--地区里的内容块-->
+    <div class="z_dis">
+        <!--选择地区-->
+        <div class='district '>
+            <ul class='clear'>
+                <li>全城</li>
+                <li>朝阳区</li>
+                <li>海淀区</li>
+                <li>丰台区</li>
+                <li>东城区</li>
+                <li>西城区</li>
+                <li>昌平区</li>
+                <li>石景山区</li>
+                <li>通州区</li>
+                <li>大兴区</li>
+                <li>顺义区</li>
+                <li>房山区</li>
+                <li>怀柔区</li>
+                <li>通州区</li>
+                <li>大兴区</li>
+                <li>顺义区</li>
+                <li>房山区</li>
+                <li>怀柔区</li>
+                <li>通州区</li>
+                <li>大兴区</li>
+            </ul>
+            <ul class='clear' style="display: none">
+                <li>全城</li>
+                <li>和平区</li>
+                <li>南开区</li>
+                <li>河西区</li>
+                <li>河东区</li>
+                <li>河北区</li>
+                <li>红桥区</li>
+                <li>东丽区</li>
+                <li>西青区</li>
+                <li>津南区</li>
+                <li>北辰区</li>
+                <li>武清区</li>
+                <li>宝坻区</li>
+                <li>静海县</li>
+                <li>宁河县</li>
+                <li>蓟县</li>
+            </ul>
+            <ul class='clear' style="display: none">
+                <li>全城</li>
+                <li>南明区 </li>
+                <li>云岩区 </li>
+                <li>小河区 </li>
+                <li>花溪区 </li>
+                <li>乌当区 </li>
+                <li>白云区 </li>
+                <li>修文县 </li>
+                <li>息烽县</li>
+                <li>开阳县</li>
+            </ul>
+        </div>
+
+        <div class='z_sel1'>
+            <div class="iline z_sel cur_hover">
+                <div class='zSel iline'><i class='iline o'>当前城市:</i><a class='uF'>北京</a> <i class='iline t'>更换</i><img src="/img/zChange.png" class="cur_hover"></div>
+                <div class='z_unit'>
+                    <div>北京</div>
+                    <div>贵阳</div>
+                    <div>天津</div>
+                </div>
+            </div>
+            <div class='dFon'>注：目前只对北京、贵阳、天津提供服务，其他城市暂无服务。 </div>
+        </div>
+    </div>
+    <div class='dLine1'>上传您的户型图，让设计师更好的为您“量身”设计</div>
+    <!--上传户型图-->
+    <div class="dUP clear" id="btnsc">
+        <div>
+            <a class='o iline _fl'></a>
+            <span class="_fl">上传户型图</span>
+           
+            @if (u.serverId=="")
+            {
+                <a class='t iline _fr upok_dp' style="display: none"></a> 
+            }
+            else
+            {
+                 <a class='t iline _fr upok_dp' style="display: block"></a> 
+            }
+        </div>
+    </div>
+    <!--个人信息-->
+    <div class='dInfo'>
+        <p class='o clear'>
+            <a class='o iline _fl'></a>
+            <input type="text" id="xiaoqu" placeholder="小区名称(选填)" />
+        </p>
+        <p class='t clear'>
+            <a class='o iline _fl'></a>
+            <input type="text" id="phone" placeholder="联系方式(必填)" />
+        </p>
+    </div>
+    <!--等级-->
+    <div class='dGrade'>
+        <a class="bg iline"></a>
+        <ul id="desingergread">
+            <li class='_fl dActive'>
+                <p class="o">高级设计</p>
+                <p class="t"></p>
+            </li>
+            <li class='_fl'>
+                <p class="o">资深设计</p>
+                <p class="t"></p>
+                <p class='th'>（已约满）</p>
+            </li>
+            <li class='_fl'>
+                <p class="o">大师设计</p>
+                <p class="t"></p>
+                <p class='th'>（已约满）</p>
+            </li>
+        </ul>
+        <img src="/img/z_i.png" />
+    </div>
+    <div class='dSummit'>
+        <a class="iline" id="btntj">提交需求</a>
+    </div>
+    <div class='dMyOrder'>
+        <i class="iline" id="wdyy">
+            <a class='o iline _fl'></a>
+            <span class='t iline _fl'>我的预约</span>
+            <a class='th iline _fl'></a>
+        </i>
+    </div>
+    <div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
+    <!--设计师等级资费说明-->
+    <ul class='z_Tariff'>
+        <li>设计师等级资费说明</li>
+        <li>极客美家设计师预约平台的所有设计师
+			均由mj100认证并且实名认证，每一位
+			设计师都经过严格评估，划分等级及资
+			费如下：
+			<p><a class="iline"></a>高级设计：免费</p>
+            <p><a class="iline"></a>资深设计：100元／m<sup>2</sup>（设计方案）</p>
+            <p><a class="iline"></a>大师设计：300元／m<sup>2</sup>（设计方案）</p>
+        </li>
+        <li>
+            <a class="iline">知道了</a>
+        </li>
+    </ul>
+    <div id='fMask1' style='top: 46px; position: fixed; left: 0px; width: 100%; height: 100%; background: #000; filter: alpha(opacity=30); -moz-opacity: 0.3; -khtml-opacity: 0.3; opacity: 0.3; z-index: 10; display: none;'>
+    </div>
+    <div id='fMask'></div>
+    @*	<div class='lwj0'>
+		<article>
+			<img id="imgsrc" src="/img/l_pic.png"/>
+			<aside>
+				<h2>户型图上传成功！再次确定您的卧室数量</h2>
+				<ul>
+					<li>1 个<br>卧室</li>
+					<li class="l_active">2 个<br>卧室</li>
+					<li>3 个<br>卧室</li>
+				</ul>
+				<div class="l_btn">
+					<a href="javascript:;" class="l_return">重新上传</a>
+					<a href="javascript:;" class="l_sure">确定</a>
+				</div>
+			</aside>			
+		</article>
+		</div>
+		<script type="text/javascript">
+		    $('aside li').on('click', function () {
+		        $('aside li').removeClass('l_active');
+		        $(this).addClass('l_active');
+		    })
+		</script>*@
+</body>
+</html>
+@*<script type="text/javascript">
+    var h = $(window).height();
+    var w = document.documentElement.clientWidth;
+    $('.lwj0').height(h);
+    $('.lwj0 article').height(h);
+    $('.lwj0 article img').width(w);
+    $('aside li').on('click', function () {
+        $('aside li').removeClass('l_active');
+        $(this).addClass('l_active');
+    })
+		</script>*@
+
+<script>
+    var serverId = "@u.serverId";
+    var img_dp = "@u.img_dp";
+
+    
+
+   
+    var cimg = function () {
+
+
+        wx.chooseImage({
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                if (localIds.length > 1) {
+                    alert("只能选择一张户型图哦");
+                    return false;
+                }
+                for (var i = 0; i < localIds.length; i++) {
+
+                    wx.uploadImage({
+                        localId: localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
+                        isShowProgressTips: 1, // 默认为1，显示进度提示
+                        success: function (res) {
+                            serverId = res.serverId; // 返回图片的服务器端ID                                
+                            alert("上传成功");
+                            $(".upok_dp").show();
+
+                            
+                            $("#imgsrc").attr("src", localIds[0]);
+
+
+                            img_dp = localIds[0];
+                            
+                            var img_dp2 = img_dp;
+
+                            $.post("/app/in/", { serverId: serverId, img_dp: img_dp }, function () {
+
+                                location.href = "/app/mask/";
+
+                            });
+ 
+                            
+                            //跳转
+                        }
+                    });
+                    ;
+                }
+
+
+            }
+        });
+    }
+    $(function () {
+        $("#btnsc").click(function () {
+            if (serverId.length > 0) {
+               
+                location.href = "/app/mask/";
+            } else {
+                cimg();
+            }
+                           
+        });
+
+        
+
+        $("#btntj").click(function () {
+           
+            var city_dp = $(".city_dp").html();
+            var district_dp = $(".district_dp").html();
+            var dstage = 0;
+            var xiaoqu = $("#xiaoqu").val();
+            var phone = $("#phone").val();
+            //serverId, string phone, string address, string openid
+            if (!/^\d{11}$/g.test(phone)) {
+                alert("请输入正确的手机号");
+                return;
+            }
+            
+            if (serverId == "") {
+                alert("请上传一张户型图");
+                return;
+            }
+            $("#desingergread li").each(function (i, ele) {
+                if ($(ele).hasClass("dActive")) {
+                    dstage = i;
+                }
+            });
+           
+            $.post("/App/Upload", { serverId: serverId, phone: phone, address: city_dp + district_dp + xiaoqu, openid: '@ViewBag.openid', Description: '@u.Description' }, function (d) {
+               
+                if (d.errcode == 0) {
+
+
+                    location.href = "/app/steptwo/";
+                }
+                if (d.errcode == 1) {
+                    alert('请勿重复提交，一个小时后再试');
+                    location.href = "/app/steptwo/";
+
+                }
+            }, 'json');
+
+        });
+    });
+
+
+    $(function () {
+        var DemandShowroomId = '@drs.DemandShowroomId';
+        var Extension9 = '@drs.Extension9';
+        $("#wdyy").click(function () {
+
+            if (DemandShowroomId == "0") {
+                alert("请先预约");
+            }
+
+            else if (!Extension9) {
+                location.href = '/app/steptwo/';
+            }
+            else {
+                location.href = '/app/stepthree/@drs.UserId';
+
+            }
+
+        });
+    });
+
+</script>

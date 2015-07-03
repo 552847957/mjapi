@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+    JsApi.DesignerGrade desinger = ViewBag.desinger as JsApi.DesignerGrade;
+
+    IList<JsApi.DesignWorks> list = ViewBag.list as IList<JsApi.DesignWorks>;
+    
+   
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width,height=device-height,target-densitydpi=medium-dpi,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>设计师个人页</title>
+    <link href="/css/common.css" rel="stylesheet" />
+    <link href="/css/css.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+  	<script>
+  	    $(function () {
+  	        loadD();
+  	    })
+  	    window.onresize = loadD;
+  	    function loadD() {
+  	        var w = document.documentElement.clientWidth;
+  	        var zzUL = $('.zzUL');
+  	        var zzstar = $('.zDTab li a');
+  	        var zcasP = $('.zzUL .case a div p');
+  	        var zcasD = $('.zzUL .case a div');
+  	        var zNav = $('.nav');
+  	        zzUL.find('.case a').css('width', 0.5 * (w - 30) + 'px');
+  	        //案例中的图片高度==宽度
+  	        zcasP.css('height', 0.5 * (w - 30) + 'px');
+  	        zcasD.css('height', 0.5 * (w - 30) + 'px');
+  	        zzstar.each(function (ind, ele) {
+  	            $(ele).on('click', function () {
+  	                $('.zzUL').css('display', 'none');
+  	                $('.zzUL').eq(ind).show();
+  	            })
+  	        })
+  	        navSlider();
+  	        window.onscroll = function () {
+  	            if ($(document).scrollTop() >= 205) {
+  	                console.log($(document).scrollTop());
+  	                zNav.css('position', 'fixed');
+  	                zNav.css('top', 0 + 'px');
+  	                $('.zzUL').eq(0).css('margin-top', 50 + 'px');
+  	            } else {
+  	                zNav.css('position', 'relative');
+  	                $('.zzUL').eq(0).css('margin-top', 0 + 'px');
+  	            }
+  	        }
+  	    }
+  	    //熔岩灯
+  	    function navSlider() {
+  	        var $nav = $('.nav'),
+            $cur = $('.nav li.cur a'),
+            $navLine = $('.nav-line'),
+            $anchor = $('a', $nav.children()),
+            curPosL = $cur.position().left,
+            curW = $cur.outerWidth(true),
+            curIdx = $('li.cur', $nav).index();
+  	        $navLine.css({ 'width': curW, 'left': curPosL });
+  	        $anchor.each(function (index) {
+  	            var posL = $(this).position().left,
+                w = $(this).outerWidth(true);
+  	            $(this).on('click', function () {
+  	                $navLine.animate({ 'width': w, 'left': posL }, 250);
+  	                $(this).parent().addClass('cur').siblings().removeClass('cur');
+  	            });
+  	        });
+  	    };
+	</script>
+</head>
+<body style='background: #f0f0f0;'>
+    <div class="zHea">
+        <!--<img src="img/zbg1.png" />-->
+        <ul class='headImg'>
+            <li>
+                <img src="http://www.mj100.com/GEEKPRO/img/head/@desinger.Extension3" /></li>
+            <li><a class='iline gj'></a></li>
+            <li>@desinger.DID</li>
+        </ul>
+        <!--认证-->
+        <ul class='zAuthenti'>
+            <li class="fir">
+                <span class="o iline"></span>
+                <p>mj100认证</p>
+            </li>
+            <!--MJ100认证-->
+            <li class="sec">
+                <span class="o iline"></span>
+                <p>实名认证</p>
+            </li>
+            <!--实名认证-->
+            <li class="th">
+                <span class="o iline"></span>
+                <p>服务地区</p>
+                <p>@desinger.Dgrade</p>
+            </li>
+            <li class="fo">
+                <span class="o iline"></span>
+                <p>@desinger.AppointmentNum 人预约</p>
+            </li>
+        </ul>
+    </div>
+    <!--作品案例+个人简介+能力评估-->
+    <div class="nav">
+		<ul class='clear zDTab'>
+			<li class="zDactive0 cur"><a class='iline'>作品案例</a></li>
+			<li><a class='iline'>个人简介</a></li>
+			<li><a class='iline'>能力评估</a></li>
+		</ul>
+		<div class="nav-line"></div>
+		</div>
+
+
+    <div class="zzUL clear" style='display: block;'>
+        <div class='case'>
+            @foreach (var item in list)
+            {
+                string s = "/img/l_img.png";
+                if (item.Pics.ToSafeString().Length > 0)
+                {
+                    s = "http://www.mj100.com/GEEKPRO/UploadFile/550/" + item.Pics.ToSafeString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                }
+                
+                <a class='iline' href="/app/case/@item.SjsZpId">
+                    <div class='wr'>
+                    <p>
+                        <img src='@s' /></p>
+                        </div>
+                    <p>@item.ZpNamen</p>
+                        
+                </a>
+            }
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="zzUL clear">
+        <ul class='zIntro1'>
+            <li><b>所属公司：</b>@desinger.Extension</li>
+            <li>
+                <b>简介：</b> @desinger.GyZj
+            </li>
+            <li><b>设计理念：</b>@desinger.Dconment</li>
+        </ul>
+    </div>
+
+    <div class="zzUL clear">
+        <ul class="zGrade">
+          @*  <li class="same o"><a class="iline"></a><p style='width:61.2%;'>9.0&nbsp;&nbsp;<i class="iline"></i></p> <span class="iline _fr"></span></li>*@
+            <li class="same o"><a class="iline"></a>
+                <p style='width:@Dp.GetNumber(desinger.DPID.ToSafeString())%;'>@desinger.DPID&nbsp;&nbsp;<i class="iline"></i></p>
+                <span class="iline _fr"></span></li>
+
+            <li class="same t"><a class="iline"></a>
+                <p style='width:@Dp.GetNumber(desinger.Dpname)%;'>@desinger.Dpname&nbsp;&nbsp;<i class="iline"></i></p>
+                <span class="iline _fr"></span></li>
+            <li class="same th"><a class="iline"></a>
+                <p style='width:@Dp.GetNumber(desinger.CaseName)%;'>@desinger.CaseName&nbsp;&nbsp;<i class="iline"></i></p>
+                <span class="iline _fr"></span></li>
+            <li class="same fo"><a class="iline"></a>
+                <p style='width:@Dp.GetNumber(desinger.Createtime)%;'>@desinger.Createtime&nbsp;&nbsp;<i class="iline"></i></p>
+                <span class="iline _fr"></span></li>
+        </ul>
+    </div>
+
+    <div class='zzBo'>
+        <a class='iline' id="yy">预约Ta</a>
+    </div>
+</body>
+
+</html>
+<script>
+    $(function () {
+        $("#yy").click(function () {
+            alert("预约成功");
+            return false;
+        });
+    });
+</script>
