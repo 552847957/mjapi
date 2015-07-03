@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace System
 {
@@ -59,6 +60,25 @@ namespace System
 
              lis.Add(o);
              return lis;
+        }
+
+        /// <summary>
+        /// 计算长度
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static string GetNumber(string o)
+        {
+            
+            string s = o.ToSafeString();
+           
+            if (Regex.IsMatch(s,"\\d+"))
+            {
+               
+                return (6.8 *  double.Parse(s)).ToSafeString();
+            }
+
+            return "6.8";
         }
     }
 }
