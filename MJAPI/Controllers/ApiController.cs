@@ -20,7 +20,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string Test(string v)
         {
-            return "这是一个测试";
+            return Regex.IsMatch("15.6", "\\d+").ToSafeString(); ;
         }
 
 
@@ -68,6 +68,10 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string GetUseridByUniqueId(string UniqueId)
         {
+
+            //string sql = "insert into TempZj  (usernumber,userphone) values('" + 1 + "','" + UniqueId + "');delete from Users where UserId='" + 1 + "' ";
+            //System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "UniqueId2.txt", sql + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+
             return new BLL.LoginBll().Getuserid(UniqueId);
         }
 
