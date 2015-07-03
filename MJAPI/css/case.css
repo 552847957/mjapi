@@ -1,0 +1,10 @@
+header{padding-top:25px;}
+header p{width:20%;margin:0 auto;border-radius: 50%;border:3px solid #fff;}
+header p img{width:100%;border-radius:50%;}
+header h1,header h2,header h3,header h4{font-weight: normal;text-align: center;}
+header h1{font-size:14px;color:#23aecc;padding-top:6px;}
+header h2{font-size:16px;color:#4a4b4c;padding-top:27px;}
+header h3,header h4{font-size: 12px;color:#acaeb2;padding-top:6px;}
+header h4{text-align:left;padding:11px 17px;padding-top:22px;}
+article li{margin-top: 1px;}
+article img{width:100%;}
