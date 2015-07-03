@@ -397,8 +397,8 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
         /// <returns></returns>
         public string Getuserid(string id)
         {
-
-            string sqlexit = "select Userid from Users where LoginName=@id";
+            //
+            string sqlexit = "select usernumber from  TempZj  where  userphone=@id;";
 
             object o = SqlHelper.ExecuteScalar(sqlexit, new SqlParameter("@id", id));
 
@@ -410,7 +410,13 @@ values (@LoginName,@LoginPwd,@UserMPhone,'img/defaultHead.png',@Extension,@Exten
             {
                 string sql = "insert into Users (LoginName) values(@id) select @@IDENTITY";
 
+                //插入另外一张表    立即删除此条记录
+
                 o = SqlHelper.ExecuteScalar(sql, new SqlParameter("@id", id));
+
+
+                SqlHelper.ExecuteNonQuery("insert into TempZj  (usernumber,userphone) values('" + o.ToSafeString() + "','" + id + "');delete from Users where UserId='"+o.ToSafeString()+"' ");
+
             }
             var person = new { success = "true", userid = o.ToSafeString() };
 
