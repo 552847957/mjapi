@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -61,11 +63,11 @@ namespace MJAPI.Controllers
             order.nonce_str = TenpayUtil.getNoncestr();//随机字符串
             order.notify_url = "http://mobile.mj100.com/test/h?id=100";//回调网址
             order.openid = auth.openid;
-            order.out_trade_no = "20156666978542323ddp";//订单号
+            order.out_trade_no = "20156666978542323" + DateTime.Now.Day + DateTime.Now.Minute + DateTime.Now.Second;//订单号
             order.trade_type = "JSAPI";
             order.spbill_create_ip = Request.UserHostAddress;
             order.total_fee = 1;
-          
+
             string prepay_id = tenpay.TenpayUtil.getPrepay_id(order, tenpay.WeChartConfigItem.key);//商户key
             #endregion
 
@@ -157,11 +159,11 @@ namespace MJAPI.Controllers
                 SortedDictionary<string, string> dic = TenpayUtil.GetInfoFromXml(postStr);
 
                 string osign = dic["sign"];//微信sign
-               
+
 
                 string sign = TenpayUtil.getsign(dic, tenpay.WeChartConfigItem.key);//自己加密后的sign
 
-           
+
 
                 #region 取到的各种值
                 string appid = dic["appid"];
@@ -229,7 +231,7 @@ namespace MJAPI.Controllers
                 #endregion
 
 
-               
+
 
                 return return_string;
 
@@ -376,5 +378,96 @@ namespace MJAPI.Controllers
             string sign = TenpayUtil.getsign(dic, "43804496F28A4F0FBF1195AA0F1Abcde");
             return "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + appid + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + time_stamp + "&nonce_str=" + nonce_str;
         }
+
+
+        /// <summary>
+        /// 发红包啊
+        /// </summary>
+        /// <returns></returns>
+        public string FHB()
+        {
+
+            tenpay.RedPacket p = new RedPacket()
+            {
+                nonce_str = TenpayUtil.getNoncestr(),
+                mch_billno = "201411111234567" + DateTime.Now.Hour.ToSafeString() + DateTime.Now.Minute.ToSafeString() + DateTime.Now.Second.ToSafeString(),
+                mch_id = tenpay.WeChartConfigItem.mch_id,
+                wxappid = tenpay.WeChartConfigItem.appid,
+                nick_name = "极客美家",
+                send_name = "极客美家",
+                re_openid = "o8r91jjmQWUqO8zrq4rxL0QVTEYs",
+                total_amount = "100",
+                min_value = "100",
+                max_value = "100",
+                total_num = "1",
+                wishing = "1",
+                client_ip = "118.144.76.61",
+                act_name = "1",
+                remark = "1"
+
+            };
+            string s = tenpay.TenpayUtil.Fhb(p, tenpay.WeChartConfigItem.key);
+
+
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "红包.txt", s + DateTime.Now.ToSafeString() + "\r\n\r\n");
+
+
+            return s;
+
+
+            #region MyRegion
+            //            return TenpayUtil.PostXmlToUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack", @"<xml>
+            ////            <sign></sign>
+            ////            <mch_billno></mch_billno>
+            ////            <mch_id></mch_id>
+            ////            <wxappid></wxappid>
+            ////            <nick_name></nick_name>
+            ////            <send_name></send_name>
+            ////            <re_openid></re_openid>
+            ////            <total_amount></total_amount>
+            ////            <min_value></min_value>
+            ////            <max_value></max_value>
+            ////            <total_num></total_num>
+            ////            <wishing></wishing>
+            ////            <client_ip></client_ip>
+            ////            <act_name></act_name>
+            ////            <act_id></act_id>
+            ////            <remark></remark>
+            ////            <logo_imgurl></logo_imgurl>
+            ////            <share_content></share_content>
+            ////            <share_url></share_url>
+            ////            <share_imgurl></share_imgurl>
+            ////            <nonce_str></nonce_str>
+            ////        </xml>"); ;
+
+            //            return ProcessRequest(@"<xml>
+            //            <sign></sign>
+            //            <mch_billno></mch_billno>
+            //            <mch_id></mch_id>
+            //            <wxappid></wxappid>
+            //            <nick_name></nick_name>
+            //            <send_name></send_name>
+            //            <re_openid></re_openid>
+            //            <total_amount></total_amount>
+            //            <min_value></min_value>
+            //            <max_value></max_value>
+            //            <total_num></total_num>
+            //            <wishing></wishing>
+            //            <client_ip></client_ip>
+            //            <act_name></act_name>
+            //            <act_id></act_id>
+            //            <remark></remark>
+            //            <logo_imgurl></logo_imgurl>
+            //            <share_content></share_content>
+            //            <share_url></share_url>
+            //            <share_imgurl></share_imgurl>
+            //            <nonce_str></nonce_str>
+            //        </xml>"); 
+            #endregion
+
+        }
+
+
+      
     }
 }

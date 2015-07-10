@@ -18,9 +18,20 @@ namespace MJAPI.Controllers
         /// api测试
         /// </summary>
         /// <returns></returns>
-        public string Test(string v)
+        public string Test(string id)
         {
-            return Regex.IsMatch("15.6", "\\d+").ToSafeString(); ;
+
+            ///jajskjdhjfas
+            ///
+            if (id=="小兰")
+            {
+                return "能用"; ;
+            }
+            else
+            {
+                return "不能用";
+            }
+          
         }
 
 
