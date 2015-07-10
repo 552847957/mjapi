@@ -220,3 +220,26 @@
 
 	</body>
 </html>
+<script>
+
+    var arr = {};
+    var str = "TCCTABABAB我爱天安门";
+    for (var i = 0; i < str.length; i++) {
+     
+        var item = str[i];
+ 
+      
+        arr[item] = arr[item] ? (arr[item] += 1) : 1;
+      
+    }
+
+    alert(arr["天"]);
+
+
+
+    var str = "cloudchen";
+    var find = "c";
+    var reg = new RegExp(find, "g")
+    var c = str.match(reg);
+    alert(c ? c.length : 0)
+</script>

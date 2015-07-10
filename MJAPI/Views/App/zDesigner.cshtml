@@ -20,61 +20,7 @@
     <link href="/css/common.css" rel="stylesheet" />
     <link href="/css/css.css" rel="stylesheet" />
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
-  	<script>
-  	    $(function () {
-  	        loadD();
-  	    })
-  	    window.onresize = loadD;
-  	    function loadD() {
-  	        var w = document.documentElement.clientWidth;
-  	        var zzUL = $('.zzUL');
-  	        var zzstar = $('.zDTab li a');
-  	        var zcasP = $('.zzUL .case a div p');
-  	        var zcasD = $('.zzUL .case a div');
-  	        var zNav = $('.nav');
-  	        zzUL.find('.case a').css('width', 0.5 * (w - 30) + 'px');
-  	        //案例中的图片高度==宽度
-  	        zcasP.css('height', 0.5 * (w - 30) + 'px');
-  	        zcasD.css('height', 0.5 * (w - 30) + 'px');
-  	        zzstar.each(function (ind, ele) {
-  	            $(ele).on('click', function () {
-  	                $('.zzUL').css('display', 'none');
-  	                $('.zzUL').eq(ind).show();
-  	            })
-  	        })
-  	        navSlider();
-  	        window.onscroll = function () {
-  	            if ($(document).scrollTop() >= 205) {
-  	                console.log($(document).scrollTop());
-  	                zNav.css('position', 'fixed');
-  	                zNav.css('top', 0 + 'px');
-  	                $('.zzUL').eq(0).css('margin-top', 50 + 'px');
-  	            } else {
-  	                zNav.css('position', 'relative');
-  	                $('.zzUL').eq(0).css('margin-top', 0 + 'px');
-  	            }
-  	        }
-  	    }
-  	    //熔岩灯
-  	    function navSlider() {
-  	        var $nav = $('.nav'),
-            $cur = $('.nav li.cur a'),
-            $navLine = $('.nav-line'),
-            $anchor = $('a', $nav.children()),
-            curPosL = $cur.position().left,
-            curW = $cur.outerWidth(true),
-            curIdx = $('li.cur', $nav).index();
-  	        $navLine.css({ 'width': curW, 'left': curPosL });
-  	        $anchor.each(function (index) {
-  	            var posL = $(this).position().left,
-                w = $(this).outerWidth(true);
-  	            $(this).on('click', function () {
-  	                $navLine.animate({ 'width': w, 'left': posL }, 250);
-  	                $(this).parent().addClass('cur').siblings().removeClass('cur');
-  	            });
-  	        });
-  	    };
-	</script>
+
 </head>
 <body style='background: #f0f0f0;'>
     <div class="zHea">
@@ -110,13 +56,13 @@
     </div>
     <!--作品案例+个人简介+能力评估-->
     <div class="nav">
-		<ul class='clear zDTab'>
-			<li class="zDactive0 cur"><a class='iline'>作品案例</a></li>
-			<li><a class='iline'>个人简介</a></li>
-			<li><a class='iline'>能力评估</a></li>
-		</ul>
-		<div class="nav-line"></div>
-		</div>
+        <ul class='clear zDTab'>
+            <li class="zDactive0 cur"><a class='iline'>作品案例</a></li>
+            <li><a class='iline'>个人简介</a></li>
+            <li><a class='iline'>能力评估</a></li>
+        </ul>
+        <div class="nav-line"></div>
+    </div>
 
 
     <div class="zzUL clear" style='display: block;'>
@@ -131,11 +77,12 @@
                 
                 <a class='iline' href="/app/case/@item.SjsZpId">
                     <div class='wr'>
-                    <p>
-                        <img src='@s' /></p>
-                        </div>
+                        <p>
+                            <img src='@s' onload="AutoResizeImage1(this)"/>
+                        </p>
+                    </div>
                     <p>@item.ZpNamen</p>
-                        
+
                 </a>
             }
 
@@ -158,7 +105,7 @@
 
     <div class="zzUL clear">
         <ul class="zGrade">
-          @*  <li class="same o"><a class="iline"></a><p style='width:61.2%;'>9.0&nbsp;&nbsp;<i class="iline"></i></p> <span class="iline _fr"></span></li>*@
+            @*  <li class="same o"><a class="iline"></a><p style='width:61.2%;'>9.0&nbsp;&nbsp;<i class="iline"></i></p> <span class="iline _fr"></span></li>*@
             <li class="same o"><a class="iline"></a>
                 <p style='width:@Dp.GetNumber(desinger.DPID.ToSafeString())%;'>@desinger.DPID&nbsp;&nbsp;<i class="iline"></i></p>
                 <span class="iline _fr"></span></li>
@@ -188,4 +135,102 @@
             return false;
         });
     });
+
+
+
+
 </script>
+
+ <script>
+     $(function () {
+
+         loadD();
+     })
+     window.onresize = loadD;
+     //获取图片的宽高比	
+     function AutoResizeImage1(obj1) {
+         var w1 = obj1.width,
+         h1 = obj1.height,
+         w = document.documentElement.clientWidth,
+         w2 = w1 * (0.5 * (w - 30) / h1) - (0.5 * (w - 30));
+         h2 = h1 * (0.5 * (w - 30) / w1) - (0.5 * (w - 30));
+         var flag = w1 / h1;
+         if (flag > 1) {
+             obj1.style.cssText = "height:100%; width:auto;";
+             obj1.style.marginLeft = -w2 / 2 + 'px';
+         } else {
+             obj1.style.cssText = "width:100%; height:auto;";
+             obj1.style.marginTop = -h2 / 2 + 'px';
+         }
+     }
+
+
+     function LodImg(arr) {
+
+
+        // 模拟图片缩小局部显示
+         //var arr = [{ "src": "img/b.png", "tit": "密密麻麻" }, { "src": "img/l_img.png", "tit": "春去秋来的茂盛" }, { "src": "img/l_img.png", "tit": "密密麻麻" },
+         //{ "src": "img/l_img.png", "tit": "春去秋来的茂盛" }, { "src": "img/l_img.png", "tit": "密密麻麻" }, { "src": "img/l_img.png", "tit": "春去秋来的茂盛" }]
+         //var zCase = $('.zzUL .case'); /*div.wr p img*/
+         //var str = '';
+         //for (var i = 0; i < arr.length; i++) {
+         //    str += '<a class="iline" href="case.html"><div class="wr">' +
+         //    '<p>' +
+         //    '<img onload="AutoResizeImage1(this)" src="' + arr[i].src + '" /></p></div><p>' + arr[i].tit + '</p></a>';
+         //}  /*活动的值要和外面的引号相同*/
+         //zCase.html(str);
+     }
+
+
+     function loadD() {
+      
+         //下面这些要放在加载图片后面
+         var w = document.documentElement.clientWidth;
+         var zzUL = $('.zzUL');
+         var zzstar = $('.zDTab li a');
+         var zcasP = $('.zzUL .case a div p');
+         var zcasD = $('.zzUL .case a div');
+         var zNav = $('.nav');
+         zzUL.find('.case a').css('width', 0.5 * (w - 30) + 'px');
+         //案例中的图片高度==宽度
+         zcasP.css('height', 0.5 * (w - 30) + 'px');
+         zcasD.css('height', 0.5 * (w - 30) + 'px');
+         zzstar.each(function (ind, ele) {
+             $(ele).on('click', function () {
+                 $('.zzUL').css('display', 'none');
+                 $('.zzUL').eq(ind).show();
+             })
+         })
+         navSlider();
+         window.onscroll = function () {
+             if ($(document).scrollTop() >= 205) {
+                 console.log($(document).scrollTop());
+                 zNav.css('position', 'fixed');
+                 zNav.css('top', 0 + 'px');
+                 $('.zzUL').eq(0).css('margin-top', 50 + 'px');
+             } else {
+                 zNav.css('position', 'relative');
+                 $('.zzUL').eq(0).css('margin-top', 0 + 'px');
+             }
+         }
+     }
+     //熔岩灯
+     function navSlider() {
+         var $nav = $('.nav'),
+         $cur = $('.nav li.cur a'),
+         $navLine = $('.nav-line'),
+         $anchor = $('a', $nav.children()),
+         curPosL = $cur.position().left,
+         curW = $cur.outerWidth(true),
+         curIdx = $('li.cur', $nav).index();
+         $navLine.css({ 'width': curW, 'left': curPosL });
+         $anchor.each(function (index) {
+             var posL = $(this).position().left,
+             w = $(this).outerWidth(true);
+             $(this).on('click', function () {
+                 $navLine.animate({ 'width': w, 'left': posL }, 250);
+                 $(this).parent().addClass('cur').siblings().removeClass('cur');
+             });
+         });
+     };
+		</script>
