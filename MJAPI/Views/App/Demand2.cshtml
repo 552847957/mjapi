@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+    	<meta content="telephone=no" name="format-detection" />
+    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    	<title>设计师预约</title>
+		<link href="/HMobile/css/common.css" rel="stylesheet" />
+		<link href="/HMobile/css/demand.css" rel="stylesheet" />
+		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>	
+		<script type="text/javascript" src="/HMobile/js/pubFunc.js"></script>		
+		</head>
+		<body style='background:#ebedf0;overflow-y:hidden;'>
+		<header>
+			<a href='/App/demand1' class='st iline'></a> 
+			<div class='t iline clear ellipsis'>
+				装修预算
+			</div>
+		</header>
+		<!--需求四步共同标签-->
+		<div class="Dzcontent">
+			<p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
+			<ul class='style1 clear'>
+				<li><img src="/HMobile/img/01.png" alt="" class="o" />
+					<p>英伦风 <img src="/HMobile/img/z_se0.png" alt="" class='' /></p>	
+				</li>
+				<li><img src="/HMobile/img/02.png" alt="" class="o" />
+					<p>宜家风<img src="/HMobile/img/z_se0.png" alt="" class='' /></p>
+				</li>
+				<li><img src="/HMobile/img/03.png" alt="" class="o" />
+					<p>无印风<img src="/HMobile/img/z_se0.png" alt="" class='' /></p>
+				</li>
+				<li><img src="/HMobile/img/04.png" alt="" class="o" />
+					<p>新中式<img src="/HMobile/img/z_se0.png" alt="" class='' /></p>
+				</li>
+			</ul>
+			
+		</div>
+		
+		<a class='dz_step iline' href='/app/demand3'>
+				<p>下一步(2/4)<img src="/HMobile/img/z_next.png" alt="" /></p>
+		</a>
+		
+	<div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
+	
+	   </body>
+	      <script>
+	          $(function () {
+	              loaddz2();
+	          })
+	          window.onresize = loaddz2;
+
+	          function loaddz2() {
+	              var dz_seLi = $('.Dzcontent .style1 li');
+	              dz_seLi.on('click', function () {
+	                  if (!$(this).find('p img').hasClass('a')) {
+	                      dz_seLi.find('p img').attr('src', '/HMobile/img/z_se0.png');
+	                      dz_seLi.find('p img').removeClass('a');
+	                      $(this).find('p img').attr('src', '/HMobile/img/z_se1.png');
+	                      $(this).find('p img').addClass('a');
+	                  } else {
+	                      $(this).find('p img').removeClass('a');
+	                      dz_seLi.find('p img').attr('src', '/HMobile/img/z_se0.png');
+	                  }
+	              })
+	              dBott($('.dBott'));
+	              dzStep($('.dz_step'));
+	          }
+	   </script>
+</html>

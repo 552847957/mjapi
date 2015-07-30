@@ -1,0 +1,507 @@
+﻿@{
+    Layout = null;
+
+
+    bool IsMoblie = Convert.ToBoolean(ViewBag.IsMoblie);
+
+    string n = IsMoblie ? "30" : "80";
+}
+
+<!DOCTYPE html PUBLIC "" "">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<HTML class="no-js">
+<!--<![endif]-->
+<head>
+		<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+		<META charset="utf-8">
+		<META http-equiv="X-UA-Compatible" content="IE=edge">
+		<TITLE>加入极客美家设计师</TITLE>
+		@*<LINK href="https://d1a3f4spazzrp4.cloudfront.net/free-candy/images/favicon.3eb352c8f26c2652495fa86bd0e29063.ico" rel="shortcut icon">*@
+		<META name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<LINK href="/css/joinDesi.css" rel="stylesheet">
+		<!-- The next scripts loads the fonts from typekit, our font provider -->
+		<META name="GENERATOR" content="MSHTML 11.00.9600.17842">
+		<script src="/js/jquery-1.8.3.min.js"></script>	
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script src="http://www.luqidong.com/demo/qrcode/js/qrcode.js"></script>
+
+		<style type="text/css">
+	
+      @@media all and (max-width:992px){
+			.l_share{width:80%;min-width:270px;box-sizing:content-box;padding:0px 15px 30px 15px;}
+			.l_share h2 img,.l_share h3 input,.l_share .l_txt{width:77%;}
+			.l_share .l_txt a{font-size:18px;}
+		}
+		@@media all and (min-width: 992px){
+			.l_share{width:270px;box-sizing: content-box;padding:0px 40px 30px 40px;}
+			.l_share h2 img,.l_share h3 input,.l_share .l_txt{width:270px;}
+			.l_share .l_txt a{width:270px;font-size:18px;font-size:24px;}
+		}
+			.l_share{display:none;background:#fff;border-radius:4px;position:fixed;left:50%;top:50%;z-index: 22;}
+			.l_share h1{text-align: right;padding-top:20px;padding-bottom: 6px;}
+			.l_share h1 img{cursor: pointer;}
+			.l_share h2{text-align: center;padding:20px 0px;}
+			.l_share h3{font-size:16px;color: #999;font-weight: normal;text-align: center;}
+			.l_share h3 input{height:45px;border:1px solid #019aff;border-radius: 5px;font-size:16px;color: #999;text-indent: 15px;}
+		    .l_share .l_txt{margin:0 auto;padding:25px 0px;}
+		    .l_share .l_txt p{font-size:14px;color: #999;line-height: 24px;}
+		    .l_share .l_txt a{display: block;text-decoration:none;margin:0 auto;margin-top:25px;height:45px;line-height:45px;background:#019aff;border-radius: 5px;font-size:24px;color: #fff;text-align: center;}
+		    .l_share .l_QRcode{display: none;}
+		    .l_share .l_QRcode p{text-align: center;font-size:16px;color:#019aff;}
+			#fMask{display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;
+background:#000;filter:alpha(opacity=30);-moz-opacity:0.3;-khtml-opacity:0.3;opacity:0.3;
+z-index:10;display:none;}
+
+
+		    .l_share .l_QRcode p img {margin:0 auto
+		    }
+		</style>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?802fd9db0bb45c216ff3ee01cbcdc792";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+</script>
+        <script>
+            wx.config({
+                debug: false,
+                appId: '@ViewBag.appid',
+            timestamp: "@ViewBag.timestamp",
+            nonceStr: '@ViewBag.nonceStr',
+            signature: '@ViewBag.signature',
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+        });
+
+        wx.ready(function () {
+          
+
+            share("http://mobile.mj100.com/desinger/register/@ViewBag.id", "http://www.mj100.com/img/header/z17.png");
+
+        });
+
+        wx.error(function (res) {
+             
+
+
+        });
+
+
+        function share(shareurl,imgurl) {
+
+            wx.onMenuShareTimeline({
+                title: '极客美家设计师招募中', // 分享标题
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+
+            wx.onMenuShareAppMessage({
+                title: '极客美家设计师招募中', // 分享标题
+                desc: '极客美家设计师招募中', // 分享描述
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            wx.onMenuShareQQ({
+                title: '极客美家设计师招募中', // 分享标题
+                desc: '极客美家设计师招募中', // 分享描述
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+
+            wx.onMenuShareWeibo({
+                title: '极客美家设计师招募中', // 分享标题
+                desc: '极客美家设计师招募中', // 分享描述
+                link:shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        }
+    </script>
+</head>
+
+<BODY class="pattern-bg">
+		<!--[if lte IE 8]>
+     <p>You are using an <strong>outdated</strong> browser. Please <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+		<SECTION class="wrapper">
+			<header class="contextual">
+				<img class="logo1" src='/img/joinDesi/z6.png' />
+			</header>
+			<SECTION class="content ">
+				<SECTION class="hero billboard dark-car-bg">
+					<div class='z_ImgP'>
+						<div class="z_ImgC"><a  class='iline' title="点这里分享"></a></div>
+					
+					</div>
+					<SECTION class="hero-box">
+						<SECTION class="row">
+							<ARTICLE class="col-md-4 col-md-04 col-md-offset-8" style='float:right;'>
+								<DIV class="hero-box-container">
+									<DIV class="box-title">
+										<H4 class="winged-title subtitle"><SPAN>Let's Go</SPAN></H4>
+									</DIV>
+									<DIV class="box-title" style="color: black;text-size: 150%;">
+										<P style='text-align:left; color: black; font-size: 145%; webkit-padding-start: 0px;'>
+											您有一定家装设计经验，可以接单设计，现在就注册吧！</P>
+										<input type="text" value="手机号" class='o z_Inp' id="phone" />
+										<div class="clear"><input type="text" value="验证码" class='t z_Inp' id="yzm" /><a class="z_get" id="getphonecode">获取</a></div>
+										<input type="text" value="所在城市" class='th z_Inp' id="city"/>
+										<A class="btn btn-primary " id="signup" style="line-height: 45px; font-weight: bold;letter-spacing:2px;" >报名</A>
+									</DIV>
+								</DIV>
+							</ARTICLE>
+						</SECTION>
+					</SECTION>
+				</SECTION>
+
+								<SECTION class="container main">
+					
+					<ARTICLE class="row feature-row">
+						<DIV>
+							<OL  class='zFon1'>
+								<LI>
+									<B>1.注册账号</B>
+									<div>使用您的邮箱或手机号为用户名，并牢记您的密码</div>
+								</LI>
+								<LI>
+									<B>2.填写基本信息</B>
+									<div>上传您的头像照片，准确填写服务地区</div>
+								</LI>								
+								<LI>
+									<B>3.身份认证</B>
+									<div>上传您的身份信息，请先准备好身份证的正反面照片</div>
+								</LI>
+								<LI>
+									<B>4.签订电子合约</B>
+									<div>在您提交身份审核后，我们会有专人与您联系。签约后，您可使用平台提供的量房工具和精算工具</div>
+								</LI>
+							</OL>
+						</DIV>
+					</ARTICLE>
+					
+					<ARTICLE class="row feature-row">
+						<DIV class="col-md-3">
+							<DIV class="gfx gfx-money"></DIV>
+						</DIV>
+						<DIV class="col-md-5">
+							<H3 >丰厚的收入</H3>
+							<P >在极客美家，你每月可以增加一倍的接单量；只要你够DIAO，设计报酬作品版权 分红，额外渠道补贴... ...根本停不下来</P>
+						</DIV>
+					</ARTICLE>
+					<ARTICLE class="row feature-row">
+						<DIV class="col-md-3">
+							<DIV class="gfx gfx-time"></DIV>
+						</DIV>
+						<DIV class="col-md-5">
+							<H3 >躺着也能挣钱</H3>
+							<P>在极客美家，你不是一个人在战斗，量房出预算、带客户看建材、成天跑工地...这 些复杂工作将变得格外轻松</P>
+						</DIV>
+					</ARTICLE>
+					<ARTICLE class="row feature-row">
+						<DIV class="col-md-3">
+							<DIV class="gfx gfx-freedom"></DIV>
+						</DIV>
+						<DIV class="col-md-5">
+							<H3 >口碑值爆表</H3>
+							<P >在极客美家，业主和设计师通过共同爱好和价值观走到一起，做个项目，交个朋友</P>
+                            <p>欢迎联系我们：<a href="tel:400-1023-100">400-1023-100</a></p>
+
+						</DIV>
+					</ARTICLE>
+				</SECTION>
+
+
+			@*	<SECTION>
+					<DIV tabindex="-1" class="modal fade" id="commercial-modal" role="dialog" aria-hidden="true" aria-labelledby="commercial-modal-label">
+						<DIV class="modal-dialog">
+							<DIV class="modal-content">
+								<DIV class="modal-header">
+									<BUTTON class="close" type="button" data-dismiss="modal">
+										<SPAN aria-hidden="true">×</SPAN>
+									</BUTTON>
+									<H4 class="modal-title" id="commercial-modal-label">确认您的商业帐户</H4>
+								</DIV>
+								<DIV class="modal-body">
+									<DIV class="commercial-img"></DIV>
+									您打算开或运营一辆有商业保险的电调车。或者，您打算开一辆有运营许可证的商业出租车。 </DIV>
+								<DIV class="modal-footer">
+									<A class="btn rounded btn-primary btn-modal yes-commercial" id="yes-commercial" data-dismiss="modal">是的，注册一个商业帐户</A>
+									<A class="btn rounded btn-default btn-modal" data-dismiss="modal">不，请返回</A>
+								</DIV>
+							</DIV>
+						</DIV>
+					</DIV>
+				</SECTION>*@
+
+				<FOOTER></FOOTER>
+			</SECTION>
+		</SECTION>
+		<!--LWJ-->
+		<div id="fMask"></div>
+        <div class="l_share share2">
+        	<h1><img src="/img/joinDesi/l_clo.png"/></h1>
+        	<h2><img src="/img/joinDesi/l_share.png"/></h2>
+        	<h3><input type="text" id="min" value="您的手机号" /></h3>
+        	<div class="l_txt">
+        		<p>1、推荐的设计师获取mj认证成功（与我们签约），即可获得50元奖励。</p>
+        		<p>2、通过您推荐的设计师们，在此平台产生的有效交易，mj平台会给您分配对方有效交易额的1%，作为给您的推荐奖励。</p>
+        		 @{if(IsMoblie){
+                                  <a href="javascript:;" style="background-color:gray">  点击右上角分享</a>
+                                    }else{
+                                     <a href="javascript:;"> 分享到朋友圈</a>
+                                    }}
+        	</div>
+        	<div class="l_QRcode">
+        		<p id="qrcode1"></p>
+        		<p>扫一扫&nbsp;&nbsp;&nbsp;&nbsp;分享</p>
+        	</div>
+        </div>
+
+
+        <div class="l_share" id="sok">
+        	<h1><img src="/img/joinDesi/l_clo.png"/></h1>
+        	<h2><img src="/img/joinDesi/l_suc.png"/></h2>
+        	<h3>您的手机号：18633214562</h3>
+        	<div class="l_txt">
+        		<p>1、推荐的设计师获取mj认证成功（与我们签约），即可获得50元奖励。</p>
+        		<p>2、通过您推荐的设计师们，在此平台产生的有效交易，mj平台会给您分配对方有效交易额的1%，作为给您的推荐奖励。</p>
+        		 @{if(IsMoblie){
+                                  <a href="javascript:;" style="background-color:gray">  点击右上角分享</a>
+                                    }else{
+                                     <a href="javascript:;"> 分享到朋友圈</a>
+                                    }}
+        	</div>
+        	<div class="l_QRcode">
+        		<p id="qrcode" style="text-align:center"></p>
+        		<p>扫一扫&nbsp;&nbsp;&nbsp;&nbsp;分享</p>
+        	</div>
+        </div>
+
+ 
+	</BODY>
+
+
+
+
+<script type="text/javascript">
+
+
+    //搜索栏或者输入框点入的效果函数
+    function searchFn(obj) {
+        var val = obj.val();
+        obj.addClass('z_gra');
+        obj.on('focus', function () {
+            if ($(this).val() == val) {
+                $(this).val('');
+            }
+
+        })
+        obj.on('blur', function () {
+            if ($(this).val() == '') {
+                $(this).val(val);
+            }
+        })
+    }
+    $('input.z_Inp').each(function (ind, ele) {
+        searchFn($(ele));
+    })
+    $('.z_ImgC a').on('click', function () {
+        $('.share2').show();
+        $('#fMask').show();
+    })
+
+    /*LWJ*/
+    var l_shareW = $('.l_share').width() + @n 
+    $('.l_share').css('margin-left', -(l_shareW / 2));
+    var l_shareH = $('.l_share').height() + 30;
+    $('.l_share').css('margin-top', -(l_shareH / 2));
+    window.onresize = function () {
+        var l_shareW = $('.l_share').width() + @n
+        $('.l_share').css('margin-left', -(l_shareW / 2));
+        var l_shareH = $('.l_share').height() + 30;
+        $('.l_share').css('margin-top', -(l_shareH / 2));
+    }
+
+
+
+    $('.l_share h1 img').on('click', function () {
+        $('.l_share').hide();
+        $('#fMask').hide();
+    })
+    $('.l_share h3 input').on('focus', function () {
+        if ($(this).val() == '您的手机号') {
+            $(this).val('');
+        }
+    })
+    $('.l_share h3 input').on('blur', function () {
+        if ($(this).val() == '') {
+            $(this).val('您的手机号');
+        }
+    })
+    $('.l_share .l_txt a').on('click', function () {
+    
+        if ('@IsMoblie' == "False")
+        $('.l_share .l_QRcode').slideDown();
+    })
+
+
+    var qrcode = new QRCode(document.getElementById("qrcode1"), {
+        width: 96,//设置宽高
+        height: 96
+    }); //初始化
+
+    qrcode.makeCode("http://mobile.mj100.com/desinger/register/");
+    
+    $(function () {
+
+        //发送注册短信
+
+        var flagphone = false;
+        $(".z_get").click(function () {
+            var phone = $("#phone").val();
+         
+
+
+            if (!/^\d{11}$/g.test(phone)) {
+                alert("请输入正确的手机号");
+                return false;
+            }
+
+
+            if (flagphone) {
+                //没到时候
+                return false;
+            }
+
+            flagphone = true;
+          
+
+            $.post("/desinger/SendCode", { phone: phone }, function (data) {
+               
+                if (data.errorcode=="0") {
+
+             
+                } else if (data.errorcode == "1") {
+                    alert(data.msg);
+                }
+
+                var ii = 60;
+                var c = setInterval(function () {
+                    $("#getphonecode").html(ii--);
+                    if (ii == 0) {
+                        clearInterval(c);
+                        $("#getphonecode").html("获取验证码");
+                        bphone = false;
+                    }
+                }, 1000);
+
+            },'json');
+
+          
+        });
+
+        $("#signup").click(function () {
+           
+            var phone = $("#phone").val();
+            if (!/^\d{11}$/g.test(phone)) {
+                alert("请输入正确的手机号");
+                return false;
+            }
+            var city = $("#city").val();
+            if (!/^[\u4E00-\u9FFF]+$/g.test(city)) {
+                alert("请输入正确的城市,不能有空格");
+                return false;
+            }
+
+            var yzm = $("#yzm").val();
+            if (!/^\d{6}$/g.test(yzm)) {
+                alert("验证码格式错误");
+                return false;
+            }
+
+
+
+            $.post("/desinger/AddDesinger", { phone: phone, city: city, yzm: yzm, fromid: '@ViewBag.id ', yzm: yzm }, function (data) {
+
+
+                if (data.errorcode=="0") {
+                    $("#sok").find("h3").html("您的手机号：" + phone);
+                    $('#sok').show();
+                    $('#fMask').show();
+
+                    var qrcode = new QRCode(document.getElementById("qrcode"), {
+                        width: 96,//设置宽高
+                        height: 96
+                    }); //初始化
+
+                    qrcode.makeCode("http://mobile.mj100.com/desinger/register/" + phone);
+
+                    share("http://mobile.mj100.com/desinger/register/"+phone, "http://www.mj100.com/img/header/z17.png");
+                } else {
+                    alert("验证码错误");
+                }
+
+              
+            },"json");
+
+        
+            
+        });
+
+
+        var time = null;
+        $("#min").keyup(function () {
+
+            clearTimeout(time);
+
+            var v = $("#min").val();
+
+            time = setTimeout(function () {
+                $("#qrcode1").html('');
+                var qrcode = new QRCode(document.getElementById("qrcode1"), {
+                    width: 96,//设置宽高
+                    height: 96
+                }); //初始化
+                
+                qrcode.makeCode("http://mobile.mj100.com/desinger/register/" + v);
+
+                share("http://mobile.mj100.com/desinger/register/" + v, "http://www.mj100.com/img/header/z17.png");
+            }, 1000);
+
+        });
+    })
+</script>
+</HTML>

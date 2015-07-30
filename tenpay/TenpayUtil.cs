@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 
@@ -94,7 +97,7 @@ namespace tenpay
                 i++;
                 sb.Append(temp.Key.Trim() + "=" + temp.Value.Trim() + "&");
             }
-            
+
             string signkey = sb.ToString();
             sign = MD5Util.GetMD5(signkey, "utf-8");
 
@@ -109,9 +112,84 @@ namespace tenpay
             string returnmsg = "";
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
+                
                 returnmsg = wc.UploadString(url, "POST", postData);
             }
             return returnmsg;
+        }
+
+        /// <summary>
+        /// post数据到指定接口并返回数据
+        /// </summary>
+        public static string PostXmlToUrl1(string url, string postData)
+        {
+            string returnmsg = "";
+            using (System.Net.WebClient wc = new System.Net.WebClient())
+            {
+                wc.Encoding = System.Text.Encoding.UTF8;//定义对象语言
+
+                Byte[] pageData = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(postData));
+
+
+                string rr = Encoding.GetEncoding("utf-8").GetString(pageData);
+                returnmsg = rr;
+            }
+            return returnmsg;
+        }
+        /// <summary>
+        /// 带证书的post
+        /// </summary>
+        /// <param name="posturl"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
+        protected static string PostPage(string posturl, string postData)
+        {
+            Stream outstream = null;
+            Stream instream = null;
+            StreamReader sr = null;
+            HttpWebResponse response = null;
+            HttpWebRequest request = null;
+            Encoding encoding = Encoding.UTF8;
+            byte[] data = encoding.GetBytes(postData);
+            // 准备请求...  
+            try
+            {
+                //CerPath证书路径
+                string certPath = @"D:\cert\apiclient_cert.p12";
+                //证书密码
+                string password = "1246407101";
+                X509Certificate2 cert = new System.Security.Cryptography.X509Certificates.X509Certificate2(certPath, password, X509KeyStorageFlags.MachineKeySet);
+
+                // 设置参数  
+                request = WebRequest.Create(posturl) as HttpWebRequest;
+                CookieContainer cookieContainer = new CookieContainer();
+                request.CookieContainer = cookieContainer;
+                request.AllowAutoRedirect = true;
+                request.Method = "POST";
+                request.ContentType = "text/xml";
+                request.ContentLength = data.Length;
+                request.ClientCertificates.Add(cert);
+                outstream = request.GetRequestStream();
+                outstream.Write(data, 0, data.Length);
+                outstream.Close();
+                //发送请求并获取相应回应数据  
+                response = request.GetResponse() as HttpWebResponse;
+                //直到request.GetResponse()程序才开始向目标网页发送Post请求  
+                instream = response.GetResponseStream();
+                sr = new StreamReader(instream, encoding);
+                //返回结果网页（html）代码  
+                string content = sr.ReadToEnd();
+                string err = string.Empty;
+
+
+                return content;
+
+            }
+            catch (Exception ex)
+            {
+                string err = ex.Message;
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -258,7 +336,7 @@ namespace tenpay
         public static SortedDictionary<string, string> GetInfoFromXml(string xmlstring)
         {
             SortedDictionary<string, string> sParams = new SortedDictionary<string, string>();
-         
+
             try
             {
                 XmlDocument doc = new XmlDocument();
@@ -303,6 +381,28 @@ namespace tenpay
             order.sign = getsign(sParams, key);
             sParams.Add("sign", order.sign);
 
+
+            //    <xml>
+            //    <sign></sign>
+            //    <mch_billno></mch_billno>
+            //    <mch_id></mch_id>
+            //    <wxappid></wxappid>
+            //    <nick_name></nick_name>
+            //    <send_name></send_name>
+            //    <re_openid></re_openid>
+            //    <total_amount></total_amount>
+            //    <min_value></min_value>
+            //    <max_value></max_value>
+            //    <total_num></total_num>
+            //    <wishing></wishing>
+            //    <client_ip></client_ip>
+            //    <act_name></act_name>
+            //    <act_id></act_id>
+            //    <remark></remark>
+            //    <logo_imgurl></logo_imgurl>
+            //    <share_content></share_content>       
+            //</xml>
+
             //拼接成XML请求数据
             StringBuilder sbPay = new StringBuilder();
             foreach (KeyValuePair<string, string> k in sParams)
@@ -321,6 +421,78 @@ namespace tenpay
             return_string = Encoding.GetEncoding("GBK").GetString(byteArray);
             return return_string;
 
+        }
+
+        /// <summary>
+        /// 发红包xml字符串整理
+        /// </summary>
+        /// <param name="redpacket"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        protected static string getRedPacketXml(RedPacket redpacket, string key)
+        {
+            string return_string = string.Empty;
+            SortedDictionary<string, string> sParams = new SortedDictionary<string, string>();
+            sParams.Add("nonce_str", redpacket.nonce_str);
+            sParams.Add("mch_billno", redpacket.mch_billno);
+            sParams.Add("mch_id", redpacket.mch_id);
+            sParams.Add("wxappid", redpacket.wxappid);
+            sParams.Add("nick_name", redpacket.nick_name);
+            sParams.Add("send_name", redpacket.send_name);
+            sParams.Add("re_openid", redpacket.re_openid);
+            sParams.Add("total_amount", redpacket.total_amount);
+            sParams.Add("min_value", redpacket.min_value);
+            sParams.Add("max_value", redpacket.max_value);
+            sParams.Add("total_num", redpacket.total_num);
+            sParams.Add("wishing", redpacket.wishing);
+            sParams.Add("client_ip", redpacket.client_ip);
+            sParams.Add("act_name", redpacket.act_name);
+            sParams.Add("remark", redpacket.remark);
+            sParams.Add("logo_imgurl", redpacket.logo_imgurl);
+            sParams.Add("share_content", redpacket.share_content);
+            sParams.Add("share_url", redpacket.share_url);
+            sParams.Add("share_imgurl", redpacket.share_imgurl);
+
+
+            redpacket.sign = getsign(sParams, key);
+            sParams.Add("sign", redpacket.sign);
+
+            #region 准备xml
+            StringBuilder sbPay = new StringBuilder();
+            foreach (KeyValuePair<string, string> k in sParams)
+            {
+                if (k.Value == "" || k.Value == null)
+                {
+                    continue;
+                }
+
+                if (k.Key == "attach" || k.Key == "body" || k.Key == "sign")
+                {
+                    sbPay.Append("<" + k.Key + "><![CDATA[" + k.Value + "]]></" + k.Key + ">");
+                }
+                else
+                {
+                    sbPay.Append("<" + k.Key + ">" + k.Value + "</" + k.Key + ">");
+                }
+            }
+            return_string = string.Format("<xml>{0}</xml>", sbPay.ToString());
+            //byte[] byteArray = Encoding.UTF8.GetBytes(return_string);
+            //return_string = Encoding.GetEncoding("GBK").GetString(byteArray);
+            #endregion
+            return return_string;
+
+        }
+
+
+        /// <summary>
+        /// 发红包
+        /// </summary>
+        /// <returns></returns>
+        public static string Fhb(RedPacket redpacket, string key)
+        {
+
+            string returnstr = PostPage("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack", getRedPacketXml(redpacket, key));
+            return returnstr;
         }
 
         /// <summary>

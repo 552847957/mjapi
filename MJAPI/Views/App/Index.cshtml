@@ -2,98 +2,199 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>jsapitest</title>
-    <script src="../../js/jquery-1.8.3.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script>
-
-        wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: '@ViewBag.appid', // 必填，公众号的唯一标识
-            timestamp: "@ViewBag.timestamp", // 必填，生成签名的时间戳
-            nonceStr: '@ViewBag.nonceStr', // 必填，生成签名的随机串
-            signature: '@ViewBag.signature',// 必填，签名，见附录1
-            jsApiList: ['getLocation', 'closeWindow', 'chooseImage', 'uploadImage', 'previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-        });
-
-
-        wx.ready(function () {
-             
-            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-
-            wx.getLocation({
-                success: function (res) {
-                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                    var speed = res.speed; // 速度，以米/每秒计
-                    var accuracy = res.accuracy; // 位置精度
-
-                    alert("我的纬度：" + latitude + ",我的经度：" + longitude);
-
-
-
-                    $.ajax({
-                        url: "http://api.map.baidu.com/geocoder/v2/?ak=1735edad684487a9c4c82d1a94065632&output=json&pois=0&coordtype=wgs84ll",
-                        data: "location="+latitude+","+longitude,
-                        type: "post",
-                        processData: false,
-                        timeout: 15000,
-                        dataType: "jsonp",  // not "json" we'll parse
-
-                        success: function (d) {
-                            alert(d.result.addressComponent.city);
-                        }
-                    });
-
-
-
-                 
-
-                }
-            });
-        });
-
-        wx.error(function (res) {
-
-
-            alert(res);
-            alert("出错了");
-
-            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-
-        });
-    </script>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+    	<meta content="telephone=no" name="format-detection" />
+    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    	<title>极客美家设计师预约</title>
+    	<script src="/HMobile/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="/HMobile/js/scroll.js"></script>
+		<link href="/HMobile/css/common.css" rel="stylesheet" />
+		<link href="/HMobile/css/css.css" rel="stylesheet" />
+		
+		<script type="text/javascript">
+		    WebSettings webSettings = m_WebView.getSettings(); 
+		    webSettings.setSupportZoom(false);
+		</script>
+		
+	<style>
+		body,html{margin:0px;width:100%;height:100%;overflow-y:hidden;overflow:hidden;}
+		.l_box{display:none;width:80%;min-width:224px;height:270px;border-radius:4px;background:#fff;margin:0 auto;position:absolute;top:50%;margin-top:-135px;left:50%;z-index:16;}
+		.l_box img{width:19px;height:19px;position:absolute;top:10px;right:10px;cursor: pointer;}
+		.l_box h1{text-align:center;height: 45px;line-height:45px;font-size:16px;color:#333;border-bottom: 1px solid #bcc4cc;margin-bottom:5px;}
+		.l_box p{padding-top:20px;text-align: center;}
+		.l_box p input{-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:rgba(255,255,255,0);display:inline-block;width:220px;height:34px;text-indent:11px;font-size:14px;color:#bcc4cc;background:none;border-radius: 3px;border:1px solid #ced7e0;}
+		.l_box p input.l_code{-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:rgba(255,255,255,0);width:139px;}
+		.l_box p a{display:inline-block;width:74px;height:34px;line-height:34px;margin-left:6px;font-size:14px;color:#757a80;background:#f5f5f5;border:1px solid #e0e0e0;border-radius: 3px;}
+		.l_oBtn{display: block;width:221px;margin:0 auto;margin-top:25px;height:44px;line-height:44px;border-radius: 21px;background:#fa6567;font-size:16px;color:#fff;}
+		.l_box h2{font-size:12px;color:#757a80;text-align: center;padding:15px 0px;font-weight: normal;}
+		.l_box h2 span{color:#fa6567;}
+	</style>
 </head>
 <body>
-    <div style="width:100px;margin:10px 0 auto">
-        <input  id="btnsc" type="button" value="上传照片"/>
-    </div>
-    <div id="img"></div>
+	<!--banner-->
+	<div class="scroll">
+	<div class="slide_01" id="slide_01">
+		<div class="mod_01 "><a ><img src="/HMobile/img/z_ban1.png"></a></div>
+		<div class="mod_01"><a><img src="/HMobile/img/z_ban1.png"></a></div>
+		<div class="mod_01"><a><img src="/HMobile/img/z_ban2.png"></a></div>
+		<div class="mod_01"><a><img src="/HMobile/img/z_ban1.png"></a></div>
+	</div>
+	<div class="dotModule_new">
+		<div id="slide_01_dot"></div>
+	</div>
+    	<div class="dotModule_new">
+		<div id="slide_01_dot"></div>
+	</div>
+ </div>
+ 
+ <!--定制设计+需求预约+预约量房（单选）-->
+	<ul class='z_OrderOpt'>
+		<li ><a href="/app/Customized" class='iline clear'> <div class='o _fl'></div><span class='_fl'>定制设计</span></a><div class='t _fr'></div></li>
+		<li><a href="/app/demand1" class='iline clear'> <div class='o _fl'></div><span class='_fl'>需求预约</span> </a><div class='t _fr'></div></li>
+		<li><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>预约量房</span></a> <div class='t _fr'></div></li>
+	</ul>
+	<div style='background-color:#f2f2f2;height:10px;width:100%;'></div>
+	<!--myOrder-->
+	<div id='myOrder' onclick="javascript:location.href='/app/order'">
+		<div class='tit'><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>我的预约</span></a> <div class='t _fr'></div></div>
+		<div class='state'>
+			<!--还没有提交需求-->
+			<div class="sBox o" >
+				<div class="o"><a class="iline"></a></div>
+				<div class="t">您还没有提交需求</div>
+			</div>
+			<!--需求提交-->
+			<div class="sBox t">
+				<div class="o"></div>
+				<div class="t">您的需求已提交，正在为您匹配设计师...</div>
+			</div>
+			<!--设计师匹配-->
+			<div class="sBox th">
+				<span class='iline'></span>
+				<div class="o"></div>
+				<div class="t">已为您匹配到设计师，方案制作中...</div>
+			</div>
+			<!--收到方案-->
+			<div class="sBox fo" style='display:block;'>
+				<span class='iline'></span>
+				<div class="o"></div>
+				<div class="t">方案制作完成，设计师等待预约... </div>
+			</div>
+			<!--预约成功-->
+			<div class="sBox fi clear">
+				<div class="o _fl iline"></div>
+				<div  class="t _fl iline">
+					<p>您成功预约设计师 <b>Angela</b></p> 
+					<p>预约时间为  <b>6月23日 下午</b></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="l_box">
+		 <h1>预约量房</h1>
+		 <img src="/HMobile/images/l_close.png"/>
+		 <p><input type="text" value="手机号码" /></p>
+		 <p><input type="text" value="验证码"  class="l_code"/><a href="javascript:;">获取验证</a></p>
+		 <a href="javascript:;" class="l_oBtn">立即预约</a>
+		 <h2>已有<span>889</span>人预约量房</h2>
+	</div>
+	<div id="fMask"></div>
 </body>
-</html>
-<script>
-    $(function () {
-        $("#btnsc").click(function () {
-            wx.chooseImage({
-                success: function (res) {
-                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-
-                    alert("===="+localIds.length);
-
-                    
-                    for (var i = 0; i < localIds.length; i++) {
-
-                        $("<img src='" + localIds[i] + "'/>").appendTo($("#img"));
-                    }
-
-
-                }
-            });
+<script type="text/javascript">
+    /*var w =document.documentElement.clientWidth;
+	var num = $('.mod_01').length;
+	var h = $(window).height();*/
+    function cc(){
+        var h = $(window).height();
+        var num = $('.mod_01').length;
+        var w =document.documentElement.clientWidth;
+        $('.dotModule_new').css('margin-left',-(5*num+2)+'px');
+        $('.scroll').css('width',w+'px');
+        $('.mod_01').css('width',w+'px');
+        $('.mod_01').css('height',(5/16)*w+'px');
+        $('.mod_01 img').css('width',w+'px');
+        //$('#myOrder .state .sBox.fi').css('margin-left',-0.45*w+'px');
+        var s_h=(5/16)*w;
+        var state=$('#myOrder .state');
+        state.css('height',h-(280+s_h)+'px');
+	
+        $('.z_OrderOpt li').eq(2).on('click',function(){
+            $('.l_box').css('display','block');
+            $('#fMask').css('display','block');
         });
-    });
+	
+    }
+    cc();
+    if(document.getElementById("slide_01")){
+        var w =document.documentElement.clientWidth;
+        var h = $(window).height();
+        var slide_01 = new ScrollPic();
+        slide_01.scrollContId   = "slide_01"; //内容容器ID
+        slide_01.dotListId      = "slide_01_dot";//点列表ID
+        slide_01.dotOnClassName = "selected";
+        slide_01.arrLeftId      = "sl_left"; //左箭头ID
+        slide_01.arrRightId     = "sl_right";//右箭头ID
+        slide_01.frameWidth     = w;
+        slide_01.pageWidth      = w;
+        slide_01.upright        = false;
+        slide_01.speed          = 10;
+        slide_01.space          = 30; 
+        slide_01.initialize(); //初始化
+	
+    }
+    window.onresize = function() {
+        cc();
+    }
+
+    //获取图片的宽高比
+    function AutoResizeImage(objImg, srcX) {
+        var img = new Image();
+        img.src = srcX;
+        // alert(img.src);
+        w1 = img.width;
+        h1 = img.height;
+        return w1 / h1;
+    }
 </script>
+
+
+<script type="text/javascript">
+    box();
+    window.onresize=function(){
+        box();
+    }
+    var oInput0=$('.l_box p input').eq(0);
+    var oInput1=$('.l_box p input').eq(1);
+    searchFn(oInput0);
+    searchFn(oInput1);
+    function box(){
+        var boxW = $('.l_box').width();
+        $('.l_box').css('margin-left',-boxW/2)
+        $('.l_box img').on('click',function(){
+            $('.l_box').hide();
+            $('#fMask').css('display','none');
+        })
+    }
+    function searchFn(obj) {
+        var val = obj.val();
+        obj.on('focus', function() {
+            if ($(this).val() == val) {
+                $(this).val('');
+            }
+        })
+        obj.on('blur', function() {
+            if ($(this).val() == '') {
+                $(this).val(val);
+            }
+        })
+    }
+			
+		</script>
+</html>

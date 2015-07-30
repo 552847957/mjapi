@@ -462,7 +462,13 @@ namespace MJAPI.Controllers
             if (name.IsEmpty() || phone.IsEmpty() || userid.IsEmpty() || code.IsEmpty())
             {
                 return "{\"success\":\"false\",\"msg\":\"参数有空值\"}"; ;
+
+
             }
+
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "sylog.txt", userid + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+
+
             return new BLL.UserRoom().MakeAppointment(name, phone, userid, code);
         }
 

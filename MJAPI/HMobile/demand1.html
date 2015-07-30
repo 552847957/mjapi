@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+    	<meta content="telephone=no" name="format-detection" />
+    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=no">
+    <title>设计师预约</title>
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/demand.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>	
+		<script type="text/javascript" src="js/pubFunc.js"></script>		
+		</head>
+		<body style='background:#ebedf0;overflow-y:hidden;height:100%;'>
+		<header>
+			<a class='o iline' href='index.html'></a> 
+			<div class='t iline clear ellipsis'>
+				选择功能房间
+			</div>
+		</header>
+		<!--需求四步共同标签-->
+		<div class="Dzcontent">
+			<p class='tit'>告诉设计师您家的功能房间，可便于更精确设计哦（多选）</p>
+			<div class="dz_tags clear">
+				<span class="iline bsizeb" style="margin-right: 5%;">客餐厅 <img src="img/z_sel.png" /> </span>
+				<span class="iline bsizeb" style="margin-right:5%;">主卧室 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:0px;">次卧室 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:5%;">老人房 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:5%;">子女房 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:0px;">客人房 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:5%;">书房 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:5%;">厨房 <img src="img/z_sel.png" /></span>
+				<span class="iline bsizeb" style="margin-right:0px;">卫生间 <img src="img/z_sel.png" /></span>
+			</div>
+			<textarea class="z_gra">特殊房间备注（可不填）</textarea>
+		</div>
+		<a class='dz_step iline' href='demand2.html'>
+				<p>下一步(1/4)<img src="img/z_next.png" alt="" /></p>
+			</a>
+	<div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
+	
+	   </body>
+	      <script>
+	   $(function(){
+	   	loaddz();
+	   })
+	   window.onresize=loaddz;
+	   
+	   function loaddz(){
+	   	var dz_tags=$('div.dz_tags span');
+	   	var dz_textArea=$('.Dzcontent textarea');
+	   	dz_tags.attr('flag2',0);
+	    dz_tags.on('click',function(){
+	    	if($(this).attr('flag2')==0 ){
+				$(this).addClass('active');
+				$(this).attr('flag2',1);
+			}else{
+				$(this).removeClass('active');
+				$(this).attr('flag2',0);
+			}
+	   	})
+	    searchFn(dz_textArea,'z_gra','z_grD');
+	    dBott($('.dBott'));
+	    dzStep($('.dz_step'));
+		}
+	   
+		</script>
+</html>

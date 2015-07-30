@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" id="viewport" content="width=device-width,height=device-height,target-densitydpi=medium-dpi,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title>设计师个人页</title>
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/css.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	
+	</head>
+
+	<body style='background:#f0f0f0;'>
+		<div class="zHea">
+			<!--<img src="img/zbg1.png" />-->
+			<ul class='headImg'>
+				<li>
+					<img src="img/headImg.png" />
+				</li>
+				<li>
+					<a class='iline gj'></a>
+				</li>
+				<li>Angela</li>
+			</ul>
+			<!--认证-->
+			<ul class='zAuthenti'>
+				<li class="fir">
+					<span class="o iline"></span>
+					<p>mj100认证</p>
+				</li>
+				<!--MJ100认证-->
+				<li class="sec">
+					<span class="o iline"></span>
+					<p>实名认证</p>
+				</li>
+				<!--实名认证-->
+				<li class="th">
+					<span class="o iline"></span>
+					<p>服务地区</p>
+					<p>北京市</p>
+				</li>
+				<li class="fo">
+					<span class="o iline"></span>
+					<p>10人预约</p>
+				</li>
+			</ul>
+		</div>
+		<!--作品案例+个人简介+能力评估-->
+		<div class="nav">
+			<ul class='clear zDTab'>
+				<li class="zDactive0 cur"><a class='iline'>作品案例</a>
+				</li>
+				<li><a class='iline'>个人简介</a>
+				</li>
+				<li><a class='iline'>能力评估</a>
+				</li>
+			</ul>
+			<div class="nav-line"></div>
+		</div>
+		<div class="zzUL clear" style='display:block;'>
+			<div class='case'>
+				<!--
+				<a class='iline' href="case.html">
+					<div class='wr'>
+					<p> <img src='' /></p>
+					</div>
+					<p>春去秋来的茂盛</p>
+				</a>
+				<a class='iline'>
+					<div class='wr'>
+					<p> <img src='' /></p>
+					</div>
+					<p>荒草丛生的青春</p>
+				</a>
+				<a class='iline'>
+					<div class='wr'>
+					<p> <img src='' /></p>
+					</div>
+					<p>荒草丛生的青春</p>
+				</a>
+				<a class='iline'>
+					<div class='wr'>
+					<p> <img src='' /></p>
+					</div>
+					<p>荒草丛生的青春</p>
+				</a>
+				<a class='iline'>
+					<div class='wr'>
+					<p> <img src='' /></p>
+					</div>
+					<p>荒草丛生的青春</p>
+				</a>-->
+			</div>
+		</div>
+		<div class="zzUL clear">
+			<ul class='zIntro1'>
+				<li><b>所属公司：</b>极客美家(www.mj100.com)</li>
+				<li>
+					<b>简介：</b>从事室内设计这一行业有近十几年了,所有设计服务全国。提供现场测量服务，施工指导与软装指导。另外提供分段与全程跟踪装修过程的服务。很荣幸能有机会为您设计。
+				</li>
+				<li><b>设计理念：</b>设计实用温馨而又时尚简约的家。</li>
+			</ul>
+		</div>
+
+		<div class="zzUL clear">
+			<ul class="zGrade">
+				<li class="same o">
+					<a class="iline"></a>
+					<p style='width:61.2%;'>9.0&nbsp;&nbsp;<i class="iline"></i>
+					</p> <span class="iline _fr"></span>
+				</li>
+
+				<li class="same t">
+					<a class="iline"></a>
+					<p style='width:47.6%;'>7.0&nbsp;&nbsp;<i class="iline"></i>
+					</p> <span class="iline _fr"></span>
+				</li>
+				<li class="same th">
+					<a class="iline"></a>
+					<p style='width:54.4%;'>8.0&nbsp;&nbsp;<i class="iline"></i>
+					</p> <span class="iline _fr"></span>
+				</li>
+				<li class="same fo">
+					<a class="iline"></a>
+					<p style='width:61.2%;'>9.0&nbsp;&nbsp;<i class="iline"></i>
+					</p> <span class="iline _fr"></span>
+				</li>
+				<!--6.8%为1分-->
+			</ul>
+		</div>
+
+		<div class='zzBo'>
+			<a class='iline' href="feedback.html">预约Ta</a>
+		</div>
+	</body>
+	<script>
+			$(function(){
+				loadD();
+			})
+			window.onresize=loadD;
+	//获取图片的宽高比	
+	function AutoResizeImage1(obj1) {
+		var w1 = obj1.width,
+		h1 = obj1.height,
+		w =document.documentElement.clientWidth,
+		w2=w1*(0.5*(w-30)/h1)-(0.5*(w-30));
+		h2=h1*(0.5*(w-30)/w1)-(0.5*(w-30));
+		var flag =w1/h1;
+		if(flag>1){	
+			obj1.style.cssText = "height:100%; width:auto;";
+			obj1.style.marginLeft=-w2/2+'px';
+		}else{
+			obj1.style.cssText = "width:100%; height:auto;";
+			obj1.style.marginTop=-h2/2+'px';
+		}
+	}
+			
+			function loadD(){
+			
+			//模拟图片缩小局部显示
+			var arr=[{"src":"img/b.png","tit":"密密麻麻"},{"src":"img/l_img.png","tit":"春去秋来的茂盛"},{"src":"img/l_img.png","tit":"密密麻麻"},
+			{"src":"img/l_img.png","tit":"春去秋来的茂盛"},{"src":"img/l_img.png","tit":"密密麻麻"},{"src":"img/l_img.png","tit":"春去秋来的茂盛"}]
+			var zCase=$('.zzUL .case'); /*div.wr p img*/
+			var str='';
+			for(var i=0;i<arr.length;i++){
+				str+='<a class="iline" href="case.html"><div class="wr">'+
+				'<p>'+
+				'<img onload="AutoResizeImage1(this)" src="'+arr[i].src+'" /></p></div><p>'+arr[i].tit+'</p></a>';
+//			}  /*活动的值要和外面的引号相同*/
+			zCase.html(str);		
+			
+			//下面这些要放在加载图片后面
+				var w =document.documentElement.clientWidth;
+				var zzUL=$('.zzUL');
+				var zzstar=$('.zDTab li a');
+				var zcasP=$('.zzUL .case a div p');
+				var zcasD=$('.zzUL .case a div');
+				var zNav=$('.nav');
+				zzUL.find('.case a').css('width',0.5*(w-30)+'px');
+				//案例中的图片高度==宽度
+				zcasP.css('height',0.5*(w-30)+'px');
+				zcasD.css('height',0.5*(w-30)+'px');	
+				zzstar.each(function(ind,ele){
+					$(ele).on('click',function(){
+						$('.zzUL').css('display','none');
+						$('.zzUL').eq(ind).show();
+					})				
+				})
+				navSlider();
+				window.onscroll = function() {
+				if ($(document).scrollTop()>= 205) {
+					console.log($(document).scrollTop());
+					zNav.css('position','fixed');	
+					zNav.css('top',0+'px');
+					$('.zzUL').eq(0).css('margin-top',50+'px');
+				} else {
+					zNav.css('position','relative');
+					$('.zzUL').eq(0).css('margin-top',0+'px');
+				}
+			}
+			}
+			//熔岩灯
+			function navSlider(){
+			var $nav = $('.nav'),
+			$cur = $('.nav li.cur a'),
+			$navLine = $('.nav-line'),
+			$anchor = $('a',$nav.children()),
+			curPosL = $cur.position().left,
+			curW = $cur.outerWidth(true),
+			curIdx = $('li.cur',$nav).index();
+			$navLine.css({'width':curW,'left':curPosL});
+			$anchor.each(function(index){
+				var posL = $(this).position().left,
+				w = $(this).outerWidth(true);
+				$(this).on('click',function(){
+					$navLine.animate({'width':w,'left':posL},250);
+					$(this).parent().addClass('cur').siblings().removeClass('cur');
+				});
+			});		
+			};
+			};
+		</script>
+</html>

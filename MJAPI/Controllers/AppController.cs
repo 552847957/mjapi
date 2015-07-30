@@ -9,7 +9,7 @@ namespace MJAPI.Controllers
 {
     public class AppController : Controller
     {
-        //
+
         // GET: /App/
 
         public ActionResult Index()
@@ -42,6 +42,61 @@ namespace MJAPI.Controllers
             return View();
         }
 
+
+
+
+        public ActionResult Demand1()
+        {
+
+            return View();
+        }
+
+
+
+        public ActionResult Demand2()
+        {
+
+            return View();
+        }
+
+
+
+        public ActionResult Demand3()
+        {
+
+            return View();
+        }
+
+
+        public ActionResult Demand4()
+        {
+
+            return View();
+        }
+
+
+
+        public ActionResult Customized()
+        {
+            return View();
+        }
+
+
+        public ActionResult L_mask()
+        {
+            return View();
+        }
+
+        public ActionResult Order()
+        {
+
+            return View();
+        }
+
+
+
+
+        #region 以前的
 
         public ActionResult StoreUser(string code)
         {
@@ -157,13 +212,13 @@ namespace MJAPI.Controllers
 
             JsApi.DemandShowRooms drs = JsApi.Businesslogic.GetDemandShowRooms(id);
             ViewBag.drs = drs;
-         
+
             JsApi.DesignerGrade desinger = JsApi.Businesslogic.GetDesingerGrade(drs.Extension9);
 
             ViewBag.desinger = desinger;
 
-           
-        
+
+
             //用户id
             return View();
         }
@@ -174,7 +229,7 @@ namespace MJAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult zDesigner(string id,string userid)
+        public ActionResult zDesigner(string id, string userid)
         {
             //设计师id
             //设计师作品
@@ -274,7 +329,7 @@ namespace MJAPI.Controllers
             }
 
             return "";
-          
+
         }
 
         /// <summary>
@@ -311,7 +366,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string In(JsApi.Ustage u)
         {
-            if (Session["u"]==null)
+            if (Session["u"] == null)
             {
                 u.serverId = Request["serverId"];
                 u.img_dp = Request["img_dp"];
@@ -326,15 +381,15 @@ namespace MJAPI.Controllers
                 u = Session["u"] as JsApi.Ustage;
                 u.serverId = Request["serverId"];
                 u.img_dp = Request["img_dp"];
-                if (Request["Description"]!=null)
+                if (Request["Description"] != null)
                 {
-                    u.Description=Request["Description"];
+                    u.Description = Request["Description"];
                 }
                 Session["u"] = u;
 
-                
+
             }
-           
+
 
             return "";
         }
@@ -346,5 +401,6 @@ namespace MJAPI.Controllers
 
             return u.Description;
         }
+        #endregion
     }
 }

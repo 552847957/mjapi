@@ -37,7 +37,7 @@ namespace System
         }
 
         /// <summary>
-        /// 安全的tostring方法，屏蔽为null的情况
+        /// 安全的tostring方法，屏蔽为null的情况 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>

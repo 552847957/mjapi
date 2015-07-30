@@ -1,0 +1,1582 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html class="expanded" lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/style_f97d27f.css">
+    <link rel="stylesheet" type="text/css" href="/css/style_506ec5b.css">
+</head>
+<body>
+    <div class="service-cont-item js-service-cont-item pb20 dn" style="display: block;">
+        <h3 class="lead-title"><span class="lead-cont lead-document">API列表</span></h3>
+        <dl id="js-interface-list" class="interface-list">
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    用户登录
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/login</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">loginname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">登录名</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">pwd</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">用户明文密码</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/login</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>{
+"errorcode": 0,
+"desingerid": "2",
+"name": "张天英",
+"email": "tiry@mj100.com",
+"phone": "15138214873",
+"headimg": "http://www.mj100.com/GEEKPRO/img/head/zty.jpg",
+"role": "0"  0表示设计师  1表示工长
+}
+
+    {
+"errorcode": 1,
+"msg": "有参数为空",
+"parms": "loginname:null,pwd:null"
+}
+
+
+
+{
+"errorcode": 2,
+"msg": "用户名或密码错误"
+}</pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    获取设计师项目
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/getprojects</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/getprojects?desingerid=2</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> [
+{
+"projectid": "4120",       项目id
+"projectname": "王婧",     项目名
+"begintime": "2015-07-20", 项目开始时间
+"needdays": "60"           项目需要完成需要天数
+},
+{
+"projectid": "4035",
+"projectname": "13261539177",
+"begintime": "2015-07-21",
+"needdays": "60"
+}
+]
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    设计师列表/工长列表
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/DesignerSearch</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">searchvalue</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">搜索条件</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/DesignerSearch</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+                             {
+"desingers": [    设计师数组
+{
+"desingerid": "288",  设计师唯一标识
+"name": "王欢"        设计师姓名
+}
+],
+"foremans": []   工长数组
+}
+          
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    设计师今天要做的事
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/GetTodaythings</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/GetTodaythings?desingerid=2</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+                             [
+
+{
+"projectid": "3374",           项目id
+"projectname": "王 毅",        项目名
+"projectbegintime": "2015-06-09",
+"projectstage": [
+{
+"stagename": "漆作",          阶段 
+"items": [
+{
+"name": "智能家居安装面板 ",  小项
+"time": "2015-07-29"
+},
+{
+"name": "新风安装面板 ",
+"time": "2015-07-29"
+},
+{
+"name": "中央空调安装面板 ",
+"time": "2015-07-29"
+},
+{
+"name": "地暖安装面板 ",
+"time": "2015-07-29"
+},
+{
+"name": "地板强化地板安装 ",
+"time": "2015-07-29"
+},
+{
+"name": "暖气安装 ",
+"time": "2015-07-29"
+}
+]
+}
+]
+}]
+           
+          
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    设计师未来七天要做的事
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture?desingerid=2</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+                            
+ [
+
+{
+"projectid": "3209",
+"projectname": "tiry测试",
+"projectbegintime": "2015-06-05",
+"projectstage": [
+{
+"stagename": "整体安装",       阶段
+"items": [                     各个小项
+{
+"name": "项目经理 ",
+"time": "2015-07-29"              时间
+},
+{
+"name": "业主 ",
+"time": "2015-07-29"
+},
+{
+"name": "建材 ",
+"time": "2015-07-29"
+},
+{
+"name": "微信推送 ",
+"time": "2015-07-29"
+},
+{
+"name": "项目经理 ",
+"time": "2015-08-01"             时间
+},
+{
+"name": "微信推送 ",
+"time": "2015-08-01"
+},
+{
+"name": "门安装 ",
+"time": "2015-08-01"
+},
+{
+"name": "橱柜定制家具安装 ",
+"time": "2015-08-01"
+},
+{
+"name": "项目经理 ",
+"time": "2015-08-04"
+},
+{
+"name": "微信推送 ",
+"time": "2015-08-04"
+},
+{
+"name": "地板实木地板安装 ",
+"time": "2015-08-04"
+}
+]
+}
+]
+}
+]
+          
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    添加项目
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/AddProject</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @*   //desingerid=0&name=大鹏&phone=15133333333&housetype=15136134321&area=200&jcprice=10&sgprice=10&address=15136134321&begintime=2015-9-17
+            //Timelimit = "88";*@
+                                <tr>
+                                    <td class="td-1">desingerid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">name  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">客户姓名</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">phone  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">客户手机</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">housetype  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">房屋户型  如 三室一厅</td>
+                                </tr>
+                                  <tr>
+                                    <td class="td-1">area  </td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">房屋面积 </td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">jcprice  </td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">建材总价 </td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">sgprice  </td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">施工总价 </td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">address  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">房屋地址 </td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">begintime  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">开始时间 </td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">Timelimit  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">预计工期/施工总共需要的天数 </td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">relative  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">相关人员  设计师id以逗号拼接  如 2,10,3 </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/AddProject?desingerid=0&name=%E5%A4%A7%E9%B9%8F&phone=15133333333&housetype=15136134321&area=200&jcprice=10&sgprice=10&address=15136134321&begintime=2015-9-17</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+                            
+  {
+"errorcode": 1,
+"msg": "有参数为空",
+"parms": "name:大鹏,phone:15133333333,housetype:15136134321,area:200,jcprice:10,sgprice:10,address:15136134321,begintime:2015-9-17,Timelimit:null"
+}
+          
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    项目详情
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/LoadProject</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                         
+                                 <tr>
+                                    <td class="td-1">projectid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识/项目id </td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/LoadProject?projectid=2975</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+                            
+
+{
+"jd": [
+{
+"name": "装前准备",
+"beiginday": "1",
+"endday": "10"
+},
+{
+"name": "水电改造",
+"beiginday": "11",
+"endday": "19"
+},
+{
+"name": "泥作",
+"beiginday": "19",
+"endday": "29"
+},
+{
+"name": "木作",
+"beiginday": "19",
+"endday": "29"
+},
+{
+"name": "漆作",
+"beiginday": "29",
+"endday": "39"
+},
+{
+"name": "整体安装",
+"beiginday": "1",
+"endday": "1"
+}
+],
+"xm": [
+{
+"name": "铝扣板",
+"items": [
+{
+"name": "铝扣板安装 ",
+"days": "42"
+}
+]
+},
+{
+"name": "灯具五金开关",
+"items": [
+{
+"name": "灯具五金安装 ",
+"days": "45"
+}
+]
+},
+{
+"name": "橱柜定制家具",
+"items": [
+{
+"name": "进场确认水电位 ",
+"days": "11"
+},
+{
+"name": "测量 ",
+"days": "29"
+}
+]
+},
+{
+"name": "瓷砖",
+"items": [
+{
+"name": "瓷砖进场 ",
+"days": "16"
+}
+]
+},
+{
+"name": "门",
+"items": [
+{
+"name": "测量 ",
+"days": "29"
+}
+]
+},
+{
+"name": "石材",
+"items": [
+{
+"name": "过门石测量 ",
+"days": "24"
+},
+{
+"name": "过门石安装 ",
+"days": "29"
+},
+{
+"name": "窗台板安装 ",
+"days": "40"
+}
+]
+},
+{
+"name": "断桥铝窗",
+"items": [
+{
+"name": "窗户测量 ",
+"days": "1"
+},
+{
+"name": "窗户安装 ",
+"days": "20"
+}
+]
+},
+{
+"name": "防盗门",
+"items": [
+{
+"name": "测量 ",
+"days": "1"
+},
+{
+"name": "防盗门安装 ",
+"days": "20"
+}
+]
+},
+{
+"name": "暖气",
+"items": [
+{
+"name": "拆除 ",
+"days": "1"
+}
+]
+},
+{
+"name": "壁纸",
+"items": [
+{
+"name": "壁纸安装 ",
+"days": "38"
+}
+]
+},
+{
+"name": "地板",
+"items": [
+{
+"name": "强化地板安装 ",
+"days": "40"
+}
+]
+},
+{
+"name": "洁具",
+"items": [
+{
+"name": "洁具安装 ",
+"days": "44"
+}
+]
+},
+{
+"name": "地暖",
+"items": [
+{
+"name": "进场确定方案 ",
+"days": "1"
+},
+{
+"name": "进场确认水电位 ",
+"days": "11"
+},
+{
+"name": "进场安装 ",
+"days": "18"
+}
+]
+},
+{
+"name": "中央空调",
+"items": [
+{
+"name": "进场确定方案 ",
+"days": "1"
+},
+{
+"name": "进场确认水电位 ",
+"days": "11"
+},
+{
+"name": "进场安装主机 ",
+"days": "18"
+}
+]
+},
+{
+"name": "新风",
+"items": [
+{
+"name": "进场确定方案 ",
+"days": "1"
+},
+{
+"name": "进场确认水电位 ",
+"days": "11"
+},
+{
+"name": "进场安装 ",
+"days": "18"
+}
+]
+},
+{
+"name": "智能家居",
+"items": [
+{
+"name": "进场确定方案 ",
+"days": "1"
+},
+{
+"name": "进场确认水电位 ",
+"days": "11"
+},
+{
+"name": "进场安装主机 ",
+"days": "18"
+}
+]
+}
+],
+"ry": [
+{
+"name": "收款日期",
+"items": [
+{
+"name": "项目首期款 ",
+"days": "1"
+},
+{
+"name": "项目中期款 ",
+"days": "29"
+}
+]
+},
+{
+"name": "微信推送",
+"items": [
+{
+"name": " ",
+"days": "1"
+},
+{
+"name": " ",
+"days": "4"
+},
+{
+"name": " ",
+"days": "7"
+},
+{
+"name": " ",
+"days": "10"
+},
+{
+"name": " ",
+"days": "13"
+},
+{
+"name": " ",
+"days": "16"
+},
+{
+"name": " ",
+"days": "19"
+},
+{
+"name": " ",
+"days": "22"
+},
+{
+"name": " ",
+"days": "25"
+},
+{
+"name": " ",
+"days": "28"
+},
+{
+"name": " ",
+"days": "31"
+},
+{
+"name": " ",
+"days": "34"
+},
+{
+"name": " ",
+"days": "37"
+},
+{
+"name": " ",
+"days": "40"
+},
+{
+"name": " ",
+"days": "43"
+}
+]
+},
+{
+"name": "建材",
+"items": [
+{
+"name": " ",
+"days": "19"
+},
+{
+"name": " ",
+"days": "28"
+},
+{
+"name": " ",
+"days": "38"
+},
+{
+"name": " ",
+"days": "45"
+}
+]
+},
+{
+"name": "业主",
+"items": [
+{
+"name": " ",
+"days": "19"
+},
+{
+"name": " ",
+"days": "28"
+},
+{
+"name": " ",
+"days": "38"
+},
+{
+"name": " ",
+"days": "45"
+}
+]
+},
+{
+"name": "设计师",
+"items": [
+{
+"name": "进场交底 ",
+"days": "1"
+},
+{
+"name": "节点验收 ",
+"days": "10"
+},
+{
+"name": "节点验收 ",
+"days": "19"
+},
+{
+"name": "节点验收 ",
+"days": "29"
+},
+{
+"name": "节点验收 ",
+"days": "39"
+}
+]
+},
+{
+"name": "小美管家",
+"items": [
+{
+"name": "阶段验收拍照 ",
+"days": "1"
+},
+{
+"name": "节点验收 ",
+"days": "10"
+},
+{
+"name": "节点验收 ",
+"days": "19"
+},
+{
+"name": "节点验收 ",
+"days": "29"
+},
+{
+"name": "节点验收 ",
+"days": "39"
+}
+]
+},
+{
+"name": "项目经理",
+"items": [
+{
+"name": "项目进度拍照 ",
+"days": "1"
+},
+{
+"name": " ",
+"days": "4"
+},
+{
+"name": " ",
+"days": "7"
+},
+{
+"name": " ",
+"days": "10"
+},
+{
+"name": " ",
+"days": "13"
+},
+{
+"name": " ",
+"days": "16"
+},
+{
+"name": " ",
+"days": "19"
+},
+{
+"name": " ",
+"days": "22"
+},
+{
+"name": " ",
+"days": "25"
+},
+{
+"name": " ",
+"days": "28"
+},
+{
+"name": " ",
+"days": "31"
+},
+{
+"name": " ",
+"days": "34"
+},
+{
+"name": " ",
+"days": "37"
+},
+{
+"name": " ",
+"days": "40"
+},
+{
+"name": " ",
+"days": "43"
+}
+]
+}
+]
+}
+          
+           </pre>
+                    </div>
+                </div>
+            </dt>
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    获取项目进度
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/GetProjectSchedule</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识/项目id</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/GetProjectSchedule?projectid=4120</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  
+
+                            [
+{
+"jd": "装前准备,整体安装,",
+"pic": [
+"http://www.mj100.com/SGDaily/UploadFile/500/201507/301401182737020118.jpg"
+],
+"time": "2015-07-20",
+"dayindex": "1"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-21",
+"dayindex": "2"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-22",
+"dayindex": "3"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-23",
+"dayindex": "4"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-24",
+"dayindex": "5"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-25",
+"dayindex": "6"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-26",
+"dayindex": "7"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-27",
+"dayindex": "8"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-28",
+"dayindex": "9"
+},
+{
+"jd": "装前准备,整体安装,",
+"pic": [],
+"time": "2015-07-29",
+"dayindex": "10"
+},
+{
+"jd": "装前准备,整体安装,水电改造,",
+"pic": [],
+"time": "2015-07-30",
+"dayindex": "11"
+},
+{
+"jd": "整体安装,水电改造,",
+"pic": [],
+"time": "2015-07-31",
+"dayindex": "12"
+},
+{
+"jd": "整体安装,水电改造,",
+"pic": [],
+"time": "2015-08-01",
+"dayindex": "13"
+},
+{
+"jd": "整体安装,水电改造,",
+"pic": [],
+"time": "2015-08-02",
+"dayindex": "14"
+},
+{
+"jd": "整体安装,水电改造,",
+"pic": [],
+"time": "2015-08-03",
+"dayindex": "15"
+},
+{
+"jd": "整体安装,水电改造,",
+"pic": [],
+"time": "2015-08-04",
+"dayindex": "16"
+},
+{
+"jd": "水电改造,",
+"pic": [],
+"time": "2015-08-05",
+"dayindex": "17"
+},
+{
+"jd": "水电改造,",
+"pic": [],
+"time": "2015-08-06",
+"dayindex": "18"
+},
+{
+"jd": "水电改造,泥作,",
+"pic": [],
+"time": "2015-08-07",
+"dayindex": "19"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-08",
+"dayindex": "20"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-09",
+"dayindex": "21"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-10",
+"dayindex": "22"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-11",
+"dayindex": "23"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-12",
+"dayindex": "24"
+},
+{
+"jd": "泥作,木作,",
+"pic": [],
+"time": "2015-08-13",
+"dayindex": "25"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-14",
+"dayindex": "26"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-15",
+"dayindex": "27"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-16",
+"dayindex": "28"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-17",
+"dayindex": "29"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-18",
+"dayindex": "30"
+},
+{
+"jd": "泥作,",
+"pic": [],
+"time": "2015-08-19",
+"dayindex": "31"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-08-20",
+"dayindex": "32"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-21",
+"dayindex": "33"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-22",
+"dayindex": "34"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-23",
+"dayindex": "35"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-24",
+"dayindex": "36"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-25",
+"dayindex": "37"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-26",
+"dayindex": "38"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-27",
+"dayindex": "39"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-28",
+"dayindex": "40"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-29",
+"dayindex": "41"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-30",
+"dayindex": "42"
+},
+{
+"jd": "漆作,",
+"pic": [],
+"time": "2015-08-31",
+"dayindex": "43"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-01",
+"dayindex": "44"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-02",
+"dayindex": "45"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-03",
+"dayindex": "46"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-04",
+"dayindex": "47"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-05",
+"dayindex": "48"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-06",
+"dayindex": "49"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-07",
+"dayindex": "50"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-08",
+"dayindex": "51"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-09",
+"dayindex": "52"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-10",
+"dayindex": "53"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-11",
+"dayindex": "54"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-12",
+"dayindex": "55"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-13",
+"dayindex": "56"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-14",
+"dayindex": "57"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-15",
+"dayindex": "58"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-16",
+"dayindex": "59"
+},
+{
+"jd": "",
+"pic": [],
+"time": "2015-09-17",
+"dayindex": "60"
+}
+]
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    上传项目进度图
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/UploadScheduleImg</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识/项目id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">dayindex</td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">施工的第几天</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">图片</td>
+                                    <td class="td-2">文件类型</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">上传的一张图片</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/UploadScheduleImg</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    添加修改记录
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/AddModifyRecord</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @*  string desingername, string con, string Reason, string projectid, string Delaydays*@
+                                <tr>
+                                    <td class="td-1">desingername</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师的姓名/name</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">con</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">修改的详细内容  比如  项目下面将铝扣板安装     第47天调整为第57天</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">Reason</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">修改的原因</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识/项目id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">Delaydays</td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">修改导致项目延期天数    必须是整数  提前为负  推迟为正 如提前三天 -3   推迟一天 1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/AddModifyRecord</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  {
+"errorcode": 0,
+"msg": "添加修改记录成功"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+        </dl>
+
+    </div>
+</body>
+</html>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
+    $(function () {
+        $(".interface-name").toggle(function () {
+            $(".js-interface-list").hide();
+            $(this).next("div").show();
+
+        }, function () {
+
+            $(this).next("div").hide();
+        });
+
+    });
+</script>
+
+

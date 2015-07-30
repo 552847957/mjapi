@@ -1,0 +1,29 @@
+/* reset.css */
+body,p,h1,h2,h3,h4,h5,h6,dl,dd,ol,ul,form,input,span,textarea,select,blockquote,i{margin:0;font-size:12px; 
+font-family:Arial,Tahoma,"微软雅黑","Hiragino Sans GB W3"}/*Hiragino Sans GB W3:冬青黑*/
+ul,ol,input,textarea,td,th{padding:0;}
+input,button,textarea，select{outline:0;}
+li{list-style:none;}
+b,em{ font-weight:normal;}
+i,strong{ font-style:normal;}
+table{border-collapse:collapse;}
+a{text-decoration: none;color: black;text-align: center;margin:0px;padding:0px;}
+img{border:none; vertical-align:top;}
+textarea{overflow:auto;resize:none;outline:none;}
+.clear:after{content:'';display:block; clear:both;}
+.clear{zoom:1;}
+.cur_hover:hover{cursor:pointer;}
+.cur_zoom:hover{cursor:pointer;cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in;}
+.iline{display:inline-block;*display:inline;*zoom:1;}
+.bsizec{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}/*border和padding不计算入width之内(default)---大*/
+.bsizep{-webkit-box-sizing:padding-box;-moz-box-sizing:padding-box;box-sizing:padding-box;}/*padding计算入width内*/
+.bsizeb{-moz-box-sizing:border-box;-webkit-box-sizing:content-box;box-sizing:border-box;}/*border和padding计算入width之内*/
+.ellipsis{text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+::-moz-selection{background:#5d9cec; color:#FFFFFF;} 
+::selection {background:#5d9cec; color:#fff;} 
+._fl{float:left;}
+._fr{float:right;}
+#fMask{position:fixed;top:0px;left:0px;width:100%;height:100%;
+background:#000;filter:alpha(opacity=30);-moz-opacity:0.3;-khtml-opacity:0.3;opacity:0.3;
+z-index:10;display:none;}
+/* end reset.css */

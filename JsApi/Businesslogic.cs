@@ -95,7 +95,7 @@ delete from [DemandShowRooms]  where DemandShowroomId=@DemandShowroomId   --åˆ é
             new SqlParameter("@extension1",Description)
         
             };
-            SqlHelper.ExecuteNonQuery(sql, arr);
+            int n=  SqlHelper.ExecuteNonQuery(sql, arr);
             #endregion
 
 

@@ -43,6 +43,7 @@
     <Compile Include="OrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryOrder.cs" />
+    <Compile Include="RedPacket.cs" />
     <Compile Include="TenpayUtil.cs" />
     <Compile Include="UnifiedOrder.cs" />
     <Compile Include="WeChartConfigItem.cs" />

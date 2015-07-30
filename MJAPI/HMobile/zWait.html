@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+    	<meta content="telephone=no" name="format-detection" />
+    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    	<title>等待设计师接单</title>
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/css.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<style>
+			body,html{width:100%;height:100%;overflow-y:hidden;overflow:hidden;}
+		</style>
+	</head>
+		<body style='background:#1e91c1;'>
+			<div class='z_Wtit'>
+				<p>您的需求提交成功</p>
+				<p>正在为您匹配方案设计师哦！</p>
+			</div>
+			<div class='z_Ripple'>
+				<div>
+				<img src="img/zcir2.png" class="active0" />
+				<img src="img/zcir2.png" class="active1" />
+				<img src="img/zcir2.png" class="active2" />
+				</div>
+				<img src="img/l_img.png" class="fo" />
+			</div>
+			<div class="z_wait2">
+				<p>请耐心等待接单设计师为您发送设计方案</p>
+				<a class="iline" href='index.html'>好的</a>
+			</div>
+		</body>
+		<script>
+		$(function(){
+		   loadW();
+		  })
+		window.onresize=loadW;
+		function loadW(){
+		var browser = {
+		versions: function () {
+		var u = navigator.userAgent, app = navigator.appVersion;
+		return { //移动终端浏览器版本信息 
+		ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 
+		android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器 
+		iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器 
+		iPad: u.indexOf('iPad') > -1, //是否iPad 
+		};
+		}(),
+	}
+	
+	if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+			var h=document.documentElement.clientHeight-65;
+			$('body').css('height',h+'px');
+			//alert($('body').height());
+			//window.location.href = "http://127.0.0.1:8020/HMobile/index.html";
+			//$('.z_wait2').css('bottom',65+'px');
+	}
+	if (browser.versions.android) {
+		var h=window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+	}
+	
+	var w=window.innerWidth	|| document.documentElement.clientWidth	|| document.body.clientWidth;
+	var i=2;
+				z_Ro=$('.z_Ripple div img');
+				z_Ro.css('margin-left',-0.6*w+'px');
+				z_Ro.css('margin-top',-0.1*w+'px');
+				$('.z_Ripple div').css('height',w+'px');				
+	}
+	</script>	
+</html>
