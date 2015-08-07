@@ -1,5 +1,18 @@
 ﻿@{
     Layout = null;
+    JsApi.DemandShowRooms drs = JsApi.Businesslogic.GetDemandShowRooms(ViewBag.userid as string);
+    DateTime ctime = Convert.ToDateTime(drs.CreateTime);
+    if (drs.CreateTime.ToSafeString().Length==0)
+    {
+        ctime = DateTime.Now.AddHours(-1);
+    }
+    bool flag1 = System.Text.RegularExpressions.Regex.IsMatch(drs.ProductId.ToSafeString(), @"^[\d\.]+$");
+    bool flad2 = System.Text.RegularExpressions.Regex.IsMatch(drs.ProjectId.ToSafeString(), @"^[\d\.]+$");
+    JsApi.Tentent t = JsApi.Businesslogic.GetTentent(ViewBag.userid as string);
+
+    JsApi.DesignerGrade desinger = JsApi.Businesslogic.GetDesingerGrade(drs.Extension15);
+
+    string url = "http://www.mj100.com/userDiy/" + Commen.DEncrypt.MD5("wbwb" + drs.UserId, true) + ".html?img=" + Server.UrlDecode(desinger.Extension3);
 }
 
 
@@ -19,54 +32,265 @@
 		<script type="text/javascript" src="/HMobile/js/order.js"></script>
 		</head>
 		<body>
-		<section>
+            <div id="fMask" style="display: none;"></div>
+		<section>			 
+			<section>
 			<ul>
 				<li class="l_demand"><b class="l_bActive"></b>
-					<h1>6月16日<em>9:50</em><strong>提交需求</strong></h1>
+					<h1>@(ctime.Month)月@(ctime.Day)日<em>@(ctime.Hour):@(ctime.Minute)</em><strong>提交需求</strong></h1>
 					<h2 style="display: none;">您还没有提交任何需求，快去试试吧。</h2>
 					<div class="l_process">
 						<div class="l_pic">
-						    <p><img src="/HMobile/images/eg.png"/></p>
+						    <p><img src="@(drs.Extension5.ToSafeString().Contains("http")?drs.Extension5:"/HMobile/images/eg.png")"/></p> 
 						</div>
 						<div class="l_other" style="display: none;">
 						    <h3>客餐厅、主卧室、老人房、厨房、卫生间</h3>
 						    <h3>89㎡<span>无印风主题</span>预算8～10万</h3>
 						</div>
-						<h3>北京朝阳区华龙美树小区<strong>18810616693</strong></h3>
+						<h3>@drs.Extension2<strong>@ViewBag.phone</strong></h3>
 					</div>
 				</li>
-				<li class="l_designer"><b class="l_bActive"></b>
-					<h1>6月16日<em>10:05</em><strong>为您匹配到设计师</strong></h1>
+
+
+
+
+                @if (drs.Extension15.ToSafeString().Length == 0)
+                {
+                    <li class="l_designer"><b></b>
+					<h1>--月--日<em>--:--</em><strong>匹配设计师</strong></h1>
+					<h2 style="display: table-cell;">您的需求已提交<br>正在匹配适合您的设计师哦。</h2>
+							<div class="l_process" style="display:none">
+						<dl>
+						    <dt><a href="http://mobile.mj100.com/app/zDesigner/@desinger.ID?userid=@drs.UserId"><img src="http://www.mj100.com/GEEKPRO/img/head/@desinger.Extension3"/></a><i></i></dt>
+						    <dd class="l_dd1">@desinger.DID</dd>
+						    <dd><h3>@desinger.MPhone</h3></dd>
+					    </dl>
+					    <a href="tel:@desinger.MPhone" class="l_tel">联系</a>
+					</div>	
+				    </li>
+                }
+                else {                 
+                    <li class="l_designer"><b class="l_bActive"></b>
+					<h1>@(ctime.Month)月@(ctime.Day)日<em>@(ctime.Hour):@(ctime.Minute)</em><strong>为您匹配到设计师</strong></h1>
 					<h2 style="display: none;">您的需求已提交<br>正在匹配适合您的设计师哦。</h2>
 					<div class="l_process">
 						<dl>
-						    <dt><img src="/HMobile/img/l_designer.png"/><i></i></dt>
-						    <dd class="l_dd1">Angela</dd>
-						    <dd><h3>18810616693</h3></dd>
+						    <dt><a href="http://mobile.mj100.com/app/zDesigner/@desinger.ID?userid=@drs.UserId"><img src="http://www.mj100.com/GEEKPRO/img/head/@desinger.Extension3"/></a><i></i></dt>
+						    <dd class="l_dd1">@desinger.DID</dd>
+						    <dd><h3>@desinger.MPhone</h3></dd>
 					    </dl>
-					    <a href="tel:18522358542" class="l_tel">联系</a>
+					    <a href="tel:@desinger.MPhone" class="l_tel">联系</a>
 					</div>				
 				</li>
-				<li class="l_project"><b class="l_bActive"></b>
+                
+                }
+
+				
+
+
+
+
+                @if (drs.ProductId.ToSafeString().Length==0)
+                {
+                   <li class="l_project"><b ></b>
+                       
 					<h1>--月--日<em>--:--</em><strong>方案</strong></h1>
-					<h2 style="display: none;">稍等一下吧<br>设计师正在为您精心制作方案...</h2>
+					<h2 style="display: table-cell;">稍等一下<br>设计师正在为您精心制作方案...</h2>
+					 
+				   </li>
+                }
+                else { 
+                <li class="l_project"><b class="l_bActive"></b>
+					<h1>@(ctime.Month)月@(ctime.Day)日<em>@(ctime.Hour):@(ctime.Minute)</em><strong>方案</strong></h1>
+					
 					<div class="l_process">
-						<h3>两室一厅一厨一卫</h3>
-						<h3>装修总价86300元</h3>
+						<h3>@drs.Extension2</h3>
+						<h3>装修总价@((flag1&flad2)?(Convert.ToDouble(drs.ProjectId)+Convert.ToDouble(drs.ProjectId)).ToString()+"元":"暂未计算")</h3>
 						<h3>包含方案效果图12张</h3>
-						<a href="tel:18522358542" class="l_detail">详情</a>
+						<a href="@url" class="l_detail">详情</a>
 					</div>
+
 				</li>
-				<li class="l_order"><b class="l_bActive"></b>
+                
+                }
+
+
+				
+               
+
+                @if (t.TententId==0)
+                {
+                     <li class="l_order"><b></b>
 					<h1>--月--日<em>--:--</em><strong>预约</strong></h1>
+					<h2 style="display: table-cell;">对方案满意的话<br>就和设计师约个时间吧...</h2>
+					
+				</li>
+                }else{
+                    DateTime tt = Convert.ToDateTime(t.CreateTime);
+
+                    
+                    
+				<li class="l_order"><b class="l_bActive"></b>
+					<h1>@(tt.Month)月@(tt.Day)日<em>@(tt.Hour):@(tt.Minute)</em><strong>预约</strong></h1>
 					<h2 style="display: none;">对方案满意的话<br>就和设计师约个时间吧...</h2>
-					<div class="l_process">
-						<h3>成功预约设计师 Angela</h3>
-						<h3>预约时间为 6月23日 下午</h3>
+					<div class="l_process" style="display:block">
+						<h3>成功预约设计师 @desinger.DID</h3>
+						<h3>预约时间为 @(t.Extension3.ToSafeString().Length==0?(DateTime.Now.AddDays(1).ToString("yy-MM-dd")+"下午"):t.Extension3)</h3>
+
+                        <a  class="l_detail l_modi">修改</a>
 					</div>
 				</li>
+                    
+                }
+
+
 			</ul>
-			<a href="/app/index" class="l_ok">好的</a>
+						<div class="l_dbBtn">
+			    <a  id="btncancle" class="l_ok">取消预约</a>
+			    <p></p>
+			    <a href="tel:4001023100" class="l_ok">&nbsp;&nbsp;客服&nbsp;&nbsp;</a>
+			</div>
+
 		</section>
+		</section>
+
+
+
+
+            <ul class="z_FBox z_edit" style="position:absolute;left:50%;margin-left:-45%; margin-top: -137px;">
+	   	<li class="one">修改预约时间 <img src="/HMobile/img/z_clo1.png" class="editClo"></li>
+	   	<li class='two'>
+	   		<ul class="zLine7 clear">
+			<li class="o _fl">
+                @if (desinger.DID.ToSafeString().Length == 0)
+                {
+                      <img src="http://www.mj100.com/GEEKPRO/img/head/zty.jpg"/>
+                }
+                else
+                { 
+                
+             
+               
+                   <img src="http://www.mj100.com/GEEKPRO/img/head/@desinger.Extension3"/>
+               
+                
+                }
+               
+				
+			</li>
+			<li class="t _fl">
+				<p>设计师：@(desinger.DID.ToSafeString().Length == 0 ? "tiry" : desinger.DID)</p>
+				<p>电话：@(desinger.MPhone.ToSafeString().Length == 0 ? "13426064537" : desinger.MPhone)</p>
+			</li>			
+			</ul>
+			
+			<ul class="zLine7a clear">
+			<li>时间</li>
+			<li>
+				<input type="text" id="month">月</li>
+			<li>
+				<input type="text" id="day">日</li>
+			<li>
+				<div class="iline z_sel cur_hover">
+					<div class="zSel iline"><a class="uF" id="jkl">上午</a>
+						<img src="/HMobile/images/zD1.png" class="cur_hover">
+					</div>
+					<div class="z_unit">
+						<div>上午</div>
+						<div>下午</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	   	</li>
+	   	<li class='thr'>
+	   		<a class="iline" id="btnsure">确定预约</a>
+	   	</li>
+	   </ul>
 		</body>
 </html>
+<script>
+    $(function () {
+        var s = false;
+
+        if ($("b").eq(3).hasClass("l_bActive")) {
+            $("b").each(function (i, ele) {
+
+                if (!$(ele).hasClass("l_bActive")) {
+
+                    
+
+                    $(ele).parent().hide();
+                }
+
+            });
+        }
+        else {
+
+      
+
+        $("b").each(function (i,ele) {
+
+            if (!$(ele).hasClass("l_bActive")) {
+
+                if (!s) {
+                    s = $(ele);
+                   
+                }
+               
+                $(ele).parent().hide();
+            }
+
+        });
+        s.parent().show();
+        }
+    });
+
+    $(function () {
+
+        $("#btncancle").click(function () {
+
+
+            $.MsgBox.Confirm("消息", "确定取消预约？", function () {
+
+
+                $.post("/app/DeleteYY", { userid: '@ViewBag.userid' }, function (d) {
+                  
+                    location.href = "/app/index";
+                });
+              
+
+            });
+
+        });
+
+       // string userid,string time
+
+        $("#btnsure").click(function () {
+
+            var m = $("#month").val();
+
+            var d = $("#day").val();
+
+
+            if (parseInt(m) < 8 || parseInt(m)>12) {
+                $.MsgBox.Alert("消息", "请输入正确的日期格式？");
+                return false;
+            }
+            if (parseInt(d) < 1 || parseInt(d)>31) {
+                $.MsgBox.Alert("消息", "请输入正确的日期格式？");
+                return false;
+            }
+
+            var time = $("#month").val()+"月"+$("#day").val()+"日"+$("#jkl").html();
+
+
+            $.post("/app/UpdateYYtime", { userid: "@ViewBag.userid", time: time }, function (d) {
+                 
+                location.reload();
+
+            });
+
+        });;
+    });
+</script>

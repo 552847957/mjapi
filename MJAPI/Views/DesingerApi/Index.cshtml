@@ -1432,7 +1432,7 @@
 
 
 
- <dt class="interface-item">
+           <dt class="interface-item">
                 <h4 class="interface-name js-name">
                     <i class="caret caret-down" caret-b-000=""></i>
                     上传项目进度图
@@ -1559,6 +1559,469 @@
                 </div>
             </dt>
 
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   得到事情数量
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/getnumber</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              
+                                 <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/getnumber</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  {
+"errcode": 0,
+"number1": 5,  今天
+"number2": 12, 未来七天
+"desingerid": "123"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   得到新消息列表
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/getnewslist</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              
+                                 <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id<td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/getnewslist?desingerid=12</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  {
+"errorcode": 0,
+"data": [
+{
+"newsid": "12",
+"name": "Don",
+"projectname": "测试项目",
+"time": "2015-08-06"
+},
+{
+"newsid": "13",
+"name": "赵孟頫",
+"projectname": "富春山居图",
+"time": "2015-08-05"
+}
+]
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   得到新消息详情
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/GetNewsDetail</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              
+                                 <tr>
+                                    <td class="td-1">newsid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">消息唯一标识/消息</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/GetNewsDetail?newsid=100</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  {
+"errorcode": 0,
+"name": "刘伯温",
+"modification": "项目->测试阶段",
+"delaydays": "2",
+"reason": "根本没有的事，非说它有，那就没办法喽！",
+"projectid": "4246"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   得到修改记录列表
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/GetChangeRecords</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识/项目id</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/GetChangeRecords?projectid=100</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>  {
+"errorcode": 0,
+"data": [
+{
+"name": "刘伯温",
+"modification": "项目->测试阶段",
+"delaydays": "2",
+"reason": "根本没有的事，非说它有，那就没办法喽！",
+"projectid": "100",
+"time": "2015-08-04"
+},
+{
+"name": "胡惟庸",
+"modification": "项目->公测阶段",
+"delaydays": "1",
+"reason": "闭包的特性让好些人郁闷！",
+"projectid": "100",
+"time": "2015-08-05"
+},
+{
+"name": "张伯露",
+"modification": "项目->公测阶段",
+"delaydays": "1",
+"reason": "这个项目做了也是白做！",
+"projectid": "100",
+"time": "2015-08-05"
+}
+]
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+               <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  阶段安排子项 项目安排子项  人员安排子项  
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/getconfiglist</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              
+                                 <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">设计师id/设计师唯一标识</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/getconfiglist</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>   
+
+                            jd：阶段安排子项  xm:项目安排   ry:人员安排（不是添加人员 是添加人员安排）
+{
+"errcode": 0,
+"jd": [
+"装前准备",
+"水电改造",
+"泥作",
+"木作",
+"漆作",
+"整体安装"
+],
+"xm": [
+"铝扣板",
+"灯具五金开关",
+"橱柜定制家具",
+"瓷砖",
+"门",
+"石材",
+"断桥铝窗",
+"防盗门",
+"暖气",
+"壁纸",
+"地板",
+"洁具",
+"地暖",
+"中央空调",
+"新风",
+"智能家居"
+],
+"ry": [
+"收款日期",
+"微信推送",
+"建材",
+"业主",
+"设计师",
+"小美管家",
+"项目经理"
+]
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  删除项目 人员  阶段
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/Deletearrangement</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                              http://mobile.mj100.com/desingerapi/Deletearrangement?rname=%E9%97%A8&rlx=xm&projectid=4288
+                                 <tr>
+                                    <td class="td-1">rname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目安排名|阶段安排名|人员安排名</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rlx</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">类别 删除项目是 xm  阶段是jd   人员是ry</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/Deletearrangement?rname=%E9%97%A8&rlx=xm&projectid=4288</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>   
+
+                       {
+"errorcode": 0,
+"msg": "删除成功"
+}    
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+               <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  删除项目 人员  阶段  下面的字项  注意此接口和上面为同一个接口  多了一个参数 rxname  ，同时注意rlx   类别 删除项目下子类是 xm1  删除阶段下子类是jd1   删除人员下子类是ry1
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/Deletearrangement</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            
+                                 <tr>
+                                    <td class="td-1">rname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目安排名|阶段安排名|人员安排名</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rxname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">子项名</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rlx</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">类别 删除项目下子类是 xm1  删除阶段下子类是jd1   删除人员下子类是ry1</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+                               <tr>比如删除 瓷砖 下的子项 瓷砖进场  参数：rname=瓷砖  rxname=瓷砖进场   rlx=xm1    projectid=4288 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/Deletearrangement?rname=瓷砖&rxname=瓷砖进场&rlx=xm1&projectid=4288</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>   
+
+                           {
+"errorcode": 0,
+"msg": "删除成功"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
         </dl>
 
     </div>

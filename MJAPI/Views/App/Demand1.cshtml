@@ -41,7 +41,7 @@
 			</div>
 			<textarea class="z_gra">特殊房间备注（可不填）</textarea>
 		</div>
-		<a class='dz_step iline' href='/app/demand2'>
+		<a class='dz_step iline' id="next">
 				<p>下一步(1/4)<img src="/HMobile/img/z_next.png" alt="" /></p>
 			</a>
 	<div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
@@ -69,7 +69,33 @@
 	    searchFn(dz_textArea,'z_gra','z_grD');
 	    dBott($('.dBott'));
 	    dzStep($('.dz_step'));
-		}
+	   }
+
+
+	   $(function () {
+
+	       $("#next").click(function () {
+	           var s = "";
+	           var active=$(".active");
+	           if (active.length == 0) {
+	               $.MsgBox.Alert("消息", "请选择功能房！");
+	               return false;
+	           } else {
+	          
+	               active.each(function (i,ele) {
+	                   s += $(ele).text() + ",";;
+	               });
+
+	               $.post("/app/xxxx", {fj:s}, function () {
+	                   location.href = "/app/demand2";
+	               });
+
+               //记录数据
+	              
+
+	           }
+	       });
+	   });
 	   
 		</script>
 </html>

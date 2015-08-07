@@ -283,6 +283,7 @@
     <Content Include="HMobile\images\l_close.png" />
     <Content Include="HMobile\images\sign.png" />
     <Content Include="HMobile\images\tel.png" />
+    <Content Include="HMobile\images\zD1.png" />
     <Content Include="HMobile\img\01.png" />
     <Content Include="HMobile\img\02.png" />
     <Content Include="HMobile\img\03.png" />
@@ -373,6 +374,7 @@
     <Content Include="img\zC3.png" />
     <Content Include="img\zcir.png" />
     <Content Include="img\zcir2.png" />
+    <Content Include="img\zIntro1.jpg" />
     <Content Include="img\ztit.png" />
     <Content Include="img\ztit1.png" />
     <Content Include="img\ztit11.png" />
@@ -572,6 +574,7 @@
     <Content Include="MartixAdmin\tables.html" />
     <Content Include="MartixAdmin\widgets.html" />
     <Content Include="MartixAdmin\副本 login.html" />
+    <Content Include="Platform.html" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -637,6 +640,7 @@
     <Content Include="Views\App\L_mask.cshtml" />
     <Content Include="Views\App\Order.cshtml" />
     <Content Include="Views\DesingerApi\Index.cshtml" />
+    <Content Include="Views\App\Customized2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

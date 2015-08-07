@@ -14,19 +14,19 @@
     	<title>设计师预约</title>
 		<link href="/HMobile/css/common.css" rel="stylesheet" />
 		<link href="/HMobile/css/demand.css" rel="stylesheet" />
-		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>	
+		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js" charset="utf-8"></script>	
 		<script type="text/javascript" src="/HMobile/js/pubFunc.js"></script>		
 		</head>
 		<body style='background:#ebedf0;overflow-y:hidden;'>
 		<header>
 			<a href='/App/demand1' class='st iline'></a> 
 			<div class='t iline clear ellipsis'>
-				装修预算
+				选择装修风格
 			</div>
 		</header>
 		<!--需求四步共同标签-->
 		<div class="Dzcontent">
-			<p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
+			<p class='tit'>选择你喜欢的装修风格</p>
 			<ul class='style1 clear'>
 				<li><img src="/HMobile/img/01.png" alt="" class="o" />
 					<p>英伦风 <img src="/HMobile/img/z_se0.png" alt="" class='' /></p>	
@@ -44,7 +44,7 @@
 			
 		</div>
 		
-		<a class='dz_step iline' href='/app/demand3'>
+		<a class='dz_step iline' id="next">
 				<p>下一步(2/4)<img src="/HMobile/img/z_next.png" alt="" /></p>
 		</a>
 		
@@ -73,5 +73,47 @@
 	              dBott($('.dBott'));
 	              dzStep($('.dz_step'));
 	          }
+
+
+
+	          $(function () {
+	              $("#next").click(function () {
+	                  var s = -1;
+	                  var text = "";
+	                  $("ul img").each(function (i,ele) {
+	                      if ($(ele).hasClass("a")) {
+	                          s = i;
+	                        
+	                      }
+	                  });
+	                  if (s != -1) {
+
+	                      if (s==1) {
+	                          text = "英伦风";
+	                      }
+	                      if (s == 3) {
+	                          text = "宜家风";
+	                      }
+	                      if (s == 5) {
+	                          text = "无印风";
+	                      }
+	                      if (s == 7) {
+	                          text = "新中式";
+	                      }
+
+	                     
+	                      $.post("/app/xxxx", { zt: text }, function () {
+	                          location.href = '/app/demand3';
+	                      });
+	                     
+	                  } else {
+	                      
+	                      $.MsgBox.Alert("消息", "请选择装修风格！");
+	                      return false;
+	                  }
+	                 
+	                  
+	              });
+	          });
 	   </script>
 </html>

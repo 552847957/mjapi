@@ -1,63 +1,231 @@
 ﻿@{
     Layout = null;
-}
 
+    JsApi.Ustage u = new JsApi.Ustage(){ img_dp="", serverId=""};
+    if (Session["u"]!=null)
+    {
+        u = Session["u"] as JsApi.Ustage;
+    }
+}
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta content="yes" name="apple-mobile-web-app-capable" />
-    	<meta content="telephone=no" name="format-detection" />
-    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
-    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-		<title>户型图</title>
-		<link href="/HMobile/css/common.css" rel="stylesheet" />
-		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
-		<style type="text/css">
-			.lwj0{position:absolute;top:0px;z-index:14;}
-			article img{width: 100%;height:50%;}
-			aside{background:url(img/l_mbg.png) repeat;height:50%;position: relative;}
-			aside h2{font-size:14px;color:#fff;font-weight: normal;text-align: center;padding:22px 0px;}
-			aside ul{width:100%;margin:0 auto;text-align: center;}
-			aside li{width: 84px;height:66px;padding-top:18px;font-size:18px;color:#7d7d80;text-align:center;display:inline-block;border-radius: 8px;background: #ebebeb;margin:0px 9px;}
-		    aside li.l_active{color:#3b3b3c;background: url(/img/l_check.png) no-repeat #ebebeb 0 0;background-size: 22px 22px;}
-		    aside .l_btn{position: absolute;bottom:10px;left:50%;margin-left:-154px;}
-		    aside .l_btn a{display: inline-block;width:148px;margin: 0px 3px;height:40px;line-height:40px;font-size:18px;color:#fff;border-radius: 6px;}
-		    aside .l_btn a.l_return{background: #85a0b2;}
-		    aside .l_btn a.l_sure{background: #23aecc;}
-		    body,html{width:100%;height:100%;overflow-y:hidden;overflow:hidden;}
-		</style>
-		</head>
-		<body>
-		<div class='lwj0'>
-			<article>
-			<img src="/HMobile/img/l_pic.png"/>
-			<aside>
-				<h2>户型图上传成功！再次确定您的卧室数量</h2>
-				<ul>
-					<li>1 个<br>卧室</li>
-					<li class="l_active">2 个<br>卧室</li>
-					<li>3 个<br>卧室</li>
-				</ul>
-				<div class="l_btn">
-					<a href="javascript:;" class="l_return">重新上传</a>
-					<a href="javascript:;" class="l_sure">确定</a>
-				</div>
-			</aside>			
-			</article>
-		</div>
-		</body>
-		<script type="text/javascript">
-		    var h = $(window).height();
-		    var w = document.documentElement.clientWidth;
-		    $('.lwj0').height(h);
-		    $('.lwj0 article').height(h);
-		    $('.lwj0 article img').width(w);
-		    $('aside li').on('click', function () {
-		        $('aside li').removeClass('l_active');
-		        $(this).addClass('l_active');
-		    })
-		</script>
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>户型图</title>
+    <link href="/css/common.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <style type="text/css">
+        .lwj0 {
+            position: absolute;
+            top: 0px;
+            z-index: 14;
+        }
+
+        article img {
+            width: 100%;
+            height: 50%;
+        }
+
+        aside {
+            background: url(/img/l_mbg.png) repeat;
+            height: 50%;
+            position: relative;
+        }
+
+            aside h2 {
+                font-size: 14px;
+                color: #fff;
+                font-weight: normal;
+                text-align: center;
+                padding: 22px 0px;
+            }
+
+            aside ul {
+                width: 100%;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            aside li {
+                width: 84px;
+                height: 66px;
+                padding-top: 18px;
+                font-size: 18px;
+                color: #7d7d80;
+                text-align: center;
+                display: inline-block;
+                border-radius: 8px;
+                background: #ebebeb;
+                margin: 0px 9px;
+            }
+
+                aside li.l_active {
+                    color: #3b3b3c;
+                    background: url(/img/l_check.png) no-repeat #ebebeb 0 0;
+                    background-size: 22px 22px;
+                }
+
+            aside .l_btn {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                margin-left: -154px;
+            }
+
+                aside .l_btn a {
+                    display: inline-block;
+                    width: 148px;
+                    margin: 0px 3px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 18px;
+                    color: #fff;
+                    border-radius: 6px;
+                }
+
+                    aside .l_btn a.l_return {
+                        background: #85a0b2;
+                    }
+
+                    aside .l_btn a.l_sure {
+                        background: #23aecc;
+                    }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        wx.config({
+            debug: false,
+            appId: '@ViewBag.appid',
+            timestamp: "@ViewBag.timestamp",
+            nonceStr: '@ViewBag.nonceStr',
+            signature: '@ViewBag.signature',
+            jsApiList: ['getLocation', 'closeWindow', 'chooseImage', 'uploadImage', 'previewImage']
+        });
+
+        wx.ready(function () {
+
+        });
+
+        wx.error(function (res) {
+            alert("出错了");
+
+        });
+    </script>
+</head>
+<body>
+    <div class='lwj0'>
+        <article>
+            <img id="imgsrc" src="@u.img_dp" />
+            <aside>
+                <h2>户型图上传成功！再次确定您的卧室数量 </h2>
+                <ul id="Description">
+                    <li>1 个<br>
+                        卧室</li>
+                    <li class="l_active">2 个<br>
+                        卧室</li>
+                    <li>3 个<br>
+                        卧室</li>
+                </ul>
+                <div class="l_btn">
+                    <a href="javascript:;" class="l_return">重新上传</a>
+                    <a href="javascript:;" class="l_sure">确定</a>
+                </div>
+            </aside>
+        </article>
+    </div>
+</body>
+<script type="text/javascript">
+    var h = $(window).height();
+    var w = document.documentElement.clientWidth;
+    $('.lwj0').height(h);
+    $('.lwj0 article').height(h);
+    $('.lwj0 article img').width(w);
+    $('aside li').on('click', function () {
+        $('aside li').removeClass('l_active');
+        $(this).addClass('l_active');
+    })
+</script>
 </html>
+<script>
+    var serverId = "@u.serverId";
+    var img_dp = "@u.img_dp";
+    var cimg = function () {
+        wx.chooseImage({
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                if (localIds.length > 1) {
+                    alert("只能选择一张户型图哦");
+                    return false;
+                }
+                for (var i = 0; i < localIds.length; i++) {
+
+                    wx.uploadImage({
+                        localId: localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
+                        isShowProgressTips: 1, // 默认为1，显示进度提示
+                        success: function (res) {
+                            serverId = res.serverId; // 返回图片的服务器端ID  
+
+
+                            alert("上传成功");
+                            $(".upok_dp").show();
+
+
+                            $("#imgsrc").attr("src", localIds[0]);
+                            img_dp = localIds[0];
+
+
+
+                            //跳转
+                        }
+                    });
+                    ;
+                }
+
+
+            }
+        });
+    }
+    $(function () {
+
+        $(".l_return").click(function () {
+            cimg();
+
+        });
+
+        $(".l_sure").click(function () {
+
+            var Description = "2";
+
+            $("#Description li").each(function (i, ele) {
+
+                if ($(ele).hasClass("l_active")) {
+                    Description = (i + 1);
+                }
+            });
+
+            $.post("/app/in/", { serverId: serverId, img_dp: img_dp, Description: Description }, function () {
+
+                location.href = "/app/Customized/";
+
+            });
+
+
+
+
+        });;
+    });
+</script>

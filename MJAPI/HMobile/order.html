@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="js/order.js"></script>
 		</head>
 		<body>
+			<div id="fMask" style="display: block;"></div>
 		<section>
 			<ul>
 				<li class="l_demand"><b class="l_bActive"></b>
@@ -49,7 +50,7 @@
 						<h3>两室一厅一厨一卫</h3>
 						<h3>装修总价86300元</h3>
 						<h3>包含方案效果图12张</h3>
-						<a href="tel:18522358542" class="l_detail">详情</a>
+						<a href="" class="l_detail">详情</a>
 					</div>
 				</li>
 				<li class="l_order"><b class="l_bActive"></b>
@@ -58,10 +59,54 @@
 					<div class="l_process">
 						<h3>成功预约设计师 Angela</h3>
 						<h3>预约时间为 6月23日 下午</h3>
+						<a href="tel:18522358542" class="l_detail l_modi">修改</a>
 					</div>
 				</li>
 			</ul>
-			<a href="index.html" class="l_ok">好的</a>
+			<div class="l_dbBtn">
+			    <a href="index.html" class="l_ok">取消预约</a>
+			    <p></p>
+			    <a href="tel:4001023100" class="l_ok">&nbsp;&nbsp;客服&nbsp;&nbsp;</a>
+			</div>
 		</section>
+
+
+	<ul class="z_FBox z_edit" style="position:absolute;left:50%;margin-left:-45%; margin-top: -137px;">
+	   	<li class="one">修改预约时间 <img src="img/z_clo1.png" class="editClo"></li>
+	   	<li class='two'>
+	   		<ul class="zLine7 clear">
+			<li class="o _fl">
+				<img src="img/02.png">
+			</li>
+			<li class="t _fl">
+				<p>设计师：朱丽叶</p>
+				<p>电话：18868895688</p>
+			</li>			
+			</ul>
+			
+			<ul class="zLine7a clear">
+			<li>时间</li>
+			<li>
+				<input type="text">月</li>
+			<li>
+				<input type="text">日</li>
+			<li>
+				<div class="iline z_sel cur_hover">
+					<div class="zSel iline"><a class="uF">上午</a>
+						<img src="images/zD1.png" class="cur_hover">
+					</div>
+					<div class="z_unit">
+						<div>上午</div>
+						<div>下午</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	   	</li>
+	   	<li class='thr'>
+	   		<a class="iline">确定预约</a>
+	   	</li>
+	   </ul>
+
 		</body>
 </html>

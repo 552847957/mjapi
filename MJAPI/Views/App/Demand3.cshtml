@@ -4,8 +4,8 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,14 +13,14 @@
     <meta name="msapplication-tap-highlight" content="yes">
     <meta name="format-detection" content="email=no">
     <title>设计师预约</title>
-		<link href="/HMobile/css/common.css" rel="stylesheet" />
-		<link href="/HMobile/css/demand.css" rel="stylesheet" />
-		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>	
-		<script type="text/javascript" src="/HMobile/js/pubFunc.js"></script>		
-		<!--预算轴 链入文件-->	
-		 <script src="/HMobile/dev/js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
-         <script src="/HMobile/dev/js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
- 	<link href="/HMobile/dev/css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
+    <link href="/HMobile/css/common.css" rel="stylesheet" />
+    <link href="/HMobile/css/demand.css" rel="stylesheet" />
+    <script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/HMobile/js/pubFunc.js"></script>
+    <!--预算轴 链入文件-->
+    <script src="/HMobile/dev/js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
+    <script src="/HMobile/dev/js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
+    <link href="/HMobile/dev/css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
 
     <!-- S 可根据自己喜好引入样式风格文件 -->
     <script src="/HMobile/dev/js/mobiscroll.android-ics-2.5.2.js" type="text/javascript"></script>
@@ -28,120 +28,373 @@
 
     <!-- E 可根据自己喜好引入样式风格文件 -->
 
-    <script src="/HMobile/dev/js/mobiscroll.list-2.5.1.js" type="text/javascript"></script>    
+    <script src="/HMobile/dev/js/mobiscroll.list-2.5.1.js" type="text/javascript"></script>
     <!--Includes-->
-		<!--end 预算轴-->
-		 <style type="text/css">        
-        .content {padding:15px;background: #fff;}
-        #treelist_dummy{display:none;}
-        .dw-li,.dw-bf,.dw-ul,.dwwo,.dw-i span{font-size:20px;}
-     	</style>
+    <!--end 预算轴-->
+    <style type="text/css">
+        .content {
+            padding: 15px;
+            background: #fff;
+        }
+
+        #treelist_dummy {
+            display: none;
+        }
+
+        .dw-li, .dw-bf, .dw-ul, .dwwo, .dw-i span {
+            font-size: 20px;
+        }
+    </style>
 </head>
-		<body style='background:#ebedf0;'>
-		<header class='header1'>
-			<a href='/app/demand2' class='st iline'></a> 
-			<div class='t iline clear ellipsis'>
-				选择装修风格
-			</div>
-		</header>
-		<!--需求四步共同标签-->
-		<div class="Dzcontent  Dzcontent1">
-			<p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
-			<div class="d_marea"><span class='o'>房屋面积</span>  <input type="text" value="" enabled /> <span class='t'>平方米</span></div>
-			<div class='d_budget'>
-				装修预算
-			</div>
-		</div>
-		
-		<!--几万到几万-->
-		<ul id="treelist" style='display:none;'>  
-    <li>  <span>1</span>         
-        <ul style='font-size:20px;'>  
-            <li>2</li>  
-            <li>3</li>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-    <li>  
-        <span>2</span>  
-        <ul style='font-size:20px;'>  
-            <li>3</li>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-    <li>  
-        <span>3</span>  
-        <ul style='font-size:20px;'>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-</ul> 
-		
-	<a class='dz_step iline' href='/app/demand4'>
-				<p>下一步(3/4)<img src="/HMobile/img/z_next.png" alt="" /></p>
-	</a>	
-		
-	<div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
-	
-	   </body>
-	      <script>
-	          $(function () {
-	              loaddz2();
-	          })
-	          window.onresize = loaddz2;
+<body style='background: #ebedf0;'>
+    <header class='header1'>
+        <a href='/app/demand2' class='st iline'></a>
+        <div class='t iline clear ellipsis'>
+            装修预算
+        </div>
+    </header>
+    <!--需求四步共同标签-->
+    <div class="Dzcontent  Dzcontent1">
+        <p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
+        <div class="d_marea"><span class='o'>房屋面积</span>
+            <input type="text" value="" id="mj" enabled />
+            <span class='t'>平方米</span></div>
+        <div class='d_budget'>
+            装修预算
+        </div>
+    </div>
 
-	          function loaddz2() {
-	              var dz_seImg = $('.Dzcontent .style1 li p img');
-	              dz_seImg.on('click', function () {
-	                  dz_seImg.attr('src', 'img/z_se0.png');
-	                  dz_seImg.removeClass('a');
-	                  $(this).attr('src', 'img/z_se1.png');
-	                  $(this).addClass('a');
-	              })
-	              dBott($('.dBott'));
-	              dzStep($('.dz_step'));
-	          }
+    <!--几万到几万-->
+    <ul id="treelist" style='display: none;'>
+        <li><span>1</span>
+            <ul style='font-size: 20px;'>
+                <li>2</li>
+                
+            </ul>
+        </li>
+        <li>
+            <span>2</span>
+            <ul style='font-size: 20px;'>
+                <li>4</li>
+               
+            </ul>
+        </li>
+        <li>
+            <span>4</span>
+            <ul style='font-size: 20px;'>
+                <li>6</li>
+               
+            </ul>
+        </li>
+        <li>
+            <span>6</span>
+            <ul style='font-size: 20px;'>
 
-		</script>
-		<script>
-		    $(function () {
-		        var i = Math.floor($('#treelist>li').length / 2),
-                    j = Math.floor($('#treelist>li').eq(i).find('ul li').length / 2);
-		        $("#treelist").mobiscroll().treelist({
-		            theme: "android-ics light",
-		            lang: "zh",
-		            defaultValue: [i, j],
-		            cancelText: "",
-		            placeholder: '',
-		            headerText: function (valueText) { return ""; },
-		            formatResult: function (array) { //返回自定义格式结果  
-		                return $('#treelist>li').eq(array[0]).children('span').text() + ' ' + $('#treelist>li').eq(array[0]).find('ul li').eq(array[1]).text().trim(' ');
-		            }
-		        });
+                <li>8</li>
+               
+            </ul>
+        </li>
 
-		        $('#treelist').mobiscroll('show');
+        <li>
+            <span>8</span>
+            <ul style='font-size: 20px;'>
 
 
-		    })
-</script>  
+                <li>10</li>
+                
+            </ul>
+        </li>
+        <li>
+            <span>10</span>
+            <ul style='font-size: 20px;'>
+                <li>12</li>
+                
+            </ul>
+
+        </li>
+         <li>
+            <span>12</span>
+            <ul style='font-size: 20px;'>
+                
+                <li>14</li>
+               
+            </ul>
+
+        </li>
+           <li>
+            <span>14</span>
+            <ul style='font-size: 20px;'>
+                <li>16</li>
+                
+            </ul>
+
+        </li>
+         <li>
+            <span>16</span>
+            <ul style='font-size: 20px;'>
+                <li>18</li>
+                
+            </ul>
+
+        </li>
+          <li>
+            <span>18</span>
+            <ul style='font-size: 20px;'>
+               
+                <li>20</li>
+               
+            </ul>
+
+        </li>
+         <li>
+            <span>20</span>
+            <ul style='font-size: 20px;'>
+               
+                 
+                <li>22</li>
+               
+            </ul>
+
+        </li>
+          <li>
+            <span>22</span>
+            <ul style='font-size: 20px;'>
+                <li>24</li>
+               
+            </ul>
+
+        </li>
+         <li>
+            <span>24</span>
+            <ul style='font-size: 20px;'>
+                <li>26</li>
+                
+            </ul>
+
+        </li>
+          <li>
+            <span>26</span>
+            <ul style='font-size: 20px;'>
+                
+                <li>28</li>
+                
+            </ul>
+
+        </li>
+           <li>
+            <span>28</span>
+            <ul style='font-size: 20px;'>
+                
+                
+                <li>30</li>
+               
+            </ul>
+
+        </li>
+          <li>
+            <span>30</span>
+            <ul style='font-size: 20px;'>                         
+                <li>32</li>
+              
+            </ul>
+
+        </li>
+           <li>
+            <span>32</span>
+            <ul style='font-size: 20px;'>                         
+                <li>34</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>34</span>
+            <ul style='font-size: 20px;'>                         
+                <li>36</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>36</span>
+            <ul style='font-size: 20px;'>                         
+                <li>38</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>38</span>
+            <ul style='font-size: 20px;'>                         
+                <li>40</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>40</span>
+            <ul style='font-size: 20px;'>                         
+                <li>42</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>42</span>
+            <ul style='font-size: 20px;'>                         
+                <li>44</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>44</span>
+            <ul style='font-size: 20px;'>                         
+                <li>46</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>46</span>
+            <ul style='font-size: 20px;'>                         
+                <li>48</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>48</span>
+            <ul style='font-size: 20px;'>                         
+                <li>50</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>50</span>
+            <ul style='font-size: 20px;'>                         
+                <li>52</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>52</span>
+            <ul style='font-size: 20px;'>                         
+                <li>54</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>54</span>
+            <ul style='font-size: 20px;'>                         
+                <li>56</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>56</span>
+            <ul style='font-size: 20px;'>                         
+                <li>58</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>58</span>
+            <ul style='font-size: 20px;'>                         
+                <li>60</li>
+              
+            </ul>
+
+        </li>
+         <li>
+            <span>60</span>
+            <ul style='font-size: 20px;'>                         
+                <li>100</li>
+              
+            </ul>
+
+        </li>
+    </ul>
+
+    <a class='dz_step iline' id="next">
+        <p>下一步(3/4)<img src="/HMobile/img/z_next.png" alt="" /></p>
+    </a>
+
+    <div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
+
+</body>
+<script>
+    $(function () {
+        loaddz2();
+    })
+    window.onresize = loaddz2;
+
+    function loaddz2() {
+        var dz_seImg = $('.Dzcontent .style1 li p img');
+        dz_seImg.on('click', function () {
+            dz_seImg.attr('src', 'img/z_se0.png');
+            dz_seImg.removeClass('a');
+            $(this).attr('src', 'img/z_se1.png');
+            $(this).addClass('a');
+        })
+        dBott($('.dBott'));
+        dzStep($('.dz_step'));
+    }
+
+</script>
+<script>
+
+    var v = "";
+    $(function () {
+        var i = Math.floor($('#treelist>li').length / 2),
+            j = Math.floor($('#treelist>li').eq(i).find('ul li').length / 2);
+        $("#treelist").mobiscroll().treelist({
+            theme: "android-ics light",
+            lang: "zh",
+            defaultValue: [i, j],
+            cancelText: "",
+            placeholder: '',
+            headerText: function (valueText) { v=valueText; },
+            formatResult: function (array) { //返回自定义格式结果  
+                return $('#treelist>li').eq(array[0]).children('span').text() + '~ ' + $('#treelist>li').eq(array[0]).find('ul li').eq(array[1]).text().trim(' ');
+            }
+        });
+
+        $('#treelist').mobiscroll('show');
+
+
+    })
+
+    $(function () {
+        $("#next").click(function () {
+
+           
+            if (v=='') {
+               
+                $.MsgBox.Alert("消息", "请选择装修预算！");
+                return false;
+                
+            }
+
+            var mj = $("#mj").val();
+            if (!/^\d+$/g.test(mj)) {
+             
+                $.MsgBox.Alert("消息", "请输入正确的装修面积(正整数)！");
+                return false;
+            }
+            $.post("/app/xxxx", { jg:v,mj:mj }, function () {
+                location.href = '/app/demand4';
+            });
+           
+
+        });
+    });
+</script>
 
 </html>
 

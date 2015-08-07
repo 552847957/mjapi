@@ -44,7 +44,7 @@ namespace MJAPI.Controllers
         public JsonResult GetProjects(string desingerid)
         {
 
-            return Myjson(DesingerBLL.Desinger.GetAllProjects(desingerid));
+            return Myjson(DesingerBLL.Desinger.GetAllProjectsext(desingerid));
         }
 
 
@@ -56,7 +56,7 @@ namespace MJAPI.Controllers
         public JsonResult TheThingsToDoInTheNearFuture(string desingerid)
         {
 
-            return Myjson(DesingerBLL.Desinger.GetDesingerProjects(desingerid));
+            return Myjson(DesingerBLL.Desinger.GetTodaythings7(desingerid));
 
         }
 
@@ -99,6 +99,8 @@ namespace MJAPI.Controllers
             return DesingerBLL.Desinger.AddProject(desingerid, name, phone, housetype, area, jcprice, sgprice, address, begintime, Timelimit, relative);
         }
 
+
+
         /// <summary>
         /// 查询设计师
         /// </summary>
@@ -110,6 +112,8 @@ namespace MJAPI.Controllers
             return DesingerBLL.Desinger.DesignerSearch(searchvalue);
 
         }
+
+
 
         /// <summary>
         /// 加载项目各阶段详情
@@ -123,6 +127,8 @@ namespace MJAPI.Controllers
             return Myjson(DesingerBLL.Desinger.LoadState(projectid));
 
         }
+
+
         /// <summary>
         /// 得到项目进度
         /// </summary>
@@ -132,6 +138,7 @@ namespace MJAPI.Controllers
         {
             return DesingerBLL.Desinger.ProjectSchedule(projectid);
         }
+
 
         /// <summary>
         /// 上传进度图
@@ -188,18 +195,149 @@ namespace MJAPI.Controllers
         /// <param name="projectid"></param>
         /// <param name="Delaydays"></param>
         /// <returns></returns>
-        public  string AddModifyRecord(string desingername, string con, string Reason, string projectid, string Delaydays)
+        public string AddModifyRecord(string desingername, string con, string Reason, string projectid, string Delaydays)
         {
-            return DesingerBLL.Desinger.AddModifyRecord(desingername,con,Reason,projectid,Delaydays);
+            return DesingerBLL.Desinger.AddModifyRecord(desingername, con, Reason, projectid, Delaydays);
+        }
+
+        /// <summary>
+        /// 事情数量
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <returns></returns>
+        public JsonResult GetNumber(string desingerid)
+        {
+
+            return Json(new { errcode = 0, number1 = 5, number2 = 12, desingerid = desingerid }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 添加的各个小项
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetConfiglist()
+        {
+            //装前准备
+            //水电改造
+            //泥作
+            //木作
+            //漆作
+            //整体安装
+
+            #region MyRegion
+            var jd = new
+              {
+                  errorcode = 0,
+                  jd = new string[] { "装前准备", "水电改造", "泥作", "木作", "漆作", "整体安装" },
+                  xm = new string[] {
+                "铝扣板",
+           "灯具五金开关",
+            "橱柜定制家具",
+            "瓷砖",
+            "门",
+            "石材",
+            "断桥铝窗",
+            "防盗门",
+           "暖气",
+            "壁纸",
+            "地板",
+            "洁具",
+            "地暖",
+            "中央空调",
+            "新风",
+            "智能家居"
+                },
+                  ry = new string[] { "收款日期", "微信推送", "建材", "业主", "设计师", "小美管家", "项目经理" }
+              };
+
+            //铝扣板
+            //灯具五金开关
+            //橱柜定制家具
+            //瓷砖
+            //门
+            //石材
+            //断桥铝窗
+            //防盗门
+            //暖气
+            //壁纸
+            //地板
+            //洁具
+            //地暖
+            //中央空调
+            //新风
+            //智能家居
+
+
+            //收款日期
+            //微信推送
+            //建材
+            //业主
+            //设计师
+            //小美管家
+            //项目经理 
+            #endregion
+
+
+            return Json(jd,JsonRequestBehavior.AllowGet); ;
+        }
+        /// <summary>
+        /// 消息列表
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <returns></returns>
+        public string GetNewsList(string desingerid)
+        {
+            return DesingerBLL.Desinger.GetNewsList(desingerid);
+        }
+
+        /// <summary>
+        /// 消息详情
+        /// </summary>
+        /// <param name="newsid"></param>
+        /// <returns></returns>
+        public string GetNewsDetail(string newsid)
+        {
+            return DesingerBLL.Desinger.GetNewsDetail(newsid);
+        }
+
+        /// <summary>
+        /// 拿到项目的修改记录
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public string GetChangeRecords(string projectid)
+        {
+            return DesingerBLL.Desinger.ChangeRecords(projectid);
+        }
+
+
+        /// <summary>
+        /// 删除安排
+        /// </summary>
+        /// <returns></returns>
+        public string Deletearrangement(string rname,string rxname, string rlx, string projectid)
+        {
+            return DesingerBLL.Desinger.Delete(rname,rxname,rlx,projectid);
         }
 
 
 
 
-        public string Test(string projectid)
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rname"></param>
+        /// <param name="rlx"></param>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public string Test(string rname, string rlx, string projectid)
         {
 
-            return DesingerBLL.Desinger.ProjectSchedule(projectid);
+            return "";
         }
 
 

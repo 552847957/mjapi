@@ -1,5 +1,21 @@
 ﻿@{
     Layout = null;
+
+  
+
+    string userid = ViewBag.userid;
+    if (userid=="0")
+    {
+        userid = "";
+    }
+
+    JsApi.DemandShowRooms drs2 = JsApi.Businesslogic.GetDemandShowRooms(userid);
+
+    JsApi.DesignerGrade desinger = JsApi.Businesslogic.GetDesingerGrade(drs2.Extension15);
+    
+      
+    JsApi.Tentent t = JsApi.Businesslogic.GetTentent(userid);
+    
 }
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -8,6 +24,7 @@
 		<meta charset="utf-8">
 		<meta content="yes" name="apple-mobile-web-app-capable" />
     	<meta content="telephone=no" name="format-detection" />
+
     	<meta content="black" name="apple-mobile-web-app-status-bar-style">
     	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
     	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
@@ -16,8 +33,17 @@
 		<script type="text/javascript" src="/HMobile/js/scroll.js"></script>
 		<link href="/HMobile/css/common.css" rel="stylesheet" />
 		<link href="/HMobile/css/css.css" rel="stylesheet" />
-		
+		<script>
+
+		    if ('@userid') {
+               
+		        location.href="/app/order";
+		    }
+		    
+		</script>
 		<script type="text/javascript">
+
+		   
 		    WebSettings webSettings = m_WebView.getSettings(); 
 		    webSettings.setSupportZoom(false);
 		</script>
@@ -55,55 +81,83 @@
  
  <!--定制设计+需求预约+预约量房（单选）-->
 	<ul class='z_OrderOpt'>
-		<li ><a href="/app/Customized" class='iline clear'> <div class='o _fl'></div><span class='_fl'>定制设计</span></a><div class='t _fr'></div></li>
-		<li><a href="/app/demand1" class='iline clear'> <div class='o _fl'></div><span class='_fl'>需求预约</span> </a><div class='t _fr'></div></li>
-		<li><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>预约量房</span></a> <div class='t _fr'></div></li>
+		<li ><a href="/app/Customized/" class='iline clear'> <div class='o _fl'></div><span class='_fl'>获取装修方案</span></a><div class='t _fr'></div></li>
+		<li><a href="/app/demand1" class='iline clear'> <div class='o _fl'></div><span class='_fl'>预约设计师</span> </a><div class='t _fr'></div></li>
+		<li><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>快速预约量房</span></a> <div class='t _fr'></div></li>
 	</ul>
 	<div style='background-color:#f2f2f2;height:10px;width:100%;'></div>
 	<!--myOrder-->
-	<div id='myOrder' onclick="javascript:location.href='/app/order'">
-		<div class='tit'><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>我的预约</span></a> <div class='t _fr'></div></div>
+	<div id='myOrder' >
+		<div class='tit'><a class='iline clear'> <div class='o _fl'></div><span class='_fl'>我的预约   </span></a> <div class='t _fr'></div></div>
 		<div class='state'>
 			<!--还没有提交需求-->
-			<div class="sBox o" >
+			<div class="sBox o" style='display:@(userid == "" ? "block" : "none");'>
 				<div class="o"><a class="iline"></a></div>
 				<div class="t">您还没有提交需求</div>
 			</div>
-			<!--需求提交-->
-			<div class="sBox t">
+
+            @if (t.TententId == 0)
+            {
+                   if (!string.IsNullOrEmpty(userid))
+                   {
+                       JsApi.DemandShowRooms drs = JsApi.Businesslogic.GetDemandShowRooms(userid);
+                 
+                 <!--需求提交-->
+			<div class="sBox t" style='display:@(drs.Extension15.ToSafeString().Trim().Length == 0 ? "block" : "none");'>
 				<div class="o"></div>
-				<div class="t">您的需求已提交，正在为您匹配设计师...</div>
+				<div class="t">您的需求已提交，正在为您匹配设计师... </div>
 			</div>
 			<!--设计师匹配-->
-			<div class="sBox th">
+                       if ((drs.ProjectId.ToSafeString().Trim() + drs.ProductId.ToSafeString().Trim()).ToSafeString().Trim().Length == 0)
+                       {
+                     
+                 
+			<div class="sBox th" style='display:@(drs.Extension15.ToSafeString().Trim().Length == 0 ? "none" : "block");'>
 				<span class='iline'></span>
 				<div class="o"></div>
 				<div class="t">已为您匹配到设计师，方案制作中...</div>
 			</div>
+                       }
 			<!--收到方案-->
-			<div class="sBox fo" style='display:block;'>
+			<div class="sBox fo" style='display:@((drs.ProjectId + drs.ProductId).ToSafeString().Trim().Length > 0 ? "block" : "none")'>
 				<span class='iline'></span>
 				<div class="o"></div>
 				<div class="t">方案制作完成，设计师等待预约... </div>
 			</div>
 			<!--预约成功-->
-			<div class="sBox fi clear">
+                 
+       
+                 
+                 
+                   } 
+            }else
+            {
+                      
+			<div class="sBox fi clear" style='display:block;'>
 				<div class="o _fl iline"></div>
 				<div  class="t _fl iline">
-					<p>您成功预约设计师 <b>Angela</b></p> 
-					<p>预约时间为  <b>6月23日 下午</b></p>
+					<p>您成功预约设计师 <b>@desinger.DID</b></p> 
+					<p>预约时间为  <b> @(t.Extension3.ToSafeString().Length==0?(DateTime.Now.AddDays(1).ToString("yy-MM-dd")+"下午"):t.Extension3)</b></p>
 				</div>
 			</div>
+            
+            }
+
+
+         
+			
+
+
 		</div>
 	</div>
 	
 	<div class="l_box">
-		 <h1>预约量房</h1>
+		 <h1>预约量房 @userid</h1>
 		 <img src="/HMobile/images/l_close.png"/>
-		 <p><input type="text" value="手机号码" /></p>
-		 <p><input type="text" value="验证码"  class="l_code"/><a href="javascript:;">获取验证</a></p>
-		 <a href="javascript:;" class="l_oBtn">立即预约</a>
-		 <h2>已有<span>889</span>人预约量房</h2>
+		 <p><input type="text" value="手机号码" id="phone" /></p>
+		 <p><input type="text" value="验证码" id="code"  class="l_code"/><a href="javascript:;" class="z_get" id="getphonecode">获取验证</a></p>
+		 <a href="javascript:;" class="l_oBtn" id="btnyy">立即预约</a>
+		 <h2>已有<span>@ViewBag.num </span>人预约量房</h2>
 	</div>
 	<div id="fMask"></div>
 </body>
@@ -196,5 +250,86 @@
         })
     }
 			
+
+
+
+    $(function(){
+        $("#btnyy").click(function(){
+            var phone=$("#phone").val();
+            var code=$("#code").val();
+
+            
+
+            $.post("/app/yy",{phone:phone,code:code,openid:'@ViewBag.openid'},function(d){
+                if (d.errorcode=="0") {
+                   
+                    $.MsgBox.Alert("消息", "预约成功！");
+                    $('.l_box').css('display','none');
+                    $('#fMask').css('display','none');
+
+                    location.href="/app/index?";
+                }else{
+                    alert(d.msg);
+                }
+               
+
+            },'json');
+        });
+
+        var flagphone = false;
+        $(".z_get").click(function () {
+            var phone = $("#phone").val();
+         
+
+
+            if (!/^\d{11}$/g.test(phone)) {
+                
+                $.MsgBox.Alert("消息", "请输入正确的手机号！");
+                return false;
+            }
+
+
+            if (flagphone) {
+                //没到时候
+                return false;
+            }
+
+            flagphone = true;
+          
+
+            $.post("/app/SendCode", { phone: phone }, function (data) {
+               
+                if (data.errorcode=="0") {
+
+             
+                } else if (data.errorcode == "1") {
+                    $.MsgBox.Alert("消息", data.msg);
+                }
+
+                var ii = 60;
+                var c = setInterval(function () {
+                    $("#getphonecode").html(ii--);
+                    if (ii == 0) {
+                        clearInterval(c);
+                        $("#getphonecode").html("获取验证");
+                        flagphone = false;
+                    }
+                }, 1000);
+
+            },'json');
+
+          
+        });
+
+
+        $("#myOrder").click(function(){
+            if ('@userid') {
+                location.href="/app/order";
+            }else {
+             
+                $.MsgBox.Alert("消息", "你还没有提交任何需求");
+            }
+        });
+    });
 		</script>
 </html>

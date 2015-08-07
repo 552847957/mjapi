@@ -1,5 +1,7 @@
 ﻿@{
     Layout = null;
+
+    JsApi.Info info = Session["info"] as JsApi.Info;
 }
 <!DOCTYPE html>
 <html>
@@ -13,17 +15,61 @@
     	<title>设计师预约</title>
 		<link href="/HMobile/css/common.css" rel="stylesheet" />
 		<link href="/HMobile/css/demand.css" rel="stylesheet" />
+         <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
 		<script type="text/javascript" src="/HMobile/js/index.js"></script>
-		
+		 <script>
+		     wx.config({
+		         debug: false,
+		         appId: '@ViewBag.appid',
+            timestamp: "@ViewBag.timestamp",
+                  nonceStr: '@ViewBag.nonceStr',
+                  signature: '@ViewBag.signature',
+                  jsApiList: ['getLocation', 'closeWindow', 'chooseImage', 'uploadImage', 'previewImage']
+              });
+              wx.ready(function () {
+                  wx.getLocation({
+                      success: function (res) {
+                          var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                          var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                          var speed = res.speed; // 速度，以米/每秒计
+                          var accuracy = res.accuracy; // 位置精度
+
+                          $.ajax({
+                              url: "http://api.map.baidu.com/geocoder/v2/?ak=1735edad684487a9c4c82d1a94065632&output=json&pois=0&coordtype=wgs84ll",
+                              data: "location=" + latitude + "," + longitude,
+                              type: "post",
+                              processData: false,
+                              timeout: 15000,
+                              dataType: "jsonp",  // not "json" we'll parse
+
+                              success: function (d) {
+
+                                  $(".city_dp").html(d.result.addressComponent.city);
+                                  $(".district_dp").html(d.result.addressComponent.district);
+
+
+                                  //跳转
+
+                              }
+                          });
+                      }
+                  });
+              });
+
+              wx.error(function (res) {
+                  alert("出错了");
+
+              })
+		 </script>
 		</head>
 		<body style='background:#ebedf0;'>
 		<header>
 			<a href='/app/demand3' class='st iline'></a> 
 			<div class='t iline clear ellipsis'>
 				<a class='oo iline'></a>
-				<span class='tt iline'>北京</span>
-				<span class='tth iline'>朝阳区</span>
+				<span class='tt iline city_dp'></span>
+				<span class='tth iline district_dp'>定位中</span>
 				<a class='ffo iline' ></a>
 			</div>
 			<!--<a class='th iline'href="tel:15701301361"></a>-->
@@ -103,8 +149,8 @@
 		<div class='dLine1'>最后一步，完善您的信息，并选择设计师等级</div>
 		<!--个人信息-->
 		<div class='dInfo'>
-			<p class='o clear'><a class='o iline _fl'></a> <input type="text" placeholder="小区名称" /></p>
-			<p class='t clear'><a class='o iline _fl'></a> <input type="text" placeholder="联系方式（必填）" /></p>
+			<p class='o clear'><a class='o iline _fl'></a> <input type="text" id="xiaoqu" placeholder="小区名称" /></p>
+			<p class='t clear'><a class='o iline _fl'></a> <input id="phone" type="text" placeholder="联系方式（必填）" /></p>
 		</div>
 		<!--等级-->
 		<div class='dGrade'>
@@ -139,7 +185,7 @@
 		</div>
 		
 		<div class='dSummit' >
-		<a class="iline">提交需求</a>
+		<a class="iline" id="btntj">提交需求</a>
 		</div>
 		<div class='dMyOrder'  style='display:none;'>
 			<i class="iline">
@@ -197,16 +243,15 @@
 	   	<li>
 	   		<p>您的需求已成功提交，我们正在为您匹配最棒的设计师，请您保持电话畅通！</p>
 			<div class="clear z_Info" style='width:100%;'>
-				<DIV class='_fl'>房间信息：</DIV> <DIV class='_fl t'>客餐厅、厨房、卫生间、主卧
-               室、次卧室、子女房</DIV>
+				<DIV class='_fl'>房间信息：</DIV> <DIV class='_fl t'>@(info.fj)</DIV>
 			</div>
 			
-			<p>主题风格：英伦风</p>
-			<p>面积预算：85平方米／6～9万</p>
-			<p>设计师：高级设计（免费）</p>
+			<p>主题风格：@info.zt</p>
+			<p>面积预算：@(info.mj)平方米／@(info.jg)万</p>
+			<p id="sjs">设计师：</p>
 	   	</li>
 	   	<li>
-	   		<a class="iline" href='order.html'>知道了</a>
+	   		<a class="iline" href='/app/order'>知道了</a>
 	   	</li>
 	   </ul>
 	  
@@ -226,5 +271,60 @@ z-index:10;display:none;'></div>
 		        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 		        $('.z_suc .z_Info div.t').css('width', (0.81 * w - 70) + 'px');
 		    }
+
+            
+            //提交数据
+		    $(function () {
+
+		        $("#btntj").click(function () {
+
+		            var city_dp = $(".city_dp").html();
+		            var district_dp = $(".district_dp").html();
+		            var dstage = 0;
+		            var dstagestr = "高级设计";
+		            var xiaoqu = $("#xiaoqu").val();
+		            var phone = $("#phone").val();
+		            //serverId, string phone, string address, string openid
+		            if (!/^\d{11}$/g.test(phone)) {
+		                $.MsgBox.Alert("消息", "请输入正确的手机号！");
+		                return;
+		            }
+
+		           
+		            $("#desingergread li").each(function (i, ele) {
+		                if ($(ele).hasClass("dActive")) {
+		                    dstage = i;
+		                    if (i == 1) {
+		                        dstagestr = "资深设计";
+		                    }
+		                    if (i == 2) {
+		                        dstagestr = "大师设计";
+		                    }
+		                }
+		            });
+
+		            $.post("/App/Upload", { serverId: "", phone: phone, address: city_dp + district_dp + xiaoqu, openid: '@ViewBag.openid', Description: '' }, function (d) {
+
+
+                if (d.errcode == 0) {
+
+                    $("#sjs").html("设计师："+dstagestr);
+                    $("#fMask1").show();
+                    $(".z_suc").show();
+
+
+                }
+                if (d.errcode == 1) {
+                   // alert('请勿重复提交，一个小时后再试');
+                    $.MsgBox.Alert("消息", "请勿重复提交！");
+
+                }
+            }, 'json');
+
+            return false;
+
+                 });
+
+		    });
 	   </script>
 </html>

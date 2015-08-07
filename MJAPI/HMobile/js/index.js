@@ -62,7 +62,7 @@ function load1(){
 	})
 	var dSumA=$('.dSummit a');
 	var z_sucBox=$('.z_suc');
-	fBoxShowHide(dSumA,z_sucBox,zKown,fMask);
+	//fBoxShowHide(dSumA,z_sucBox,zKown,fMask);
 	//alert(z_sucBox);
 	/*--------2015-7-20-----------*/
 	var myTags=$('.myTags'); //我的标签浮框

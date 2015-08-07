@@ -177,6 +177,7 @@ z-index:10;display:none;}
 										<P style='text-align:left; color: black; font-size: 145%; webkit-padding-start: 0px;'>
 											您有一定家装设计经验，可以接单设计，现在就注册吧！</P>
 										<input type="text" value="手机号" class='o z_Inp' id="phone" />
+                                        <div class="clear"><input type="text" value="图文验证码" class='t z_Inp' id="tcode" /><img class="z_get" id="checkCode"  src="/desinger/CreateCheckCodeImage"/></div>
 										<div class="clear"><input type="text" value="验证码" class='t z_Inp' id="yzm" /><a class="z_get" id="getphonecode">获取</a></div>
 										<input type="text" value="所在城市" class='th z_Inp' id="city"/>
 										<A class="btn btn-primary " id="signup" style="line-height: 45px; font-weight: bold;letter-spacing:2px;" >报名</A>
@@ -390,9 +391,17 @@ z-index:10;display:none;}
         //发送注册短信
 
         var flagphone = false;
-        $(".z_get").click(function () {
+        $("#getphonecode").click(function () {
             var phone = $("#phone").val();
          
+            var tcode = $("#tcode").val();
+
+
+            if (!/^\w{6}$/g.test(tcode)) {
+
+                alert("图文验证码格式错误");
+                return false;
+            }
 
 
             if (!/^\d{11}$/g.test(phone)) {
@@ -408,14 +417,20 @@ z-index:10;display:none;}
 
             flagphone = true;
           
+           
 
-            $.post("/desinger/SendCode", { phone: phone }, function (data) {
+            $.post("/desinger/SendCode", { phone: phone,tcode:tcode }, function (data) {
                
                 if (data.errorcode=="0") {
 
              
                 } else if (data.errorcode == "1") {
                     alert(data.msg);
+                } else if (data.errorcode == "3") {
+
+                    alert("图文验证码错误");
+                    flagphone = false;
+                    return false;
                 }
 
                 var ii = 60;
@@ -424,7 +439,7 @@ z-index:10;display:none;}
                     if (ii == 0) {
                         clearInterval(c);
                         $("#getphonecode").html("获取验证码");
-                        bphone = false;
+                        flagphone = false;
                     }
                 }, 1000);
 
@@ -501,6 +516,11 @@ z-index:10;display:none;}
                 share("http://mobile.mj100.com/desinger/register/" + v, "http://www.mj100.com/img/header/z17.png");
             }, 1000);
 
+        });
+
+        $("#checkCode").click(function () {
+
+            $(this).attr("src", "/desinger/CreateCheckCodeImage?" + Math.random());
         });
     })
 </script>

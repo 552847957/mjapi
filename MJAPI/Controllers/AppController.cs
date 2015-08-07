@@ -12,36 +12,83 @@ namespace MJAPI.Controllers
 
         // GET: /App/
 
-        public ActionResult Index()
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public ActionResult Index(string code)
         {
-            //            wx.config({
-            //    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            //    appId: '', // 必填，公众号的唯一标识
-            //    timestamp: , // 必填，生成签名的时间戳
-            //    nonceStr: '', // 必填，生成签名的随机串
-            //    signature: '',// 必填，签名，见附录1
-            //    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            //});
+            JsApi.WeChartUser auth = null;
 
-            string timestamp = JsApi.JsToken.getTimestamp();
-            string noncestr = JsApi.JsToken.getNoncestr();
+            if (Session["WeChartUser"] != null)
+            {
+                auth = Session["WeChartUser"] as JsApi.WeChartUser;
+            }
+            else
+            {
+                #region 缓存当前用户
+                if (!string.IsNullOrEmpty(code.ToSafeString()))
+                {
+                    #region 登录成功缓存用户信息
+                    string post_data = "appid=" + "wx2c2f2e7b5b62daa1" + "&secret=" + "ed815afc669a9201a6070677d1771166" + "&code=" + code + "&grant_type=authorization_code";
+                    string requestData = tenpay.TenpayUtil.PostXmlToUrl(tenpay.TenpayUtil.getAccess_tokenUrl(), post_data);
+                    JavaScriptSerializer js = new JavaScriptSerializer();   //实例化一个能够序列化数据的类
+                    auth = js.Deserialize<JsApi.WeChartUser>(requestData);    //将json数据转化为对象类型并赋值给auth
+                    Session["WeChartUser"] = auth;//标识用户登录 
 
-            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
-            sor.Add("url", Request.Url.ToString());
-            sor.Add("timestamp", timestamp);
-            sor.Add("noncestr", noncestr);
-            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+                    JsApi.Businesslogic.AddWeChartUser(auth.openid);
 
-            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
-            ViewBag.url = Request.Url.ToString();
-            ViewBag.appid = tenpay.WeChartConfigItem.appid;
-            ViewBag.timestamp = timestamp;
-            ViewBag.noncestr = noncestr;
-            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
 
+
+                    #endregion
+                }
+                else
+                {
+                    if (Session["WeChartUser"] != null)
+                    {
+                        auth = Session["WeChartUser"] as JsApi.WeChartUser;
+                    }
+                    else
+                    {
+                        Response.Redirect("http://mobile.mj100.com/wechart/login4");
+                    }
+                }
+
+
+            }
+                #endregion
+
+            ViewBag.openid = auth.openid;
+            ViewBag.num = JsApi.Businesslogic.GetNum();
+
+
+            string userid = JsApi.Businesslogic.GetUserid(auth.openid);
+
+            ViewBag.userid = userid;
             return View();
         }
 
+        /// <summary>
+        /// 预约成功
+        /// </summary>
+        /// <returns></returns>
+        public string YY(string phone, string code, string openid)
+        {
+
+            object o = Commen.DataCache.GetCache("yy" + phone);
+            if (o == null || o.ToSafeString() != code.ToSafeString().Trim())
+            {
+                return "{\"errorcode\":\"1\",\"msg\":\"验证码错误\"}";
+            }
+
+            //更新帐号
+            //更新预约
+            JsApi.Businesslogic.MakeAnAppointmentWx(phone, code, openid);
+
+
+            return "{\"errorcode\":\"0\",\"msg\":\"" + code + phone + openid + "\"}";
+        }
 
 
 
@@ -70,7 +117,35 @@ namespace MJAPI.Controllers
 
         public ActionResult Demand4()
         {
+            JsApi.WeChartUser auth = new JsApi.WeChartUser();
+            if (Session["WeChartUser"] != null)
+            {
+                auth = Session["WeChartUser"] as JsApi.WeChartUser;
+            }
+            else
+            {
+                Response.Redirect("http://mobile.mj100.com/wechart/login4");
+            }
+            #region 签名
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
 
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+            ViewBag.openid = auth.openid;
+
+            #endregion
             return View();
         }
 
@@ -78,23 +153,190 @@ namespace MJAPI.Controllers
 
         public ActionResult Customized()
         {
+            JsApi.WeChartUser auth = new JsApi.WeChartUser();
+            if (Session["WeChartUser"] != null)
+            {
+                auth = Session["WeChartUser"] as JsApi.WeChartUser;
+            }
+            else
+            {
+                Response.Redirect("http://mobile.mj100.com/wechart/login4");
+            }
+
+
+            #region 签名
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
+
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+            ViewBag.openid = auth.openid;
+
+            #endregion
             return View();
         }
 
 
-        public ActionResult L_mask()
+        public ActionResult L_mask(string id)
         {
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
+
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+            ViewBag.id = id;
+            //ViewBag.openid = auth.openid;
+
             return View();
         }
 
         public ActionResult Order()
         {
 
+
+            #region 拿到当前用户
+            JsApi.WeChartUser auth = new JsApi.WeChartUser();
+            if (Session["WeChartUser"] != null)
+            {
+                auth = Session["WeChartUser"] as JsApi.WeChartUser;
+            }
+            else
+            {
+                Response.Redirect("http://mobile.mj100.com/wechart/login4");
+            }
+            #endregion
+
+
+            #region 当前用户id
+            string userid = JsApi.Businesslogic.GetUserid(auth.openid);
+
+            string phone = JsApi.Businesslogic.GetUserPhone(userid);
+            #endregion
+
+            ViewBag.userid = userid;
+            ViewBag.phone = phone;
+
+            #region 当前用户的需求
+
+            #endregion
+
+
+
+
+
+
             return View();
         }
 
+        public string sendcode(string phone)
+        {
+            return JsApi.Businesslogic.SendMsg(phone);
+        }
 
 
+        public string DeleteYY(string userid)
+        {
+            return JsApi.Businesslogic.DeleteYY(userid);
+        }
+
+        public string UpdateYYtime(string userid,string time)
+        {
+
+            return JsApi.Businesslogic.UpdateTime(userid,time);
+        
+        }
+
+
+        /// <summary>
+        /// xxxx
+        /// </summary>
+        /// <param name="fj"></param>
+        /// <param name="zt"></param>
+        /// <param name="mj"></param>
+        /// <param name="jg"></param>
+        /// <returns></returns>
+        public string XXXX(string fj,string zt,string mj ,string jg )
+        {
+           
+         
+
+           if ( Session["info"]!=null)
+	       {
+               JsApi.Info info = Session["info"] as JsApi.Info;
+
+               if (!fj.IsEmpty())
+               {
+                   info.fj = fj;
+                   
+               }
+               if (!zt.IsEmpty())
+               {
+                   info.zt = zt;
+
+               }
+               if (!mj.IsEmpty())
+               {
+                   info.mj = mj;
+
+               }
+               if (!jg.IsEmpty())
+               {
+                   info.jg = jg;
+
+               }
+               Session["info"] = info;
+           }
+           else
+           {
+               JsApi.Info info = new JsApi.Info();
+
+               if (!fj.IsEmpty())
+               {
+                   info.fj = fj;
+
+               }
+               if (!zt.IsEmpty())
+               {
+                   info.zt = zt;
+
+               }
+               if (!mj.IsEmpty())
+               {
+                   info.mj = mj;
+
+               }
+               if (!jg.IsEmpty())
+               {
+                   info.jg = jg;
+
+               }
+               Session["info"] = info;
+           }
+            return "";
+        
+        }
 
         #region 以前的
 
