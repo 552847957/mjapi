@@ -1540,6 +1540,12 @@
                                     <td class="td-3">是</td>
                                     <td class="td-5">修改导致项目延期天数    必须是整数  提前为负  推迟为正 如提前三天 -3   推迟一天 1</td>
                                 </tr>
+                                 <tr>
+                                    <td class="td-1">desingerids</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">通知人员的desingerd   多个以英文逗号拼接  如 123,564</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -2018,6 +2024,376 @@
 "msg": "删除成功"
 }
 
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+          
+            
+               <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  添加项目安排 阶段安排 人员安排大类
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/AddXmJdRy</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                      @*  "parms": "rname:null,rlx:null,projectid:null"*@
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            
+                                 <tr>
+                                    <td class="td-1">rname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目安排名|阶段安排名|人员安排名</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rlx</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">  jd  xm  ry  三个中的一个 不可传其它的 </td>
+                                </tr>
+                                 
+
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/AddXmJdRy</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>   
+
+                           {
+"errorcode": 0,
+"msg": "添加成功"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  添加项目安排 阶段安排 人员安排子项
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/AddXmRyChild</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST/GET</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                      @*  "parms": "rname:null,rlx:null,projectid:null"*@
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            @*  //"parms": "rname:null,rxname:null,rlx:null,e:null,projectid:null"*@
+                                 <tr>
+                                    <td class="td-1">rname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目安排名|阶段安排名|人员安排名  （父项名）</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rxname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">  子项名</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rlx</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">   xm  ry  三个中的一个 不可传其它的  阶段下没有子项 </td>
+                                </tr>
+                                 
+
+                                 <tr>
+                                    <td class="td-1">index</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">   子项处在项目第几天 </td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/AddXmRyChild</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>   
+
+                           {
+"errorcode": 0,
+"msg": "添加成功"
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  添加删除更改 项目安排 阶段安排 人员安排子项
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/EditXmRyChild</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                      @*  "parms": "rname:null,rlx:null,projectid:null"*@
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            @*  //"parms": "rname:null,rxname:null,rlx:null,e:null,projectid:null"*@
+                                 <tr>
+                                    <td class="td-1">projectid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">beigintime</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目开始时间</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">rlx</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">   xm  ry  二个中的一个 不可传其它的 </td>
+                                </tr>
+                                 
+
+                                 <tr>
+                                    <td class="td-1">rname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目安排大类名  或 人员安排大类名</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">data</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">对各个小类的 增删改  oper=update  delete  add  三个选一个，请注意看输入参数</td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>>http://mobile.mj100.com/desingerapi/EditXmRyChild</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSO输入格式示例：</strong>
+                        <pre>   
+{
+"projectid": "123",
+"beigintime": "2015-5-30",
+"desingername": "设计师名字",
+"rlx": "xm",
+"rname": "水电",
+"data": [
+{
+"rxname": "进场确定方案",
+"oper": "delete",
+"time": "2015-6-9",
+"timeindex": "处在项目的第几天"
+},
+{
+"rxname": "交付",
+"oper": "update",
+"time": "2015-6-20",
+"timeindex": "28"        --------处在项目的第几天
+},
+{
+"rxname": "自定义一个",
+"oper": "add",
+"time": "2015-6-29",
+"timeindex": "30"
+}
+]
+}
+
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    所有项目未来三十天  
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30?desingerid=2</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+  
+          {
+"errorcode": 0,
+"data": [
+{
+"msg": "第1天",
+"time": "15-08-12",
+"data": [
+{
+"projectid": "4120",
+"projectname": "王婧",
+"projectbegintime": "2015-07-20",
+"projectstage": [
+{
+"stagename": "木作,泥作",
+"items": [
+{
+"name": "石材过门石测量 ",
+"time": "2015-08-12"
+}
+]
+}
+]
+},
+{
+"projectid": "3131",
+"projectname": "王毅",
+"projectbegintime": "2015-06-10",
+"projectstage": [
+{
+"stagename": "整体安装",
+"items": [
+{
+"name": "项目经理 ",
+"time": "2015-08-12"
+},
+{
+"name": "微信推送 ",
+"time": "2015-08-12"
+}
+]
+}
+]
+}
+]
+},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{}
+]
+}
            </pre>
                     </div>
                 </div>

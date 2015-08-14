@@ -144,12 +144,34 @@ namespace MJAPI.Controllers
             ViewBag.signature = JsApi.JsToken.Getsignext(sor);
 
             ViewBag.openid = auth.openid;
-
             #endregion
+           // ViewBag.openid="o8r91jtiU-jL0DAQoCgMexSNuNXU";
+
+         
             return View();
         }
 
+        public JsonResult GetJson(string url)
+        {
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
 
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url",url );
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            //ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            //ViewBag.url = url;
+            //ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            //ViewBag.timestamp = timestamp;
+            //ViewBag.noncestr = noncestr;
+            //ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+
+            return Json(new { jsapi_ticket = JsApi.JsToken.Getjsapi_ticket(), url = url, appid = tenpay.WeChartConfigItem.appid, timestamp = timestamp, noncestr = noncestr, signature = JsApi.JsToken.Getsignext(sor) });
+        }
 
         public ActionResult Customized()
         {
@@ -237,6 +259,8 @@ namespace MJAPI.Controllers
 
             ViewBag.userid = userid;
             ViewBag.phone = phone;
+
+            ViewBag.openid = auth.openid;
 
             #region 当前用户的需求
 
@@ -553,6 +577,39 @@ namespace MJAPI.Controllers
 
 
         /// <summary>
+        /// 接收保存请求
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <param name="phone"></param>
+        /// <param name="address"></param>
+        /// <param name="openid"></param>
+        /// <returns></returns>
+        public string Upload2(string serverId, string phone, string address, string openid, string Description, string functionrooms, string area, string themes, string budget)
+        {
+
+            //查询时间------------
+
+            if (!JsApi.Businesslogic.NoExpire(openid))
+            {
+                return "{\"errcode\": 1,\"errmsg\": \"你已经成功提交过一个需求了,请耐心等待\"}";
+            }
+
+
+            try
+            {
+
+                JsApi.Businesslogic.AddDemand(phone, serverId, address, openid, Description,functionrooms,area,themes,budget);
+                return "{\"errcode\": 0,\"errmsg\": \"ok\"}";
+
+
+            }
+            catch (Exception e)
+            {
+                return "{\"errcode\":2,\"errmsg\": \"" + e.Message + "\"}";
+            }
+        }
+
+        /// <summary>
         /// 给用户发送提醒
         /// </summary>
         /// <param name="id"></param>
@@ -643,6 +700,44 @@ namespace MJAPI.Controllers
 
             return u.Description;
         }
+
+
+        public string Test2(string serverId, string phone, string address, string openid, string Description, string functionrooms, string area, string themes, string budget)
+        {
+            JsApi.Businesslogic.AddDemand("15136134321", "", "北京", "o8r91jtiU-jL0DAQoCgMexSNuNXU", "d", "客餐厅", "1", "英国风", "2-100");
+
+            return "";
+        }
         #endregion
+
+
+        public ActionResult Platgrom()
+        {
+
+
+            #region 签名
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
+
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+        
+
+            #endregion
+
+            return View();
+
+        }
     }
 }

@@ -43,11 +43,27 @@ z-index:10;display:none;}
 	body a{display:inline-block;*display:inline;*zoom:1;color:#fff;width:70%;height:44px;
 	position:absolute;bottom:7%;left:50%;margin-left:-35%;z-index:2;background:#ffce55;font-size:18px;line-height:44px;border-radius:22px;}
 </style>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
+        <script>
+
+            $.post("/App/getjson", { url: "http://mobile.mj100.com/Platform2.html" }, function (d) {
+                wx.config({
+                    debug: true,
+                    appId: d.appId,
+                    timestamp: d.timestamp,
+                    nonceStr: d.nonceStr,
+                    signature: d.signature,
+                    jsApiList: [ 'closeWindow']
+                });
+
+
+            },'json');
+        </script>
+        
+
 	</head>
 	<body>
-        <div style='display:none;'>
-<img src='http://www.mj100.com/UploadFile/610/201502/t01-1-s-p-7225.jpg' />
-</div>
 		<img src="img/zIntro2.jpg" />
 		<a href="/wechart/login5">马上获取方案</a>
 	</body>

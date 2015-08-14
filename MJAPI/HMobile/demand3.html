@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,14 +9,14 @@
     <meta name="msapplication-tap-highlight" content="yes">
     <meta name="format-detection" content="email=no">
     <title>设计师预约</title>
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/demand.css" rel="stylesheet" />
-		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>	
-		<script type="text/javascript" src="js/pubFunc.js"></script>		
-		<!--预算轴 链入文件-->	
-		 <script src="dev/js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
-         <script src="dev/js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
- 	<link href="dev/css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/demand.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/pubFunc.js"></script>
+    <!--预算轴 链入文件-->
+    <script src="dev/js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
+    <script src="dev/js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
+    <link href="dev/css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
 
     <!-- S 可根据自己喜好引入样式风格文件 -->
     <script src="dev/js/mobiscroll.android-ics-2.5.2.js" type="text/javascript"></script>
@@ -24,119 +24,174 @@
 
     <!-- E 可根据自己喜好引入样式风格文件 -->
 
-    <script src="dev/js/mobiscroll.list-2.5.1.js" type="text/javascript"></script>    
+    <script src="dev/js/mobiscroll.list-2.5.1.js" type="text/javascript"></script>
+
     <!--Includes-->
-		<!--end 预算轴-->
-		 <style type="text/css">        
-        .content {padding:15px;background: #fff;}
-        #treelist_dummy{display:none;}
-        .dw-li,.dw-bf,.dw-ul,.dwwo,.dw-i span{font-size:20px;}
-     	</style>
+    <!--end 预算轴-->
+    <style type="text/css">
+        .content {
+            padding: 15px;
+            background: #fff;
+        }
+
+        #treelist_dummy {
+            display: none;
+        }
+
+        .dw-li, .dw-bf, .dw-ul, .dwwo, .dw-i span {
+            font-size: 20px;
+        }
+       
+    </style>
 </head>
-		<body style='background:#ebedf0;'>
-		<header class='header1'>
-			<a href='demand2.html' class='st iline'></a> 
-			<div class='t iline clear ellipsis'>
-				选择装修风格
-			</div>
-		</header>
-		<!--需求四步共同标签-->
-		<div class="Dzcontent  Dzcontent1">
-			<p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
-			<div class="d_marea"><span class='o'>房屋面积</span>  <input type="text" value="" enabled /> <span class='t'>平方米</span></div>
-			<div class='d_budget'>
-				装修预算
-			</div>
-		</div>
-		
-		<!--几万到几万-->
-		<ul id="treelist" style='display:none;'>  
-    <li>  <span>1</span>         
-        <ul style='font-size:20px;'>  
-            <li>2</li>  
-            <li>3</li>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-    <li>  
-        <span>2</span>  
-        <ul style='font-size:20px;'>  
-            <li>3</li>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-    <li>  
-        <span>3</span>  
-        <ul style='font-size:20px;'>  
-            <li>4</li>  
-            <li>5</li>  
-            <li>6</li>  
-            <li>7</li>  
-            <li>8</li>  
-            <li>9</li>  
-            <li>10</li>  
-        </ul>  
-    </li>  
-</ul> 
-		
-	<a class='dz_step iline' href='/app/demand4'>
-				<p>下一步(3/4)<img src="img/z_next.png" alt="" /></p>
-	</a>	
-		
-	<div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
-	
-	   </body>
-	      <script>
-	   $(function(){
-	   	loaddz2();
-	   })
-	   window.onresize=loaddz2;
-	   
-	   function loaddz2(){
-	   	var dz_seImg=$('.Dzcontent .style1 li p img');
-	   	dz_seImg.on('click',function(){
-	    	dz_seImg.attr('src','img/z_se0.png');
-	    	dz_seImg.removeClass('a');
-	    	$(this).attr('src','img/z_se1.png');
-	    	$(this).addClass('a');
-	   	})
-	    dBott($('.dBott'));
-	    dzStep($('.dz_step'));
-		}
-	   
-		</script>
-		<script>  
-$(function () {  
-    var i = Math.floor($('#treelist>li').length / 2),  
-        j = Math.floor($('#treelist>li').eq(i).find('ul li').length / 2);  
-    $("#treelist").mobiscroll().treelist({  
-        theme: "android-ics light",  
-        lang: "zh",  
-        defaultValue: [i,j],  
-        cancelText: "",  
-        placeholder: '',  
-        headerText: function (valueText) { return ""; },  
-        formatResult: function (array) { //返回自定义格式结果  
-            return $('#treelist>li').eq(array[0]).children('span').text() +' '+ $('#treelist>li').eq(array[0]).find('ul li').eq(array[1]).text().trim(' ');  
-        }  
-    }); 
+<body style='background: #ebedf0;'>
+    <header class='header1'>
+        <a href='demand2.html' class='st iline'></a>
+        <div class='t iline clear ellipsis'>
+            选择装修风格
+        </div>
+    </header>
+    <!--需求四步共同标签-->
+    <div class="Dzcontent  Dzcontent1">
+        <p class='tit'>告诉设计师您的房屋面积和心里预算，获得的方案报价将会更准确。</p>
+        <div class="d_marea"><span class='o'>房屋面积</span>
+            <input type="text" value="" enabled />
+            <span class='t'>平方米</span></div>
+        <div class='d_budget'>
+            装修预算
+        </div>
+    </div>
+    <ul id="treelist" style="display:none">
+    <li data-val="East">East
+        <ul>
+            <li data-val="Willene S">Willene S
+                <ul>
+                    <li data-val="Lean F">Lean F</li>
+                    <li data-val="Kirby C">Kirby C</li>
+                    <li data-val="Edelmira R">Edelmira R</li>
+                    <li data-val="Francie S">Francie S</li>
+                </ul>
+            </li>
+            <li data-val="Yuko Crampton">Yuko C
+                <ul>
+                    <li data-val="Vancouver">Eden E</li>
+                    <li data-val="Winnipeg">Milda J</li>
+                    <li data-val="Porfirio R">Porfirio R</li>
+                </ul>
+            </li>
+            <li data-val="Toccara A">Toccara A
+                <ul>
+                    <li data-val="Mildred S">Mildred S</li>
+                    <li data-val="Frances P">Frances P</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li data-val="Central">Central
+        <ul>
+            <li data-val="Stephania B">Stephania B
+                <ul>
+                    <li data-val="Leanna S">Leanna S</li>
+                    <li data-val="Frank D">Frank D</li>
+                    <li data-val="Michael D">Michael D</li>
+                    <li data-val="Dana A">Dana A</li>
+                </ul>
+            </li>
+            <li data-val="Tama C">Tama C
+                <ul>
+                    <li data-val="Stephan V">Stephan V</li>
+                    <li data-val="Helen D">Helen D</li>
+                    <li data-val="Cliff B">Cliff B</li>
+                </ul>
+            </li>
+            <li data-val="Stephenie R">Stephenie R
+                <ul>
+                    <li data-val="Miguel E">Miguel E</li>
+                    <li data-val="Bartholome A">Bartholomeo A</li>
+                    <li data-val="Andy G">Andy G</li>
+                </ul>
+            </li>
+            <li data-val="Shalanda H">Shalanda H
+                <ul>
+                    <li data-val="Levi K">Levi K</li>
+                    <li data-val="Frederico M">Frederico M</li>
+                    <li data-val="David G">David G</li>
+                    <li data-val="Elisabeth">Elisabeth T</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li data-val="West">West
+        <ul>
+            <li data-val="Rina D">Rina D
+                <ul>
+                    <li data-val="Marge S">Marge S</li>
+                    <li data-val="Bart S">Bart S</li>
+                    <li data-val="Davie J">Davie J</li>
+                </ul>
+            </li>
+            <li data-val="Pattie S">Pattie S
+                <ul>
+                    <li data-val="Patrick M">Patrick M</li>
+                    <li data-val="Kagoshima A">Kagoshima A</li>
+                    <li data-val="Mark B">Mark B</li>
+                </ul>
+            </li>
+        </ul>
     
-   $('#treelist').mobiscroll('show');
-  
-  
-})   
-</script>  
+    </li>
+</ul>
+  
+
+    <a class='dz_step iline' href='/app/demand4'>
+        <p>下一步(3/4)<img src="img/z_next.png" alt="" /></p>
+    </a>
+
+    <div class="dBott">Copyright &copy; 2013-2015 mj100.com 京ICP备14036628号</div>
+
+</body>
+<script>
+    $(function () {
+        loaddz2();
+    })
+    window.onresize = loaddz2;
+
+    function loaddz2() {
+        var dz_seImg = $('.Dzcontent .style1 li p img');
+        dz_seImg.on('click', function () {
+            dz_seImg.attr('src', 'img/z_se0.png');
+            dz_seImg.removeClass('a');
+            $(this).attr('src', 'img/z_se1.png');
+            $(this).addClass('a');
+        })
+        dBott($('.dBott'));
+        dzStep($('.dz_step'));
+    }
+
+</script>
+<script>
+
+
+    $(function () {
+        var i = Math.floor($('#treelist>li').length / 2),
+            j = Math.floor($('#treelist>li').eq(i).find('ul li').length / 2);
+        $("#treelist").mobiscroll().treelist({
+            theme: "android-ics light",
+            lang: "zh",
+            defaultValue: [i, j],
+            cancelText: "",
+            fixedWidth: [100, 160, 160],
+            placeholder: '',
+            headerText: function (valueText) { return ""; },
+            formatResult: function (array) { //返回自定义格式结果  
+                return $('#treelist>li').eq(array[0]).children('span').text() + ' ' + $('#treelist>li').eq(array[0]).find('ul li').eq(array[1]).text().trim(' ');
+            }
+        });
+
+        $('#treelist').mobiscroll('show');
+
+
+    })
+</script>
 
 </html>

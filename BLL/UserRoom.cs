@@ -1123,6 +1123,47 @@ values(@UserId,@Tkey,@Extension4,@Extension1,@Extension2,@Extension3,@CreateTime
             return "";
 
         }
+
+
+        /// <summary>
+        /// 需求
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public static DataTable GetDemnad(string projectid)
+        {
+            return SqlHelper.ExecuteDataTable("select * from DemandShowRooms where DemandShowroomId='"+projectid+"'");
+        }
+
+        /// <summary>
+        /// 用户的房间
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public static DataTable GetUserRomms(string projectid)
+        {
+            return SqlHelper.ExecuteDataTable("select   * from UserRoom where demandId='"+projectid+"'");
+        }
+
+        public static DataTable GetGyTable(string roomid)
+        {
+            return SqlHelper.ExecuteDataTable(@"select a.Types, a.Extension1 , a.Extension2, a.Extension,Product.Unit,Product.Price, Product.Extension1 as [desc]  from  (select   *  from  DemandYppCenter  where projectTypeId='" + roomid + @"') a
+
+left join Product on a.ProjectId=Product.ProductId");
+        }
+
+        /// <summary>
+        /// 拿到主材
+        /// </summary>
+        /// <param name="did"></param>
+        /// <returns></returns>
+        public static DataTable GetZc(string did)
+        {
+            return SqlHelper.ExecuteDataTable(@" 
+ select Products.extension1, Products.Evaluation, a.Extension4, a.Extension6,a.Num,Products.Netprice,Price , a.dyZlName ,Products.Pname, Products.Pmodel, Products.Unit from DemandShowRoomProduct a left join Products
+ 
+  on a.ProductId=Products.PID    where DemandShowroomId='" + did+@"'");
+        }
     }
 
 

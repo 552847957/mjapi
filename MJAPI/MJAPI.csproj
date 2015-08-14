@@ -39,7 +39,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>C:\Users\Administrator\Desktop\Npoi\examples\新建文件夹\dotnet4\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NPOI">
+      <HintPath>C:\Users\Administrator\Desktop\Npoi\examples\新建文件夹\dotnet4\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>C:\Users\Administrator\Desktop\Npoi\examples\新建文件夹\dotnet4\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>C:\Users\Administrator\Desktop\Npoi\examples\新建文件夹\dotnet4\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>C:\Users\Administrator\Desktop\Npoi\examples\新建文件夹\dotnet4\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -136,6 +151,7 @@
     <Compile Include="Controllers\DesingerApiController.cs" />
     <Compile Include="Controllers\DesingerController.cs" />
     <Compile Include="Controllers\ErrorLog.cs" />
+    <Compile Include="Controllers\FileDownController.cs" />
     <Compile Include="Controllers\filter\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LFController.cs" />
@@ -284,12 +300,22 @@
     <Content Include="HMobile\images\sign.png" />
     <Content Include="HMobile\images\tel.png" />
     <Content Include="HMobile\images\zD1.png" />
+    <Content Include="HMobile\img\01.jpg" />
     <Content Include="HMobile\img\01.png" />
+    <Content Include="HMobile\img\02.jpg" />
     <Content Include="HMobile\img\02.png" />
+    <Content Include="HMobile\img\03.jpg" />
     <Content Include="HMobile\img\03.png" />
+    <Content Include="HMobile\img\04.jpg" />
     <Content Include="HMobile\img\04.png" />
     <Content Include="HMobile\img\1.png" />
     <Content Include="HMobile\img\b.png" />
+    <Content Include="HMobile\img\ban1.jpg" />
+    <Content Include="HMobile\img\ban1.png" />
+    <Content Include="HMobile\img\ban2.jpg" />
+    <Content Include="HMobile\img\ban2.png" />
+    <Content Include="HMobile\img\ban3.jpg" />
+    <Content Include="HMobile\img\ban3.png" />
     <Content Include="HMobile\img\headImg.png" />
     <Content Include="HMobile\img\l_already.png" />
     <Content Include="HMobile\img\l_check.png" />
@@ -338,6 +364,7 @@
     <Content Include="HMobile\zDesigner.html" />
     <Content Include="HMobile\zWait.html" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="HtmlPage2.html" />
     <Content Include="img\b.png" />
     <Content Include="img\headImg.png" />
     <Content Include="img\joinDesi\l_clo.png" />
@@ -355,6 +382,7 @@
     <Content Include="img\joinDesi\z_sh320.png" />
     <Content Include="img\joinDesi\z_shd.png" />
     <Content Include="img\joinDesi\z_shx.png" />
+    <Content Include="img\logo.png" />
     <Content Include="img\l_already.png" />
     <Content Include="img\l_check.png" />
     <Content Include="img\l_contact.png" />
@@ -375,6 +403,7 @@
     <Content Include="img\zcir.png" />
     <Content Include="img\zcir2.png" />
     <Content Include="img\zIntro1.jpg" />
+    <Content Include="img\zIntro2.jpg" />
     <Content Include="img\ztit.png" />
     <Content Include="img\ztit1.png" />
     <Content Include="img\ztit11.png" />
@@ -424,6 +453,7 @@
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.list-2.5.1.js.svn-base" />
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.select-2.5.1.js.svn-base" />
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.wp-2.5.2.js.svn-base" />
+    <Content Include="Platform2.html" />
     <None Include="Properties\PublishProfiles\api发布.pubxml" />
     <None Include="Properties\PublishProfiles\llll.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
@@ -641,6 +671,7 @@
     <Content Include="Views\App\Order.cshtml" />
     <Content Include="Views\DesingerApi\Index.cshtml" />
     <Content Include="Views\App\Customized2.cshtml" />
+    <Content Include="Views\App\Platgrom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

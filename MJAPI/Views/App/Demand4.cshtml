@@ -2,6 +2,15 @@
     Layout = null;
 
     JsApi.Info info = Session["info"] as JsApi.Info;
+    if (info==null)
+    {
+        info = new JsApi.Info() {  fj="", jg="", mj="", zt=""};
+        
+    }
+
+
+ 
+    
 }
 <!DOCTYPE html>
 <html>
@@ -303,8 +312,20 @@ z-index:10;display:none;'></div>
 		                }
 		            });
 
-		            $.post("/App/Upload", { serverId: "", phone: phone, address: city_dp + district_dp + xiaoqu, openid: '@ViewBag.openid', Description: '' }, function (d) {
 
+//		            functionrooms nvarchar(1024) ,
+
+
+//area nvarchar(1024),
+
+
+//themes nvarchar(1024),
+
+//budget nvarchar(1024)
+
+		            $.post("/App/Upload2", { serverId: "", phone: phone, address: city_dp + district_dp + xiaoqu, openid: '@ViewBag.openid', Description: '', functionrooms: '@(info.fj)', area: '@(info.mj)', themes: '@info.zt', budget: '@(info.jg)' }, function (d) {
+
+		               
 
                 if (d.errcode == 0) {
 
@@ -319,7 +340,7 @@ z-index:10;display:none;'></div>
                     $.MsgBox.Alert("消息", "请勿重复提交！");
 
                 }
-            }, 'json');
+            },'json');
 
             return false;
 

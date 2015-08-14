@@ -1,8 +1,11 @@
 ﻿using MJAPI.Controllers.filter;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -57,6 +60,19 @@ namespace MJAPI.Controllers
         {
 
             return Myjson(DesingerBLL.Desinger.GetTodaythings7(desingerid));
+
+        }
+
+
+        /// <summary>
+        /// 最近一个月要做的事
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <returns></returns>
+        public JsonResult TheThingsToDoInTheNearFuture30(string desingerid)
+        {
+
+            return Myjson(DesingerBLL.Desinger.GetTodaythings30(desingerid));
 
         }
 
@@ -172,6 +188,8 @@ namespace MJAPI.Controllers
 
             string filename = Guid.NewGuid().ToString().Substring(0, 6) + projectid + fileext;
 
+            MakeSmallImg(file.InputStream,3,5);
+
             file.SaveAs(path + filename);
 
 
@@ -181,7 +199,92 @@ namespace MJAPI.Controllers
             DesingerBLL.Desinger.InsertPic(projectid, dayindex, url);
 
 
-            return "{\"errcode\":0,\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\"}";
+            return "{\"errcode\":0,\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\",\"smallimg\":\"http://mobile.mj100.com/desingerapi/pic?url=" + url + "&w=260&h=166\"}";
+        }
+
+
+
+
+
+        public ActionResult Pic(string url ,int w,int h)
+        {
+            //url = "http://mobile.mj100.com/sg/2015/8/7fbb754287.png";
+            //w = 50;
+            //h = 50;
+            var stram = new System.Net.WebClient().OpenRead(url);
+
+
+            byte[] bytes = MakeSmallImg(stram, w, h);
+
+
+            return File(bytes, "image/jpeg", "small.jpg");
+        }
+
+
+        /// <summary>
+        /// 压缩图片  15-5-4 by倩
+        /// </summary>
+        /// <param name="fromFileStream"></param>
+        /// <param name="templateWidth"></param>
+        /// <param name="templateHeight"></param>
+        /// <returns></returns>
+        public byte[] MakeSmallImg(System.IO.Stream fromFileStream, System.Double templateWidth, System.Double templateHeight)
+        {
+            //从文件取得图片对象，并使用流中嵌入的颜色管理信息 
+            System.Drawing.Image myImage = System.Drawing.Image.FromStream(fromFileStream, true);
+            //缩略图宽、高 
+            System.Double newWidth = myImage.Width, newHeight = myImage.Height;
+            //宽大于模版的横图 
+            if (myImage.Width > myImage.Height || myImage.Width == myImage.Height)
+            {
+                if (myImage.Width > templateWidth)
+                {
+                    //宽按模版，高按比例缩放 
+                    newWidth = templateWidth;
+                    newHeight = myImage.Height * (newWidth / myImage.Width);
+                }
+            }
+            //高大于模版的竖图 
+            else
+            {
+                if (myImage.Height > templateHeight)
+                {
+                    //高按模版，宽按比例缩放 
+                    newHeight = templateHeight;
+                    newWidth = myImage.Width * (newHeight / myImage.Height);
+                }
+            }
+            //取得图片大小 
+            System.Drawing.Size mySize = new Size((int)newWidth, (int)newHeight);
+            //新建一个bmp图片 
+            System.Drawing.Image bitmap = new System.Drawing.Bitmap(mySize.Width, mySize.Height);
+            //新建一个画板 
+            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bitmap);
+            //设置高质量插值法 
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+            //设置高质量,低速度呈现平滑程度 
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            //清空一下画布 
+            g.Clear(Color.White);
+            //在指定位置画图 
+            g.DrawImage(myImage, new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+            new System.Drawing.Rectangle(0, 0, myImage.Width, myImage.Height),
+            System.Drawing.GraphicsUnit.Pixel);
+
+
+           
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.Save(stream, ImageFormat.Jpeg);
+                g.Dispose();
+                myImage.Dispose();
+                bitmap.Dispose();
+
+                //输出字节流
+                return stream.ToArray();
+
+            }
+
         }
 
 
@@ -195,7 +298,7 @@ namespace MJAPI.Controllers
         /// <param name="projectid"></param>
         /// <param name="Delaydays"></param>
         /// <returns></returns>
-        public string AddModifyRecord(string desingername, string con, string Reason, string projectid, string Delaydays)
+        public string AddModifyRecord(string desingername, string con, string Reason, string projectid, string Delaydays,string desingerids)
         {
             return DesingerBLL.Desinger.AddModifyRecord(desingername, con, Reason, projectid, Delaydays);
         }
@@ -322,8 +425,23 @@ namespace MJAPI.Controllers
         }
 
 
-
-
+        /// <summary>
+        /// 编辑项目人员
+        /// </summary>
+        /// <returns></returns>
+        public string EditXmRyChild()
+        {
+          
+            #region 获取到请求的值
+            Stream s = System.Web.HttpContext.Current.Request.InputStream;
+            byte[] b = new byte[s.Length];
+            s.Read(b, 0, (int)s.Length);
+            string postStr = Encoding.UTF8.GetString(b);
+            #endregion
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "Edit.txt", postStr + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+            return DesingerBLL.Desinger.EditXmRy(postStr);
+          
+        }
 
 
 
@@ -337,7 +455,9 @@ namespace MJAPI.Controllers
         public string Test(string rname, string rlx, string projectid)
         {
 
-            return "";
+            
+
+            return DesingerBLL.Desinger.EditXmRy("");
         }
 
 
@@ -356,6 +476,43 @@ namespace MJAPI.Controllers
         }
 
 
+       
+
+        /// <summary>
+        /// 添加阶段安排 项目安排  人员安排 大类
+        /// </summary>
+        /// <returns></returns>
+        public string AddXmJdRy(string rname,string rlx,string projectid)
+        {
+
+            return DesingerBLL.Desinger.AddXm(rname, rlx, projectid);
+        }
+
+        /// <summary>
+        /// 添加项目人员安排子类
+        /// </summary>
+        /// <returns></returns>
+        public string AddXmRyChild(string rname,string rxname,string rlx,string index,string projectid)
+        {
+            return DesingerBLL.Desinger.AddChild(rname, rxname, rlx, index, projectid);
+        
+        }
+
+
+
+
+        public string test2()
+        {
+
+            return DesingerBLL.Desinger.AddChild("welcome", "welcome12", "xm", "12", "4246");
+        }
+
+
+        public string test3()
+        {
+
+            return DesingerBLL.Desinger.GetTodaythings30("2");
+        }
 
 
     }

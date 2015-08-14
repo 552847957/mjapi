@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Platgrom";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+    	<meta content="telephone=no" name="format-detection" />
+    	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes"><title>极客美家介绍</title>
+		 
+		<style>
+			/* reset.css */
+body,p,h1,h2,h3,h4,h5,h6,dl,dd,ol,ul,form,input,span,textarea,select,blockquote,i{margin:0;font-size:12px; 
+font-family:Arial,Tahoma,"微软雅黑","Hiragino Sans GB W3"}/*Hiragino Sans GB W3:冬青黑*/
+ul,ol,input,textarea,td,th{padding:0;}
+input,button,textarea，select{outline:0;}
+li{list-style:none;}
+b,em{ font-weight:normal;}
+i,strong{ font-style:normal;}
+table{border-collapse:collapse;}
+a{text-decoration: none;color: black;text-align: center;margin:0px;padding:0px;}
+img{border:none; vertical-align:top;}
+textarea{overflow:auto;resize:none;outline:none;}
+.clear:after{content:'';display:block; clear:both;}
+.clear{zoom:1;}
+.cur_hover:hover{cursor:pointer;}
+.cur_zoom:hover{cursor:pointer;cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in;}
+.iline{display:inline-block;*display:inline;*zoom:1;}
+.bsizec{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}/*border和padding不计算入width之内(default)---大*/
+.bsizep{-webkit-box-sizing:padding-box;-moz-box-sizing:padding-box;box-sizing:padding-box;}/*padding计算入width内*/
+.bsizeb{-moz-box-sizing:border-box;-webkit-box-sizing:content-box;box-sizing:border-box;}/*border和padding计算入width之内*/
+.ellipsis{text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+::-moz-selection{background:#5d9cec; color:#FFFFFF;} 
+::selection {background:#5d9cec; color:#fff;} 
+._fl{float:left;}
+._fr{float:right;}
+#fMask{position:fixed;top:0px;left:0px;width:100%;height:100%;
+background:#000;filter:alpha(opacity=30);-moz-opacity:0.3;-khtml-opacity:0.3;opacity:0.3;
+z-index:10;display:none;}
+/* end reset.css */
+	body{width:100%;height:auto;position:relative;}
+	body img{width:100%;height:auto;}
+	body a{display:inline-block;*display:inline;*zoom:1;color:#fff;width:70%;height:44px;
+	position:absolute;bottom:7%;left:50%;margin-left:-35%;z-index:2;background:#ffce55;font-size:18px;line-height:44px;border-radius:22px;}
+</style>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
+        <script>
+            wx.config({
+                debug: false,
+                appId: '@ViewBag.appid',
+                timestamp: "@ViewBag.timestamp",
+                 nonceStr: '@ViewBag.nonceStr',
+                 signature: '@ViewBag.signature',
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+            });
+
+            wx.ready(function () {
+
+
+                share("我们是极客美家", "http://mobile.mj100.com/app/platgrom", "http://mobile.mj100.com/img/logo.png");
+
+             });
+
+            function share(title,shareurl,imgurl) {
+
+               
+                wx.onMenuShareTimeline({
+                    title: title, // 分享标题
+                    link: shareurl, // 分享链接
+                    imgUrl: imgurl, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+
+                wx.onMenuShareAppMessage({
+                    title: title, // 分享标题
+                    desc: "关注我们，同时也是关注您未来的家", // 分享描述
+                    link: shareurl, // 分享链接
+                    imgUrl: imgurl, // 分享图标
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+                wx.onMenuShareQQ({
+                    title: title, // 分享标题
+                    desc: "关注我们，同时也是关注您未来的家", // 分享描述
+                    link: shareurl, // 分享链接
+                    imgUrl: imgurl, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+
+                wx.onMenuShareWeibo({
+                    title: title, // 分享标题
+                    desc: "关注我们，同时也是关注您未来的家", // 分享描述
+                    link: shareurl, // 分享链接
+                    imgUrl: imgurl, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+                 
+            }
+
+          
+        </script>
+	</head>
+	<body>
+		<img src="/img/zIntro2.jpg" />
+		<a href="/wechart/login5">马上获取方案</a>
+	</body>
+</html>
+
