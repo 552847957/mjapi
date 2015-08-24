@@ -24,6 +24,196 @@ namespace JsApi
         }
 
         /// <summary>
+        /// 抽奖
+        /// </summary>
+        /// <returns></returns>
+        public static string Cj(string openid,string nickname)
+        {
+            
+            Random r = new Random();
+
+            int v = r.Next(1, 101);
+
+            int rr = 1;
+
+                      
+
+            string pricename = "500元家装代金券";
+
+            if (v < 90)
+            {
+               
+                pricename= "500元家装代金券";
+                rr = 1;
+            }
+
+            else if (v>=90&v<100)
+            {
+                int n = GettodyprizeCount("2元现金红包");
+                if (n>=10)
+                {
+                    pricename = "500元家装代金券";
+                    rr = 1;
+                }
+                else
+                {
+                    pricename = "2元现金红包";
+                    rr = 0;
+                }
+               
+            }
+            else if (v == 100)
+            {
+                int n = GettodyprizeCount("10元现金红包");
+                if (n >= 2)
+                {
+                    pricename = "500元家装代金券";
+                    rr = 1;
+                }
+                else
+                {
+                    rr = 2;
+                    pricename = "10元现金红包";
+                }
+               
+            }
+
+            AddWinningRecord(openid,nickname,pricename);
+
+            UpdateChanceCount(openid,-1);
+
+            return rr.ToSafeString();
+        }
+
+        /// <summary>
+        /// 得到分享次数
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <returns></returns>
+        public static int GetShareCount(string openid)
+        {
+            return Convert.ToInt32( SqlHelper.ExecuteScalar(" select COUNT(*) from ShareRecord where openid='"+openid+"'"));
+        }
+
+        /// <summary>
+        /// 得到奖品当天发放数量
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int GettodyprizeCount(string value)
+        {
+            return Convert.ToInt32( SqlHelper.ExecuteScalar("  select COUNT(*) from WinningRecord where DATEDIFF(DD,drawtime,GETDATE())=0 and prizename='"+value+"'  "));
+        }
+
+        /// <summary>
+        /// 添加分享记录
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="nickname"></param>
+        /// <param name="shraedesc"></param>
+        /// <returns></returns>
+        public static bool AddShareRecord(string openid, string nickname, string shraedesc)
+        {
+            string sql = "insert into ShareRecord(openid,nickname,shraedesc) values(@openid,@nickname,@shraedesc);";
+
+            SqlParameter[] arr = new SqlParameter[] { 
+             new SqlParameter("@openid",openid),
+             new SqlParameter("@nickname",nickname),
+             new SqlParameter("@shraedesc",shraedesc)
+            };
+
+            return SqlHelper.ExecuteNonQuery(sql, arr) > 0;
+
+        }
+
+        /// <summary>
+        /// 分享
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <returns></returns>
+        public static int Share(string openid, string nickname)
+        {
+            object o = SqlHelper.ExecuteScalar(" select COUNT(*) as num from ShareRecord where openid='" + openid + "'");
+
+            int v = Convert.ToInt32(o);
+
+            if (v == 0)
+            {
+                UpdateChanceCount(openid, 2);
+            }
+            else if (v == 1)
+            {
+
+                UpdateChanceCount(openid, 1);
+            }
+            AddShareRecord(openid, nickname, "抽奖分享");
+
+
+            return v;
+
+        }
+
+        /// <summary>
+        /// 查看还有几次抽奖机会
+        /// </summary>
+        /// <returns></returns>
+        public static int GetChanceCount(string openid)
+        {
+            object n = SqlHelper.ExecuteScalar("  select WebChartUser.chancecount from WebChartUser where openid='" + openid + "'");
+
+            return Convert.ToInt32(n);
+
+        }
+
+        /// <summary>
+        /// 修改机会次数
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool UpdateChanceCount(string openid, int n)
+        {
+
+            //update WebChartUser set chancecount='1' where openid='o8r91jjmQWUqO8zrq4rxL0QVTEYs'
+            string sql = "";
+            if (n > 0)
+            {
+                sql = "update WebChartUser set chancecount=chancecount+" + n.ToSafeString() + " where openid='" + openid + "'";
+            }
+            else
+            {
+                sql = "update WebChartUser set chancecount=chancecount - " + Math.Abs(n) + " where openid='" + openid + "'";
+            }
+
+
+            SqlHelper.ExecuteNonQuery(sql);
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// 添加中奖记录
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="nickname"></param>
+        /// <param name="prizename"></param>
+        /// <returns></returns>
+        public static bool AddWinningRecord(string openid, string nickname, string prizename)
+        {
+            string sql = " insert into WinningRecord(openid,nickname,prizename) values(@openid,@nickname,@prizename);";
+
+            SqlParameter[] arr = new SqlParameter[] { 
+             new SqlParameter("@openid",openid),
+             new SqlParameter("@nickname",nickname),
+             new SqlParameter("@prizename",prizename)
+            };
+
+            return SqlHelper.ExecuteNonQuery(sql, arr) > 0;
+
+        }
+
+        /// <summary>
         /// 添加微信用户
         /// </summary>
         /// <param name="openid"></param>
@@ -36,6 +226,25 @@ insert into WebChartUser (openid) values(@openid);
 end";
 
             SqlHelper.ExecuteNonQuery(sql, new SqlParameter("@openid", openid));
+        }
+
+
+        /// <summary>
+        /// 添加微信用户
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="nickname"></param>
+        /// <param name="headimgurl"></param>
+        public static void AddWechartUser2(string openid, string nickname, string headimgurl)
+        {
+            string sql = @"declare @num int set @num=0;
+select @num=count(openid) from WebChartUser where openid=@openid;
+if(@num<1)begin  
+insert into WebChartUser (openid,nickname,headimgurl,chancecount) values(@openid,@nickname,@headimgurl,1);
+end
+";
+
+            SqlHelper.ExecuteNonQuery(sql, new SqlParameter("@openid", openid), new SqlParameter("@nickname", nickname), new SqlParameter("@headimgurl", headimgurl));
         }
 
         /// <summary>
@@ -218,13 +427,13 @@ delete from [DemandShowRooms]  where DemandShowroomId=@DemandShowroomId   --删�
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public static string  DeleteYY(string userid)
+        public static string DeleteYY(string userid)
         {
 
             #region 清空所有
-            int n = SqlHelper.ExecuteNonQuery(@"update WebChartUser set userid='' where userid='"+userid+@"'
-delete from DemandShowRooms  where UserId='"+userid+@"'
-delete from Tentent  where UserId='"+userid+@"'
+            int n = SqlHelper.ExecuteNonQuery(@"update WebChartUser set userid='' where userid='" + userid + @"'
+delete from DemandShowRooms  where UserId='" + userid + @"'
+delete from Tentent  where UserId='" + userid + @"'
 ");//删除需求 
             #endregion
 
@@ -237,11 +446,11 @@ delete from Tentent  where UserId='"+userid+@"'
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public static string UpdateTime(string userid,string time)
+        public static string UpdateTime(string userid, string time)
         {
 
             #region 清空所有
-            int n = SqlHelper.ExecuteNonQuery("update Tentent set Extension3='"+time+"' where UserId='"+userid+"'"); 
+            int n = SqlHelper.ExecuteNonQuery("update Tentent set Extension3='" + time + "' where UserId='" + userid + "'");
             #endregion
 
             return n.ToString();
@@ -254,7 +463,7 @@ delete from Tentent  where UserId='"+userid+@"'
         public static string GetUserPhone(string userid)
         {
 
-            object phone = SqlHelper.ExecuteScalar("  select LoginName  from Users where UserId='"+userid+"';;");
+            object phone = SqlHelper.ExecuteScalar("  select LoginName  from Users where UserId='" + userid + "';;");
 
             return phone.ToSafeString();
 
@@ -303,10 +512,10 @@ delete from Tentent  where UserId='"+userid+@"'
         /// <param name="phone"></param>
         /// <param name="time"></param>
         /// <param name="name"></param>
-        public static void MakeAnAppointmentWx(string phone, string name,string openid)
+        public static void MakeAnAppointmentWx(string phone, string name, string openid)
         {
             #region MyRegion
-            string sql = "insert into Tentent(UserId,Extension1,Extension3,Extension4,createtime) values(@UserId,@phone,@time,@name,'"+DateTime.Now.ToString()+"');";
+            string sql = "insert into Tentent(UserId,Extension1,Extension3,Extension4,createtime) values(@UserId,@phone,@time,@name,'" + DateTime.Now.ToString() + "');";
             string userid = "";
             object o = SqlHelper.ExecuteScalar("select UserId from Users where LoginName=@phone or UserMPhone=@phone;", new SqlParameter("@phone", phone));
             if (o != null)
@@ -323,21 +532,21 @@ delete from Tentent  where UserId='"+userid+@"'
             new SqlParameter("@phone",phone),
             new SqlParameter("@time",DateTime.Now.ToString("yy-MM-dd")),
             new SqlParameter("@name",name)
-            }; 
+            };
             #endregion
 
-           object isyy=  SqlHelper.ExecuteScalar("select count(*) from Tentent where UserId='"+userid+"';");
-           if (isyy.ToSafeString()=="0")
-           {
-               #region 预约
-               SqlHelper.ExecuteNonQuery(sql, arr);
-               #endregion
-           }
+            object isyy = SqlHelper.ExecuteScalar("select count(*) from Tentent where UserId='" + userid + "';");
+            if (isyy.ToSafeString() == "0")
+            {
+                #region 预约
+                SqlHelper.ExecuteNonQuery(sql, arr);
+                #endregion
+            }
 
-          
+
 
             #region 更新用户id
-            SqlHelper.ExecuteNonQuery("update WebChartUser set userid=@userid where openid=@openid", new SqlParameter("@userid", userid), new SqlParameter("@openid", openid)); 
+            SqlHelper.ExecuteNonQuery("update WebChartUser set userid=@userid where openid=@openid", new SqlParameter("@userid", userid), new SqlParameter("@openid", openid));
             #endregion
         }
 
@@ -669,6 +878,15 @@ delete from Tentent  where UserId='"+userid+@"'
             return "";
         }
 
+        /// <summary>
+        /// 得到抽奖列表
+        /// </summary>
+        /// <returns></returns>
+        public static IList<JsApi.WinningRecord> GetWinningRecords()
+        {
+            DataTable dt = SqlHelper.ExecuteDataTable("  select * from  WinningRecord order by drawtime desc");
+            return ConvertToList<JsApi.WinningRecord>(dt);
+        }
         /// <summary> 
         /// 单表查询结果转换成泛型集合 
         /// </summary> 
