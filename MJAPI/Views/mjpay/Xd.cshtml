@@ -10,13 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
-    <div>
-        现在开始支付 @ViewBag.prepay_id                   5555555555555555555
+    <div onclick="Zf()">
+        现在开始支付1分钱 @ViewBag.prepay_id                   
     </div>
 </body>
 </html>
 <script>
-    function onBridgeReady() {
+
+    function Zf() {
+
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {
                 "appId": "@ViewBag.appId",     //公众号名称，由商户传入     
@@ -33,6 +35,13 @@
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
             }
         );
+    }
+
+    function onBridgeReady() {
+
+        
+
+
         }
 
         if (typeof WeixinJSBridge == "undefined") {

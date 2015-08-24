@@ -145,9 +145,9 @@ namespace MJAPI.Controllers
 
             ViewBag.openid = auth.openid;
             #endregion
-           // ViewBag.openid="o8r91jtiU-jL0DAQoCgMexSNuNXU";
+            // ViewBag.openid="o8r91jtiU-jL0DAQoCgMexSNuNXU";
 
-         
+
             return View();
         }
 
@@ -157,7 +157,7 @@ namespace MJAPI.Controllers
             string noncestr = JsApi.JsToken.getNoncestr();
 
             SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
-            sor.Add("url",url );
+            sor.Add("url", url);
             sor.Add("timestamp", timestamp);
             sor.Add("noncestr", noncestr);
             sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
@@ -285,11 +285,11 @@ namespace MJAPI.Controllers
             return JsApi.Businesslogic.DeleteYY(userid);
         }
 
-        public string UpdateYYtime(string userid,string time)
+        public string UpdateYYtime(string userid, string time)
         {
 
-            return JsApi.Businesslogic.UpdateTime(userid,time);
-        
+            return JsApi.Businesslogic.UpdateTime(userid, time);
+
         }
 
 
@@ -301,65 +301,65 @@ namespace MJAPI.Controllers
         /// <param name="mj"></param>
         /// <param name="jg"></param>
         /// <returns></returns>
-        public string XXXX(string fj,string zt,string mj ,string jg )
+        public string XXXX(string fj, string zt, string mj, string jg)
         {
-           
-         
 
-           if ( Session["info"]!=null)
-	       {
-               JsApi.Info info = Session["info"] as JsApi.Info;
 
-               if (!fj.IsEmpty())
-               {
-                   info.fj = fj;
-                   
-               }
-               if (!zt.IsEmpty())
-               {
-                   info.zt = zt;
 
-               }
-               if (!mj.IsEmpty())
-               {
-                   info.mj = mj;
+            if (Session["info"] != null)
+            {
+                JsApi.Info info = Session["info"] as JsApi.Info;
 
-               }
-               if (!jg.IsEmpty())
-               {
-                   info.jg = jg;
+                if (!fj.IsEmpty())
+                {
+                    info.fj = fj;
 
-               }
-               Session["info"] = info;
-           }
-           else
-           {
-               JsApi.Info info = new JsApi.Info();
+                }
+                if (!zt.IsEmpty())
+                {
+                    info.zt = zt;
 
-               if (!fj.IsEmpty())
-               {
-                   info.fj = fj;
+                }
+                if (!mj.IsEmpty())
+                {
+                    info.mj = mj;
 
-               }
-               if (!zt.IsEmpty())
-               {
-                   info.zt = zt;
+                }
+                if (!jg.IsEmpty())
+                {
+                    info.jg = jg;
 
-               }
-               if (!mj.IsEmpty())
-               {
-                   info.mj = mj;
+                }
+                Session["info"] = info;
+            }
+            else
+            {
+                JsApi.Info info = new JsApi.Info();
 
-               }
-               if (!jg.IsEmpty())
-               {
-                   info.jg = jg;
+                if (!fj.IsEmpty())
+                {
+                    info.fj = fj;
 
-               }
-               Session["info"] = info;
-           }
+                }
+                if (!zt.IsEmpty())
+                {
+                    info.zt = zt;
+
+                }
+                if (!mj.IsEmpty())
+                {
+                    info.mj = mj;
+
+                }
+                if (!jg.IsEmpty())
+                {
+                    info.jg = jg;
+
+                }
+                Session["info"] = info;
+            }
             return "";
-        
+
         }
 
         #region 以前的
@@ -598,7 +598,7 @@ namespace MJAPI.Controllers
             try
             {
 
-                JsApi.Businesslogic.AddDemand(phone, serverId, address, openid, Description,functionrooms,area,themes,budget);
+                JsApi.Businesslogic.AddDemand(phone, serverId, address, openid, Description, functionrooms, area, themes, budget);
                 return "{\"errcode\": 0,\"errmsg\": \"ok\"}";
 
 
@@ -732,12 +732,129 @@ namespace MJAPI.Controllers
             ViewBag.noncestr = noncestr;
             ViewBag.signature = JsApi.JsToken.Getsignext(sor);
 
-        
+
 
             #endregion
 
             return View();
 
         }
+
+
+        /// <summary>
+        /// 大抽奖
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult LuckDraw(string code)
+        {
+
+
+
+            #region 缓存用户
+            if (Session["Lu"] != null)
+            {
+                JsApi.LuckDrawUser Lu = Session["Lu"] as JsApi.LuckDrawUser;
+
+                if (Lu.subscribe == 0)
+                {
+                    string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + Lu.openid + "&lang=zh_CN");
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+
+                }
+                ViewBag.lu = Lu;
+
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(code.ToSafeString()))
+                {
+
+
+                    string post_data = "appid=" + "wx2c2f2e7b5b62daa1" + "&secret=" + "ed815afc669a9201a6070677d1771166" + "&code=" + code + "&grant_type=authorization_code";
+                    string requestData = tenpay.TenpayUtil.PostXmlToUrl(tenpay.TenpayUtil.getAccess_tokenUrl(), post_data);
+                    JavaScriptSerializer js = new JavaScriptSerializer();   //实例化一个能够序列化数据的类
+                    string openid = js.Deserialize<JsApi.WeChartUser>(requestData).openid;//用户的openid
+                    string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + openid + "&lang=zh_CN");
+                    JsApi.LuckDrawUser Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+
+                    Session["Lu"] = Lu;
+
+                    ViewBag.lu = Lu;
+
+
+                    JsApi.Businesslogic.AddWechartUser2(Lu.openid, Lu.nickname, Lu.headimgurl);//入库
+
+
+                }
+                else
+                {
+                    JsApi.LuckDrawUser Lu = Session["Lu"] as JsApi.LuckDrawUser;
+
+                    if (Lu.subscribe == 0)
+                    {
+                        string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + Lu.openid + "&lang=zh_CN");
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+                        ViewBag.lu = Lu;
+                    }
+
+                }
+            }
+            #endregion
+
+            #region 签名
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
+
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+
+
+            #endregion
+
+
+            return View();
+
+            // return code;
+        }
+
+        /// <summary>
+        /// 分享成功
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="nickname"></param>
+        /// <returns></returns>
+        public JsonResult ShareOK(string openid, string nickname)
+        {
+
+            int v = JsApi.Businesslogic.Share(openid, nickname);
+            return Json(new { count = v, flag = true }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        /// <summary>
+        ///抽奖 
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <param name="nickname"></param>
+        /// <returns></returns>
+        public string Cj(string openid, string nickname)
+        {
+            return JsApi.Businesslogic.Cj(openid, nickname);
+        }
+
+        
     }
 }

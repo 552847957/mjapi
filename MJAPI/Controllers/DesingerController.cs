@@ -132,7 +132,14 @@ namespace MJAPI.Controllers
 
         }
 
+        public string TEst(string phone, string city, string yzm, string fromid)
+        {
+            DesingerBLL.Desinger bll = new DesingerBLL.Desinger();
 
+            bll.Adddesinger("15136134321", "2", "", "");
+
+            return "{\"errorcode\":\"0\",\"msg\":\"注册成功\"}";
+        }
 
 
         private string RndNum()

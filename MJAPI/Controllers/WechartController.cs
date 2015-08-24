@@ -64,6 +64,12 @@ namespace MJAPI.Controllers
             return "";
         }
 
+        public string Login6()
+        {
+            Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/App/LuckDraw?response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+            return "";
+        }
+
 
         /// <summary>
         /// 微信登录授权

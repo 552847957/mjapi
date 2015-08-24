@@ -2244,6 +2244,26 @@
                     <div class="interface-line">
                         <strong class="db mb10">JSO输入格式示例：</strong>
                         <pre>   
+
+         {
+"projectid": "4267",
+"beigintime": "2015-5-30",
+"desingername": "设计师名字",
+"desingerids": "12,123,456",    -----通知人的id  多个以逗号拼接 可以为空
+"rlx": "xm",
+"rname": "瓷砖",
+"data": [
+ {
+"rxname": "瓷砖进场",
+"newname":"新瓷砖进场O_O", -------------------------修改的新名字  可以为空 
+"oper": "update",
+"time": "2015-6-20",
+"timeindex": "10"   ------------------------绝对不能为空     
+} 
+]
+}
+
+
 {
 "projectid": "123",
 "beigintime": "2015-5-30",
@@ -2317,6 +2337,8 @@
                     <div class="interface-line">
                         <strong class="db mb10">JSON返回示例：</strong>
                         <pre> 
+
+                   
   
           {
 "errorcode": 0,
@@ -2398,6 +2420,79 @@
                     </div>
                 </div>
             </dt>
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    修改阶段时间  起始天  终止天 
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/Updatejd</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                jdname=%E8%A3%85%E5%89%8D%E5%87%86%E5%A4%87&b=2&e=4&projectid=4267
+                                <tr>
+                                    <td class="td-1">jdname  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">阶段名</td>
+                                </tr>
+
+                                  <tr>
+                                    <td class="td-1">b  </td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">开始在第几天</td>
+                                </tr>
+
+
+                                 <tr>
+                                    <td class="td-1">e  </td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">结束在第几天</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">projectid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目唯一标识</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/Updatejd?jdname=装前准备&b=2&e=4&projectid=4267</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+
+                   {
+"errorcode": 0,
+"msg": "修改成功"
+}
+   
+           </pre>
+                    </div>
+                </div>
+            </dt>
+
         </dl>
 
     </div>

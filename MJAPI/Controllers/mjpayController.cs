@@ -27,6 +27,8 @@ namespace MJAPI.Controllers
             Session["auth"] = auth;//标识用户登录 
             #endregion
             return View();
+
+
         }
 
 
@@ -62,7 +64,8 @@ namespace MJAPI.Controllers
             order.mch_id = tenpay.WeChartConfigItem.mch_id;
             order.nonce_str = TenpayUtil.getNoncestr();//随机字符串
             order.notify_url = "http://mobile.mj100.com/test/h?id=100";//回调网址
-            order.openid = auth.openid;
+            order.openid = auth.openid;//每一个微信号的唯一标识都不一样
+
             order.out_trade_no = "20156666978542323" + DateTime.Now.Day + DateTime.Now.Minute + DateTime.Now.Second;//订单号
             order.trade_type = "JSAPI";
             order.spbill_create_ip = Request.UserHostAddress;
@@ -102,8 +105,85 @@ namespace MJAPI.Controllers
             ViewBag.paySign = paySign;
             ViewBag.openid = paySign + "我是paySign";
             return View();
+
+
         }
 
+
+        /// <summary>
+        /// 实际支付页
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public ActionResult Xd2(string code, string state)
+        {
+
+            //   Session["auth"] = auth;//标识用户登录 
+            MJAPI.Controllers.WechartController.authorization auth = null;
+
+            if (Session["auth"] != null)
+            {
+                auth = Session["auth"] as MJAPI.Controllers.WechartController.authorization;
+            }
+            else
+            {
+                Response.Redirect("http://mobile.mj100.com/wechart/login");
+            }
+
+
+            #region 发送预支付单
+            UnifiedOrder order = new UnifiedOrder();
+            order.appid = tenpay.WeChartConfigItem.appid;
+            order.attach = "vinson1";
+            order.body = "极客美家支付正式测试";//订单描述
+            order.device_info = "";
+            order.mch_id = tenpay.WeChartConfigItem.mch_id;
+            order.nonce_str = TenpayUtil.getNoncestr();//随机字符串
+            order.notify_url = "http://mobile.mj100.com/test/h?id=100";//回调网址
+            order.openid = auth.openid;
+            order.out_trade_no = "20156666978542323" + DateTime.Now.Day + DateTime.Now.Minute + DateTime.Now.Second;//订单号
+            order.trade_type = "JSAPI";
+            order.spbill_create_ip = Request.UserHostAddress;
+            order.total_fee = 2;
+
+            string prepay_id = tenpay.TenpayUtil.getPrepay_id(order, tenpay.WeChartConfigItem.key);//商户key
+            #endregion
+
+
+
+            #region 得到paySign
+            string timeStamp = TenpayUtil.getTimestamp();
+            string nonceStr = TenpayUtil.getNoncestr().ToUpper();
+            SortedDictionary<string, string> sParams = new SortedDictionary<string, string>();
+            sParams.Add("appId", tenpay.WeChartConfigItem.appid);
+
+            sParams.Add("timeStamp", timeStamp);
+
+            sParams.Add("nonceStr", nonceStr);
+
+            sParams.Add("package", "prepay_id=" + prepay_id);
+
+            sParams.Add("signType", "MD5");
+
+            string paySign = TenpayUtil.getsign(sParams, tenpay.WeChartConfigItem.key);
+
+            #endregion
+
+
+
+
+
+            ViewBag.appId = "wx2c2f2e7b5b62daa1";
+            ViewBag.timeStamp = timeStamp;
+            ViewBag.nonceStr = nonceStr;
+            ViewBag.prepay_id = prepay_id;
+            ViewBag.paySign = paySign;
+            ViewBag.openid = paySign + "我是paySign";
+            return View();
+
+
+        }
 
         /// <summary>
         /// NATIVE第二种扫码支付

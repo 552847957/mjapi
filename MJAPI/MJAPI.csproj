@@ -181,6 +181,30 @@
     <Content Include="666\img\mask.png" />
     <Content Include="666\img\phone.png" />
     <Content Include="666\jquery-1.8.3.min.js" />
+    <Content Include="active\active.html" />
+    <Content Include="active\css\active.css" />
+    <Content Include="active\css\common.css" />
+    <Content Include="active\img\10.png" />
+    <Content Include="active\img\2.png" />
+    <Content Include="active\img\500.png" />
+    <Content Include="active\img\btn.png" />
+    <Content Include="active\img\cj.png" />
+    <Content Include="active\img\copy.png" />
+    <Content Include="active\img\follow.png" />
+    <Content Include="active\img\know.png" />
+    <Content Include="active\img\no.png" />
+    <Content Include="active\img\pointer.png" />
+    <Content Include="active\img\share.png" />
+    <Content Include="active\img\tip.png" />
+    <Content Include="active\img\topLeft.png" />
+    <Content Include="active\img\topRight.png" />
+    <Content Include="active\img\turntable-bg.png" />
+    <Content Include="active\img\turntable.png" />
+    <Content Include="active\img\z_info.png" />
+    <Content Include="active\js\active.js" />
+    <Content Include="active\js\awardRotate.js" />
+    <Content Include="active\js\jquery-1.8.3.min.js" />
+    <Content Include="active\js\scroll.js" />
     <Content Include="Content\666.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -363,8 +387,6 @@
     <Content Include="HMobile\order.html" />
     <Content Include="HMobile\zDesigner.html" />
     <Content Include="HMobile\zWait.html" />
-    <Content Include="HtmlPage1.html" />
-    <Content Include="HtmlPage2.html" />
     <Content Include="img\b.png" />
     <Content Include="img\headImg.png" />
     <Content Include="img\joinDesi\l_clo.png" />
@@ -672,6 +694,8 @@
     <Content Include="Views\DesingerApi\Index.cshtml" />
     <Content Include="Views\App\Customized2.cshtml" />
     <Content Include="Views\App\Platgrom.cshtml" />
+    <Content Include="Views\mjpay\Xd2.cshtml" />
+    <Content Include="Views\App\LuckDraw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

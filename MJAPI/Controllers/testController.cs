@@ -201,5 +201,14 @@ namespace MJAPI.Controllers
             return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; ; ;
         }
 
+
+        public string OO()
+        {
+
+
+            return Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=iF4UhkMfgQHp6cKD0iWfGT7hMw0A189LzNz3T6klXdXYiqRvziknHx-3FnyebIhUO3u_0VFVlhbGIie8NYgryH480XVE35WSVh0lzS5-GGs&openid=o8r91jtiU-jL0DAQoCgMexSNuNXU&lang=zh_CN");
+        
+        }
+
     }
 }

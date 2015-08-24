@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!--<meta name="viewport" id="viewport" content="width=device-width,height=device-height,target-densitydpi=medium-dpi,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		-->
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="telephone=no" name="format-detection" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=no">
+
+		<title>京东家装节</title>
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/active.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/awardRotate.js"></script>
+		<script src='js/scroll.js'></script>
+		<script type="text/javascript" src="js/active.js"></script>
+		<script type="text/javascript">
+			$(function (){
+			
+				var rotateTimeOut = function (){
+					$('#rotate').rotate({
+						angle:0,
+						animateTo:2160,
+						duration:8000,
+						callback:function (){
+							alert('网络超时，请检查您的网络设置！');
+						}
+					});
+				};
+				var bRotate = false;
+			
+				var rotateFn = function (awards, angles, txt){
+					bRotate = !bRotate;
+					$('#rotate').stopRotate();
+					$('#rotate').rotate({
+						angle:0,
+						animateTo:angles+1800,
+						duration:8000,
+						callback:function (){
+							alert(txt);
+							bRotate = !bRotate;
+						}
+					})
+				};
+			
+				$('.pointer').click(function (){
+					if(bRotate)return;
+					var item = rnd(0,2);
+			
+					switch (item) {
+						case 0:
+							//var angle = [26, 88, 137, 185, 235, 287, 337];
+							rotateFn(0, 337, '2元现金红包');
+							break;
+						case 1:
+							//var angle = [88, 137, 185, 235, 287];
+							rotateFn(1, 51, '500元家装代金券');
+							break;
+						case 2:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(3, 153, '10元现金红包');
+							break;
+						case 3:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(2, 102, 'iPhone6');
+							break;
+						case 4:
+							//var angle = [185, 235, 287];
+							rotateFn(4, 204, '100元京东卡');
+							break;
+						case 5:
+							//var angle = [185, 235, 287];
+							rotateFn(5, 204, '100元京东卡');
+							break;
+						case 6:
+							//var angle = [235, 287];
+							rotateFn(6, 256, 'iWatch');
+							break;
+					}
+			
+					console.log(item);
+				});
+			});
+			function rnd(n, m){
+				return Math.floor(Math.random()*(m-n+1)+n)
+			}
+			//获奖滚动
+			$(document).ready(function(){
+				$('.announce ul:even').addClass('lieven');
+			})
+			$(function(){
+				$(".announce").myScroll({
+					speed:70, //数值越大，速度越慢
+					rowHeight:200 //li的高度
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="l_container">
+			<img src="img/turntable-bg.png" />
+			<div class="l_header">
+				<span></span><b></b>
+			</div>
+			<div class="turntable-bg">
+				<div class="rotate">
+					<img id="rotate" src="img/turntable.png" alt="turntable" />
+				</div>
+				<div class="pointer"><img src="img/pointer.png" alt="pointer" class="l_pointer" /></div>
+			</div>
+			<div class="l_num"><i>1</i></div>
+		</div>
+		<div class="l_tip">
+			<div class="l_btn">
+				<a href="javascript:;">获得2次抽奖机会</a>
+			</div>
+			<div class='announce'>
+				<div class='z_tit'><img src="img/z_info.png" alt="" /></div>
+				<div class='list'>
+					<div class='table1'>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>10元现金红包</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>10元现金红包</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>10元现金红包</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>iPhone6</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>10元现金红包</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>iPhone6</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>iWatch</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈娃</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>iPhone6</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈</li>
+							<li>获得</li>
+							<li class='ellipsis'>iWatch</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>娃哈哈娃哈哈娃</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+						<ul>
+							<li class='ellipsis'>1111</li>
+							<li>获得</li>
+							<li class='ellipsis'>500元代金券</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="l_help">
+				<div class="l_img"><img src="img/tip.png" /></div>
+				<dl>
+					<dt>如何抽奖</dt>
+					<dd>新用户关注“极客美家”服务号后，点击“抽奖”即可参与活动。</dd>
+				</dl>
+				<dl>
+					<dt>如何续抽</dt>
+					<dd>分享活动一次，多获得两次抽奖机会；分享活动第二次，再获得一次抽奖机会。</dd>
+				</dl>
+				<dl>
+					<dt>如何使用代金券</dt>
+					<dd class="l_noBorder">获奖者可在与极客美家签约的工程中使用代金券抵免500元。</dd>
+				</dl>
+			</div>
+			<div class="l_rule">
+				<h2>活动规则</h2>
+				<ol>
+					<li>用户在8月24日-8月31日活动期间，首次进入活动页面可获得一次抽奖机会。</li>
+					<li>分享本活动一次可多获得两个抽奖资格，分享第二次可多获得一个抽奖资格。多次分享则不会再获额外抽奖资格。</li>
+					<li>获得的现金红包会在24小时内转入获奖者的微信钱包。</li>
+					<li>若获得代金券、京东卡、iwatch或iphone6（颜色随机），请获奖者主动与“极客美家”微信服务号客服联系，小美会在第一时间回复您。</li>
+					<li>每一个施工工地限使用一张代金券。</li>
+					<li>代金券仅限北京、天津、贵阳使用，使用期限截至2015年12月31日，且本次活动所获代金券不得与其他优惠活动重叠使用。</li>
+					<li>参与本活动需关注“极客美家”微信服务号，且仅限微信端用户参与。</li>
+					<li>本次活动由极客美家全权举办，最终解释权归京东家居家装和极客美家所有。</li>
+				</ol>
+			</div>
+			<div class="l_no">
+				<img src="img/no.png" />
+			</div>
+			<div class="l_copy">
+				<img src="img/copy.png" />
+			</div>
+		</div>
+		<!--遮罩-->
+		<div id="fMask"></div>
+		<div class="l_share">
+			<img src="img/share.png" />
+			<a href="javascript:;" class="l_know"><img src="img/know.png" /></a>
+		</div>
+		<!--中奖弹窗-->
+		<div class="l_ten">
+			<img src="img/10.png" />
+			<div class="l_txt">
+				<h5>酷！分享活动再来一发吧！</h5>
+				<p>奖品获得方式请参考活动规则！</p>
+			</div>
+			<a href="javascript:;">知道啦</a>
+		</div>
+		<div class="l_ten">
+			<img src="img/2.png" />
+			<div class="l_txt">
+				<h5>酷！分享活动再来一发吧！</h5>
+				<p>奖品获得方式请参考活动规则！</p>
+			</div>
+			<a href="javascript:;">知道啦</a>
+		</div>
+		<div class="l_ten">
+			<img src="img/500.png" />
+			<div class="l_txt">
+				<h5>手气不要太好哦~~</h5>
+				<p>奖品获得方式请参考活动规则！</p>
+			</div>
+			<a href="javascript:;">知道啦</a>
+		</div>
+	</body>
+
+</html>

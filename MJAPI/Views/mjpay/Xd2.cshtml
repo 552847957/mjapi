@@ -6,32 +6,17 @@
 
 <html>
 <head>
-    <title>微信安全支付</title>
-    <meta charset="utf-8" />
+    <title>Xd</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
     <div>
-
-        <a href="\mjpay\xd?showwxpaytitle=1">支付1分钱</a>
-
-
-        <br />
-        <br />
-
-        <a href="\mjpay\xd2?showwxpaytitle=1">支付2分钱</a>
-
-
-
+        现在开始支付2分钱 @ViewBag.prepay_id                
     </div>
-    <h3 id="h"></h3>
 </body>
 </html>
 <script>
-
-    
-
-    @* function onBridgeReady() {
+    function onBridgeReady() {
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {
                 "appId": "@ViewBag.appId",     //公众号名称，由商户传入     
@@ -42,8 +27,6 @@
                 "paySign": "@ViewBag.paySign" //微信签名 
             },
             function (res) {
-
-
                 alert(res.err_msg);
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
 
@@ -61,8 +44,5 @@
             }
         } else {
             onBridgeReady();
-        }*@
-
-
-
+        }
 </script>

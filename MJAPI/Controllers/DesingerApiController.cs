@@ -499,6 +499,20 @@ namespace MJAPI.Controllers
         }
 
 
+        /// <summary>
+        /// 更新阶段时间
+        /// </summary>
+        /// <param name="jdname"></param>
+        /// <param name="b"></param>
+        /// <param name="e"></param>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public  string Updatejd(string jdname, string b, string e, string projectid)
+        {
+          //  ?jdname=装前准备&b=2&e=4&projectid=4267
+           
+            return DesingerBLL.Desinger.Updatejd(jdname, b, e, projectid);
+        }
 
 
         public string test2()
