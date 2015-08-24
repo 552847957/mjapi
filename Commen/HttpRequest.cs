@@ -23,6 +23,26 @@ namespace Commen
             return returnmsg;
         }
 
+        /// <summary>
+        /// 售房网下载数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetResponseString(string url)
+        {
+            string _StrResponse = "";
+            HttpWebRequest _WebRequest = (HttpWebRequest)WebRequest.Create(url);
+            _WebRequest.UserAgent = "MOZILLA/4.0 (COMPATIBLE; MSIE 7.0; WINDOWS NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)";
+
+            _WebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            _WebRequest.Method = "GET";
+            WebResponse _WebResponse = _WebRequest.GetResponse();
+            StreamReader _ResponseStream = new StreamReader(_WebResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+            _StrResponse = _ResponseStream.ReadToEnd();
+            _WebResponse.Close();
+            _ResponseStream.Close();
+            return _StrResponse;
+        }
 
 
         /// <summary>
