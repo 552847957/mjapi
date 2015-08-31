@@ -63,7 +63,7 @@
 
     <title>京东家装节</title>
     <link href="/active/css/common.css" rel="stylesheet" />
-    <link href="/active/css/active.css" rel="stylesheet" />
+    <link href="/active/css/active.css?v=23433333" rel="stylesheet" />
     <script src="/HMobile/js/jquery-1.8.3.min.js?@(DateTime.Now.Day.ToString())"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
@@ -235,43 +235,47 @@
 
 
                         $(".table1").append("<ul><li class='ellipsis'>@lu.nickname</li><li>获得</li><li class='ellipsis'>" + txt + "</li></ul>");
-		                    bRotate = !bRotate;
-		                }
-		            })
-		        };
+                        bRotate = !bRotate;
+                    }
+                })
+            };
 
-		        $('.pointer').click(function () {
-		            if ('@lu.subscribe' == '0') {
+            $('.pointer').click(function () {
+                if ('@lu.subscribe' == '0') {
 
-		                $('#fMask').show();
-		                $('.two').show();
+                    $('#fMask').show();
+                    $('.l_follow').show();
 
-		                return;
-		            }
+                    return;
+                }
 
-		            if (ccount_dp == 0) {
+                if (ccount_dp == 0) {
 
 
-		                $.MsgBox.Alert("提示", "您的抽奖机会已用完");
-		                return;
-		            }
+                    $.MsgBox.Alert("提示", "您的抽奖机会已用完");
+                    return;
+                }
 
-		            if (bRotate) return;
+                if (bRotate) return;
 
-		            $.ajax({
+                $.ajax({
 
-		                type: "post",
+                    type: "post",
 
-		                url: "/app/Cj",
+                    url: "/app/Cj",
 
-		                cache: false,
-		                data: { openid: '@lu.openid', nickname: '@lu.nickname' },
+                    cache: false,
+                    data: { openid: '@lu.openid', nickname: '@lu.nickname' },
 		                async: false,
 
 		                dataType: 'text',
 
 		                success: function (d) {
 
+		                    if (d=="-1") {
+		                        rotateTimeOut();
+		                        return false;
+		                    }
 
 		                    var item = parseInt(d);
 
@@ -319,8 +323,8 @@
 
 
 
-		        });
-		    });
+            });
+        });
             function rnd(n, m) {
                 return Math.floor(Math.random() * (m - n + 1) + n)
             }
@@ -331,7 +335,7 @@
             $(function () {
                 $(".announce").myScroll({
                     speed: 70, //数值越大，速度越慢
-                    rowHeight: 200 //li的高度
+                    rowHeight: parseInt('@lis.Count') * 26 //li的高度
                 });
             });
 		</script>
@@ -348,7 +352,8 @@
                 <img id="rotate" src="/active/img/turntable.png" alt="turntable" />
             </div>
             <div class="pointer">
-                <img src="/active/img/pointer.png" alt="pointer" class="l_pointer" /></div>
+                <img src="/active/img/pointer.png" alt="pointer" class="l_pointer" />
+            </div>
         </div>
         <div class="l_num"><i id="ccount_dp">@chancecount</i></div>
     </div>
@@ -376,17 +381,41 @@
         </div>
         <div class='announce'>
             <div class='z_tit'>
-                <img src="/active/img/z_info.png" alt="" /></div>
+                <img src="/active/img/z_info.png" alt="" />
+            </div>
             <div class='list'>
                 <div class='table1'>
+
                     @{
+                       
+                      
+
+                     
+                        
+                        
+
+                        int R = new Random().Next(3, 10);
                         for (int i = 0; i < lis.Count; i++)
                         {
+                            if (i == R)
+                            {
                         <ul>
-                            <li class='ellipsis'>@lis[i].Nickname</li>
+                            <li class='ellipsis'>TonyFn@生孩子</li>
+                            <li>获得</li>
+                            <li class='ellipsis'>iWatch</li>
+                        </ul>
+                            }
+
+                            if (lis[i].Nickname.ToSafeString().Trim().Length>0)
+                            {
+                                 <ul>
+                            <li class='ellipsis'>@(lis[i].Nickname.ToSafeString().Length==0?"&nbsp;&nbsp;&nbsp;&nbsp;":lis[i].Nickname)</li>
                             <li>获得</li>
                             <li class='ellipsis'>@lis[i].Prizename</li>
                         </ul>
+                            }
+                                                     
+                       
                         }
  }
 
@@ -397,7 +426,8 @@
 
         <div class="l_help">
             <div class="l_img">
-                <img src="/active/img/tip.png" /></div>
+                <img src="/active/img/tip.png" />
+            </div>
             <dl>
                 <dt>如何抽奖</dt>
                 <dd>新用户关注“极客美家”服务号后，点击“抽奖”即可参与活动。</dd>
@@ -414,7 +444,7 @@
         <div class="l_rule">
             <h2>活动规则</h2>
             <ol>
-                <li>用户在8月24日-8月31日活动期间，首次进入活动页面可获得一次抽奖机会。</li>
+                <li>用户在8月24日-10月7日活动期间，首次进入活动页面可获得一次抽奖机会。</li>
                 <li>分享本活动一次可多获得两个抽奖资格，分享第二次可多获得一个抽奖资格。多次分享则不会再获额外抽奖资格。</li>
                 <li>获得的现金红包会在24小时内转入获奖者的微信钱包。</li>
                 <li>若获得代金券、京东卡、iwatch或iphone6（颜色随机），请获奖者主动与“极客美家”微信服务号客服联系，小美会在第一时间回复您。</li>
@@ -441,10 +471,13 @@
             <img src="/active/img/know.png" /></a>
     </div>
 
-    <div class="l_share two">
+    @* <div class="l_share two">
         <img src="/active/img/follow.png" />
         <a href="javascript:;" class="l_know">
             <img src="/active/img/know.png" /></a>
+    </div>*@
+    <div class="l_follow" style="display: none">
+        <img src="/active/img/code.png" />
     </div>
     <!--中奖弹窗-->
     <div class="l_ten d1">
@@ -487,7 +520,7 @@
                 if ('@lu.subscribe' == '0') {
 
                     $('#fMask').show();
-                    $('.two').show();
+                    $('.l_follow').show();
 
                     return;
                 }
@@ -509,6 +542,7 @@
             $('.l_know').on('click', function () {
                 $('#fMask').hide();
                 $('.l_share').hide();
+
             })
 
         })

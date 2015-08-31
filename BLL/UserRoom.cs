@@ -1159,10 +1159,51 @@ left join Product on a.ProjectId=Product.ProductId");
         /// <returns></returns>
         public static DataTable GetZc(string did)
         {
-            return SqlHelper.ExecuteDataTable(@" 
- select Products.extension1, Products.Evaluation, a.Extension4, a.Extension6,a.Num,Products.Netprice,Price , a.dyZlName ,Products.Pname, Products.Pmodel, Products.Unit from DemandShowRoomProduct a left join Products
+ //          // return SqlHelper.ExecuteDataTable(@" 
+ //select Products.extension1, Products.Evaluation, a.Extension4, a.Extension6,a.Num,Products.Netprice,Price , a.dyZlName ,Products.Pname, Products.Pmodel, Products.Unit from DemandShowRoomProduct a left join Products
  
-  on a.ProductId=Products.PID    where DemandShowroomId='" + did+@"'");
+ // on a.ProductId=Products.PID    where DemandShowroomId='" + did+@"'");
+
+
+            return SqlHelper.ExecuteDataTable(@"  select 	Evaluation	,Extension4	,Extension6	,Num	,Netprice	,Price,	dyZlName,	Pname,	Pmodel,	Unit,Bname
+  
+  from
+ 
+ (select  MAX(Bid) as Bid ,MAX(extension1) extension1,MAX(Evaluation) Evaluation, MAX(Extension4) Extension4,MAX(Extension6) Extension6,
+ SUM(CAST ( Num as float )) Num,MAX(Netprice) Netprice, SUM(CAST( Price as float )) Price, MAX(dyZlName) dyZlName,MAX(Pname) Pname,MAX(Pmodel) Pmodel,MAX(Unit) Unit
+ 
+ 
+  from (select  Products.BID, Products.PID ,Products.extension1, Products.Evaluation, a.Extension4, a.Extension6,a.Num,Products.Netprice,Price , 
+  a.dyZlName ,Products.Pname, Products.Pmodel, Products.Unit from DemandShowRoomProduct a left join Products
+ 
+  on a.ProductId=Products.PID    where DemandShowroomId='"+did+@"' and PID is not null) aa  where aa.PID is not null group by PID
+  
+ 
+  
+  union select '0' bid,  Products.extension1, Products.Evaluation, a.Extension4, a.Extension6,a.Num,Products.Netprice,Price , 
+  a.dyZlName ,Products.Pname, Products.Pmodel, Products.Unit from DemandShowRoomProduct a left join Products
+ 
+  on a.ProductId=Products.PID    where DemandShowroomId='"+did+@"' and PID is   null) tt left join Brand on tt.Bid=Brand.BID");
+
+
+
+
+        }
+
+        /// <summary>
+        /// 得到水电和其他
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public static DataTable GetOther(string projectid)
+        {
+            return SqlHelper.ExecuteDataTable(@"select a.Types, a.Extension1 , a.Extension2, a.Extension,Product.Unit,Product.Price, Product.Extension1 as [desc] 
+ 
+  from  
+ 
+ (select   *  from  DemandYppCenter  where TypeId='"+projectid+@"') a
+
+left join Product on a.ProjectId=Product.ProductId where Types<>'qm' and Types<>'dm'  and  Types<>'ld'" );
         }
     }
 

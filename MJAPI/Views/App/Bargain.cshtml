@@ -1,0 +1,352 @@
+﻿@{
+    Layout = null;
+    JsApi.LuckDrawUser lu = ViewBag.lu as JsApi.LuckDrawUser;
+    bool flagself = false;//是不是自己
+    string foruser=ViewBag.foruser as string;
+    if ( ( foruser )==lu.openid||foruser=="dpzc")
+    {
+        flagself = true;
+    }
+
+    bool isgz = lu.subscribe == 1;//是否关注
+    string foropenid = foruser;   //为谁抽奖
+    if (foruser=="dpzc"||foruser==null)
+    {
+        foropenid = lu.openid;
+    }
+
+
+    IList<JsApi.Bargain> lisbrgain = JsApi.Businesslogic.GetBargainList(foropenid);
+
+    IList<JsApi.Bargain> listop10 = JsApi.Businesslogic.GetTop10();
+}
+
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="telephone=no" name="format-detection" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=no">
+
+		<title>京东家装节</title>
+		<link href="/active/css/common.css" rel="stylesheet" />
+		<link href="/active/css/price.css" rel="stylesheet" />
+		<script type="text/javascript" src="/HMobile/js/jquery-1.8.3.min.js"></script>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+        <script>
+        wx.config({
+            debug: false,
+            appId: '@ViewBag.appid',
+            timestamp: "@ViewBag.timestamp",
+            nonceStr: '@ViewBag.nonceStr',
+            signature: '@ViewBag.signature',
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo']
+        });
+
+        wx.ready(function () {
+
+            if ('@isgz' == 'True') {
+
+                share("京东家装节，大砍价", "http://mobile.mj100.com/wechart/login7/@lu.openid", "http:/mobile.mj100.com/active/img/price.png", function () {
+                    location.href = "http://mobile.mj100.com/wechart/login7";
+                });
+            } else {
+                share("京东家装节，大砍价", "http://mobile.mj100.com/wechart/login7", "http:/mobile.mj100.com/active/img/price.png", function () {
+                    location.href = "http://mobile.mj100.com/wechart/login7";
+                });
+            }
+              
+
+        });
+
+        function share(title, shareurl, imgurl, e, b) {
+
+
+            wx.onMenuShareTimeline({
+                title: title, // 分享标题
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    if (e) {
+                        e();
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    if (b) {
+                        b();
+                    }
+                }
+            });
+
+
+            wx.onMenuShareAppMessage({
+                title: title, // 分享标题
+                desc: "京东家装节，大砍价", // 分享描述
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    if (e) {
+                        e();
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    if (b) {
+                        b();
+                    }
+                }
+            });
+
+            wx.onMenuShareQQ({
+                title: title, // 分享标题
+                desc: "京东家装节，大砍价", // 分享描述
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    if (e) {
+                        e();
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    if (b) {
+                        b();
+                    }
+                }
+            });
+
+
+            wx.onMenuShareWeibo({
+                title: title, // 分享标题
+                desc: "京东家装节，大砍价", // 分享描述
+                link: shareurl, // 分享链接
+                imgUrl: imgurl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    if (e) {
+                        e();
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    if (b) {
+                        b();
+                    }
+                }
+            });
+
+
+        }
+
+
+    </script>
+
+
+		<script src='/active/js/scroll.js'></script>
+		
+		<script type="text/javascript">
+			//获奖滚动
+			$(document).ready(function(){
+				$('.announce ul:even').addClass('lieven');
+			})
+			$(function(){
+				$(".announce").myScroll({
+					speed:70, //数值越大，速度越慢
+					rowHeight:54*parseInt('@lisbrgain.Count()') //li的高度
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="l_container">
+			<img src="/active/img/price.png" />
+			<div class="l_header">
+				<span></span><b></b>
+			</div>
+			<a href="javascript:;">进入主会场</a>
+		</div>
+		<div class="l_tip">
+             <p class="l_hh">
+		    	 @(JsApi.Businesslogic.GetnickName(foropenid))的装修款
+		    </p>
+		    <div class="l_total">
+		    	<p>共 砍 掉 <span> @JsApi.Businesslogic.GetTotleKjNum(foropenid) </span> 元</p>
+		    </div>
+		  
+			<div class="l_btn">
+                @{if(flagself){
+                  	<a href="javascript:;" class="l_helpPrice">自己砍一刀</a>
+                  }
+                  else
+                  {
+                      	<a href="javascript:;" class="l_helpPrice">帮Ta砍一刀</a>
+                  }}
+				<a href="javascript:;" class="l_sharePrice"></a>				
+			</div>
+
+              <p class="l_max">
+		    	最高可以砍掉10000元装修款哦，加油！
+		    </p>
+			<div class='announce'>
+				<div class='z_tit'><img src="/active/img/who.png" alt="" /></div>
+				<div class='list'>
+					<div class='table1'>
+						
+						 @{foreach (var item in lisbrgain)
+         {
+             <ul>
+							<li class='ellipsis'>@item.Nickname<img src="@item.Headimg"/></li>
+							<li>帮砍掉</li>
+							<li class='ellipsis'>@(item.Value)元</li>
+						</ul>
+         }}
+					</div>
+				</div>
+			</div>
+			<div class='announce2'>
+				<div class='z_tit'><img src="/active/img/num.png" /></div>
+				<div class='list'>
+					<div class='table1'>
+					
+					 @{for (int i = 0; i < listop10.Count; i++)
+        {
+            	<ul>
+							<li><img src="/active/img/n@(i+1).png"/></li>
+							<li class='ellipsis'>@listop10[i].Nickname<img src="@(listop10[i].Headimg)"/></li>
+							<li>被砍掉</li>
+							<li class='ellipsis'>@listop10[i].Value</li>
+						</ul>
+        }}
+					</div>
+				</div>
+			</div>
+
+			<div class="l_help">
+				<div class="l_img"><img src="/active/img/order.png" /></div>
+				<ol>
+					<li>关注“极客美家”微信服务号</li>
+					<li>进入活动页面</li>
+					<li>点击‘发起砍价’</li>
+					<li>分享活动页面</li>
+					<li>召集朋友‘帮TA砍价’</li>
+					<li class="l_noBorder">坐等‘砍价累计’</li>
+				</ol>
+			</div>
+			<div class="l_rule">
+				<h2>活动规则</h2>
+				<ol>
+					<li>自2015年9月1日起至2015年10月7日，凡“极客美家”微信服务号用户均可参与“发起砍价”活动。</li>
+					<li>用户分享活动页面即可发起砍价活动。</li>
+					<li>朋友圈内朋友均可“帮TA砍价”，且每人只可帮砍一次。</li>
+					<li>帮忙砍价的朋友也可点击‘发起砍价’。</li>
+					<li>单笔最高可砍10000元。</li>
+					<li>砍价累计总金额可用于减免北京、天津、贵阳的极客美家全包整居家装工地的费用。</li>
+					<li>砍价累计总金额可转让使用，但不可以在已开工工地中使用。</li>
+					<li>本次活动砍价累计总金额不得与其他优惠活动重叠使用。 </li>
+					<li>本次活动由极客美家举办，最终解释权归京东家居家装与极客美家共同所有。</li>
+				</ol>
+			</div>
+			<div class="l_copy">
+				<img src="/active/img/footer.png" />
+			</div>
+		</div>
+		<!--遮罩-->
+		<div id="fMask"></div>
+		<div class="l_follow">
+			<img src="/active/img/focus.png"/>
+		</div>
+
+        <div class="l_share">
+			<img src="/active/img/share2.png" />
+			<p>砍价模式开启</p>
+			<p style="padding-top:5px;">快呼唤朋友们帮你砍吧</p>
+			<a href="javascript:;" class="l_know"><img src="/active/img/know.png" /></a>
+		</div>
+		<!--中奖弹窗-->
+		<div class="l_ten">
+			<img src="/active/img/kan.png" />
+			<div class="l_txt">
+				<h5>0元</h5>
+				<p> &nbsp;够义气！</p>
+			</div>
+			<a href="javascript:;">谢谢</a>
+		</div>
+		<div class="l_ten2">
+			<img src="/active/img/already.png" />
+			<a href="javascript:;">谢谢</a>
+		</div>
+	</body>
+
+</html>
+<script>
+    $(function () {
+        $('.l_helpPrice').on('click', function () {
+            if ('@isgz' == 'True') {
+
+            } else if ('@isgz' != 'True' && '@flagself'=='True') {
+                $('.l_follow').show();
+                return false;
+            }
+            $.post("/app/kanja", {openid:'@lu.openid',nickname:'@lu.nickname',headimg:'@lu.headimgurl',foropenid:'@foropenid'}, function (d) {
+                
+                var f = d.errorcode;
+
+                if (f==0) {
+                    $('.l_ten').show().find("h5").html(d.num + "元");
+                    $('#fMask').show();
+                }else if(f==1){
+                    $.MsgBox.Alert("提示","你已经帮他砍过了");
+
+                } else if (f == 2) {
+                    $.MsgBox.Alert("提示", "你已为自己砍过了");
+                } else if (f == 3) {
+                    //为自己砍
+                    $('.l_ten').show().find("h5").html(d.num + "元");
+                    $('#fMask').show();
+                   
+                }
+              
+                
+            },'json')
+          
+        })
+        $('.l_ten a').on('click', function () {
+            $('.l_ten').hide();
+            $('#fMask').hide();
+            $(".l_share").hide();
+            location.reload();
+
+        })
+        $('.l_know').on('click', function () {
+            $('.l_ten').hide();
+            $('#fMask').hide();
+            $(".l_share").hide();
+           
+
+        })
+
+        $('.l_sharePrice').on('click', function () {
+            if ('@isgz'=='True') {
+              
+                $(".l_share").show();
+                $('#fMask').show();
+
+            } else {
+                $('.l_follow').show();
+            }
+          
+            
+        })
+    });
+</script>

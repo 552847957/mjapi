@@ -15,7 +15,7 @@ namespace System
         /// <returns></returns>
         public static string To16Md5(this string str)
         {
-           return Commen.DEncrypt.MD5(str,true);
+            return Commen.DEncrypt.MD5(str, true);
         }
         /// <summary>
         /// 判断字符串是否为空
@@ -28,7 +28,7 @@ namespace System
             {
                 return true;
             }
-            if (str.Replace(" ","").Length==0)
+            if (str.Replace(" ", "").Length == 0)
             {
                 return true;
             }
@@ -43,7 +43,7 @@ namespace System
         /// <returns></returns>
         public static string ToSafeString(this object obj)
         {
-            if (obj==null)
+            if (obj == null)
             {
                 return "";
             }
@@ -51,15 +51,15 @@ namespace System
             {
                 return obj.ToString();
             }
-        
+
         }
 
         public static List<T> GetList<T>(T o)
         {
-             var lis=new  List<T>();
+            var lis = new List<T>();
 
-             lis.Add(o);
-             return lis;
+            lis.Add(o);
+            return lis;
         }
 
         /// <summary>
@@ -69,20 +69,31 @@ namespace System
         /// <returns></returns>
         public static string GetNumber(string o)
         {
-            
+
             string s = o.ToSafeString();
-           
-            if (Regex.IsMatch(s,"\\d+"))
+
+            if (Regex.IsMatch(s, "\\d+"))
             {
-               
-                return (6.8 *  double.Parse(s)).ToSafeString();
+
+                return (6.8 * double.Parse(s)).ToSafeString();
             }
 
             return "6.8";
         }
 
 
+        public static double Todouble(this object o)
+        {
+            string r = o.ToSafeString().Length == 0 ? "0" : o.ToSafeString();
+            double v = 0;
 
-       
+            if (double.TryParse(r, out v))
+            {
+
+            }
+
+            return v;
+        }
+
     }
 }

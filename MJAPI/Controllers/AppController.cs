@@ -830,6 +830,103 @@ namespace MJAPI.Controllers
             // return code;
         }
 
+
+
+        public ActionResult Bargain(string code,string state)
+        {
+
+
+
+            #region 缓存用户
+            if (Session["Lu"] != null)
+            {
+                JsApi.LuckDrawUser Lu = Session["Lu"] as JsApi.LuckDrawUser;
+
+                if (Lu.subscribe == 0)
+                {
+                    string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + Lu.openid + "&lang=zh_CN");
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+
+                }
+                ViewBag.lu = Lu;
+
+                if (Lu.openid.IsEmpty())
+                {
+                    return Redirect("http://mobile.mj100.com/wechart/login7/");
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(code.ToSafeString()))
+                {
+
+
+                    string post_data = "appid=" + "wx2c2f2e7b5b62daa1" + "&secret=" + "ed815afc669a9201a6070677d1771166" + "&code=" + code + "&grant_type=authorization_code";
+                    string requestData = tenpay.TenpayUtil.PostXmlToUrl(tenpay.TenpayUtil.getAccess_tokenUrl(), post_data);
+                    JavaScriptSerializer js = new JavaScriptSerializer();   //实例化一个能够序列化数据的类
+                    string openid = js.Deserialize<JsApi.WeChartUser>(requestData).openid;//用户的openid
+                    string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + openid + "&lang=zh_CN");
+                    JsApi.LuckDrawUser Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+
+                    Session["Lu"] = Lu;
+
+                    ViewBag.lu = Lu;
+
+
+                    JsApi.Businesslogic.AddWechartUser3(Lu.openid, Lu.nickname, Lu.headimgurl);//入库
+
+
+                }
+                else
+                {
+                    JsApi.LuckDrawUser Lu = Session["Lu"] as JsApi.LuckDrawUser;
+
+                    if (Lu.subscribe == 0)
+                    {
+                        string luckdrawuser = Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + JsApi.JsToken.GetApptoken() + "&openid=" + Lu.openid + "&lang=zh_CN");
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        Lu = js.Deserialize<JsApi.LuckDrawUser>(luckdrawuser);
+                        ViewBag.lu = Lu;
+                    }
+
+                }
+            }
+            #endregion
+
+            #region 签名
+            string timestamp = JsApi.JsToken.getTimestamp();
+            string noncestr = JsApi.JsToken.getNoncestr();
+
+            SortedDictionary<string, string> sor = new SortedDictionary<string, string>();
+            sor.Add("url", Request.Url.ToString());
+            sor.Add("timestamp", timestamp);
+            sor.Add("noncestr", noncestr);
+            sor.Add("jsapi_ticket", JsApi.JsToken.Getjsapi_ticket());
+
+            ViewBag.jsapi_ticket = JsApi.JsToken.Getjsapi_ticket();
+            ViewBag.url = Request.Url.ToString();
+            ViewBag.appid = tenpay.WeChartConfigItem.appid;
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = noncestr;
+            ViewBag.signature = JsApi.JsToken.Getsignext(sor);
+
+
+
+            #endregion
+
+            ViewBag.state = state;
+
+
+            ViewBag.foruser = state;
+
+           
+
+            return View();
+
+           
+        }
+
         /// <summary>
         /// 分享成功
         /// </summary>
@@ -855,6 +952,21 @@ namespace MJAPI.Controllers
             return JsApi.Businesslogic.Cj(openid, nickname);
         }
 
-        
+
+        /// <summary>
+        /// 砍价
+        /// </summary>
+        /// <returns></returns>
+        public string KanJa(string openid,string nickname,string headimg,string foropenid)
+        {
+
+            return JsApi.Businesslogic.KanJa(openid,nickname,foropenid,headimg);
+        }
+
+
+        public string Test21()
+        {
+            return JsApi.Businesslogic.GetBargainList("o8r91jjmQWUqO8zrq4rxL0QVTEYs").Count().ToString();
+        }
     }
 }

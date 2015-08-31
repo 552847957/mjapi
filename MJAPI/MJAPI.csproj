@@ -184,27 +184,52 @@
     <Content Include="active\active.html" />
     <Content Include="active\css\active.css" />
     <Content Include="active\css\common.css" />
+    <Content Include="active\css\price.css" />
     <Content Include="active\img\10.png" />
     <Content Include="active\img\2.png" />
     <Content Include="active\img\500.png" />
+    <Content Include="active\img\already.png" />
     <Content Include="active\img\btn.png" />
     <Content Include="active\img\cj.png" />
+    <Content Include="active\img\code.png" />
     <Content Include="active\img\copy.png" />
+    <Content Include="active\img\focus.png" />
     <Content Include="active\img\follow.png" />
+    <Content Include="active\img\footer.png" />
+    <Content Include="active\img\helpPrice.png" />
+    <Content Include="active\img\img.png" />
+    <Content Include="active\img\kan.png" />
     <Content Include="active\img\know.png" />
+    <Content Include="active\img\n1.png" />
+    <Content Include="active\img\n2.png" />
+    <Content Include="active\img\n3.png" />
+    <Content Include="active\img\n4.png" />
+    <Content Include="active\img\n5.png" />
+    <Content Include="active\img\n6.png" />
+    <Content Include="active\img\n7.png" />
     <Content Include="active\img\no.png" />
+    <Content Include="active\img\num.png" />
+    <Content Include="active\img\order.png" />
     <Content Include="active\img\pointer.png" />
+    <Content Include="active\img\price.png" />
+    <Content Include="active\img\priceLeft.png" />
+    <Content Include="active\img\priceRight.png" />
     <Content Include="active\img\share.png" />
+    <Content Include="active\img\share2.png" />
+    <Content Include="active\img\sharePrice.png" />
     <Content Include="active\img\tip.png" />
     <Content Include="active\img\topLeft.png" />
     <Content Include="active\img\topRight.png" />
     <Content Include="active\img\turntable-bg.png" />
     <Content Include="active\img\turntable.png" />
+    <Content Include="active\img\who.png" />
     <Content Include="active\img\z_info.png" />
     <Content Include="active\js\active.js" />
     <Content Include="active\js\awardRotate.js" />
     <Content Include="active\js\jquery-1.8.3.min.js" />
+    <Content Include="active\js\price.js" />
     <Content Include="active\js\scroll.js" />
+    <Content Include="active\price.html" />
     <Content Include="Content\666.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -271,7 +296,6 @@
     <Content Include="css\measure.css" />
     <Content Include="css\style_506ec5b.css" />
     <Content Include="css\style_f97d27f.css" />
-    <Content Include="detail.html" />
     <Content Include="Global.asax" />
     <Content Include="HMobile\1.html" />
     <Content Include="HMobile\already.html" />
@@ -431,7 +455,6 @@
     <Content Include="img\ztit11.png" />
     <Content Include="img\ztits.png" />
     <Content Include="img\z_i.png" />
-    <Content Include="joinDesi.html" />
     <Content Include="js\feedback.js" />
     <Content Include="js\jquery.cookie.js" />
     <Content Include="js\jquery.mobile-1.3.2.min.js" />
@@ -475,12 +498,9 @@
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.list-2.5.1.js.svn-base" />
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.select-2.5.1.js.svn-base" />
     <Content Include="HMobile\dev\js\.svn\text-base\mobiscroll.wp-2.5.2.js.svn-base" />
-    <Content Include="Platform2.html" />
     <None Include="Properties\PublishProfiles\api发布.pubxml" />
     <None Include="Properties\PublishProfiles\llll.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
-    <Content Include="hd.html" />
-    <Content Include="hd.jpg" />
     <Content Include="img\1.png" />
     <Content Include="img\detail\edit.png" />
     <Content Include="img\detail\editBlue.png" />
@@ -626,7 +646,6 @@
     <Content Include="MartixAdmin\tables.html" />
     <Content Include="MartixAdmin\widgets.html" />
     <Content Include="MartixAdmin\副本 login.html" />
-    <Content Include="Platform.html" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -696,6 +715,7 @@
     <Content Include="Views\App\Platgrom.cshtml" />
     <Content Include="Views\mjpay\Xd2.cshtml" />
     <Content Include="Views\App\LuckDraw.cshtml" />
+    <Content Include="Views\App\Bargain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -708,6 +728,7 @@
     <Folder Include="HMobile\dev\js\.svn\tmp\prop-base\" />
     <Folder Include="HMobile\dev\js\.svn\tmp\props\" />
     <Folder Include="HMobile\dev\js\.svn\tmp\text-base\" />
+    <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -166,19 +166,19 @@ namespace MJAPI.Controllers
         {
             if (projectid.IsEmpty() || dayindex.IsEmpty())
             {
-                return "{\"errcode\":1,\"msg\":\"projectid        不能为空\"}"; ;
+                return "{\"errorcode\":1,\"msg\":\"projectid        不能为空\"}"; ;
             }
             HttpPostedFileBase file = Request.Files[0];
             if (file.ContentLength < 10)
             {
-                return "{\"errcode\":1,\"msg\":\"上传图片过小\"}"; ;
+                return "{\"errorcode\":1,\"msg\":\"上传图片过小\"}"; ;
             }
 
             string fileext = Path.GetExtension(file.FileName);
 
             if (fileext.ToLower() != ".jpg" && fileext.ToLower() != ".png" && fileext.ToLower() != ".gif")
             {
-                return "{\"errcode\":1,\"msg\":\"请上传图片\"}"; ;
+                return "{\"errorcode\":1,\"msg\":\"请上传图片\"}"; ;
             }
             string temppath = "~/sg/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
 
@@ -199,7 +199,7 @@ namespace MJAPI.Controllers
             DesingerBLL.Desinger.InsertPic(projectid, dayindex, url);
 
 
-            return "{\"errcode\":0,\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\",\"smallimg\":\"http://mobile.mj100.com/desingerapi/pic?url=" + url + "&w=260&h=166\"}";
+            return "{\"errorcode\":0,\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\",\"smallimg\":\"http://mobile.mj100.com/desingerapi/pic?url=" + url + "&w=260&h=166\"}";
         }
 
 
@@ -311,7 +311,7 @@ namespace MJAPI.Controllers
         public JsonResult GetNumber(string desingerid)
         {
 
-            return Json(new { errcode = 0, number1 = 5, number2 = 12, desingerid = desingerid }, JsonRequestBehavior.AllowGet);
+            return Json(new { errorcode = 0, number1 = 5, number2 = 12, desingerid = desingerid }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -461,7 +461,18 @@ namespace MJAPI.Controllers
         }
 
 
-
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <param name="dayindex"></param>
+        /// <param name="picurl"></param>
+        /// <returns></returns>
+        public   string UpdatePic(string projectid, string dayindex, string picurl)
+        {
+            return DesingerBLL.Desinger.UpdatePic( projectid,  dayindex,  picurl);
+        
+        }
 
 
         /// <summary>

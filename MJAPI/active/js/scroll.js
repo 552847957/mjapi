@@ -4,7 +4,7 @@
 	//默认配置
 	var defaults = {
 		speed:40,  //滚动速度,值越大速度越慢
-		rowHeight:26 //每行的高度
+		rowHeight:54 //每行的高度
 	};
 	
 	var opts = $.extend({}, defaults, options),intId = [];

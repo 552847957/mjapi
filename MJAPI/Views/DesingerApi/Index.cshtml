@@ -2493,6 +2493,72 @@
                 </div>
             </dt>
 
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   删除进度照片
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/Updatejd</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                                <tr>
+                                    <td class="td-1">projectid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">项目id</td>
+                                </tr>
+
+                                  <tr>
+                                    <td class="td-1">picurl</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">图片完整路径</td>
+                                </tr>
+
+
+                                 <tr>
+                                    <td class="td-1">dayindex</td>
+                                    <td class="td-2">int</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">处在项目的第几天</td>
+                                </tr>
+
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/desingerapi/updatepic?projectid=4287&picurl=http://mobile.mj100.com/sg/2015/8/400abe4287.png&dayindex=5</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre> 
+
+              {
+"errorcode": 0,
+"msg": "操作成功"
+}
+   
+           </pre>
+                    </div>
+                </div>
+            </dt>
         </dl>
 
     </div>

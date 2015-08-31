@@ -1,9 +1,12 @@
-﻿using NPOI.SS.UserModel;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
+using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -13,6 +16,9 @@ namespace MJAPI.Controllers
 {
     public class FileDownController : Controller
     {
+
+        private static ICellStyle stylecenter = null;
+        private static ICellStyle stylecenter2 = null;
         //
         // GET: /FileDown/
 
@@ -33,11 +39,12 @@ namespace MJAPI.Controllers
             }
             else
             {
+                id = id.Replace(".xlsx", "");
                 byte[] arr = MakeExcle(id);
                 if (arr.Length > 0)
                 {
 
-                    return File(arr, "123", "极客美家预算" + DateTime.Now.ToString("yyyy-MM-dd") + ".xlsx");
+                    return File(arr, "application/vnd.ms-excel", "极客美家预算" + DateTime.Now.ToString("yyyy-MM-dd") + ".xls");
 
                 }
                 else
@@ -149,11 +156,11 @@ namespace MJAPI.Controllers
                     sgjd = "",
                     zclx = row["Extension6"].ToSafeString(), 
                     zcmc = row["Pname"].ToSafeString(),
-                    pp = row["pmodel"].ToSafeString(),
-                    xh = row["extension1"].ToSafeString(), 
-                    num = row["num"].ToSafeString(),
-                    dw = ddww,
-                    xj = row["price"].ToSafeString(),
+                    pp = row["Bname"].ToSafeString(),
+                    xh = row["pmodel"].ToSafeString(), 
+                    num = row["num"].ToSafeString().Todouble(),
+                    dw = ddww.Replace("m&sup2;", "㎡").Replace("平米", "㎡"),
+                    xj = row["price"].ToSafeString().Todouble(),
                     adress = row["Evaluation"].ToSafeString(), 
                     rq = "",
                     bz = "" };
@@ -194,9 +201,24 @@ namespace MJAPI.Controllers
             DataTable dtuserrooms = BLL.UserRoom.GetUserRomms(projectid);
             DataTable dtzc = BLL.UserRoom.GetZc(projectid);
 
-            IWorkbook workbook = new XSSFWorkbook();
+            HSSFWorkbook workbook = new HSSFWorkbook();
+
+            #region MyRegion
+            IFont font41 = workbook.CreateFont();
+            font41.Color = IndexedColors.OliveGreen.Index;
+            font41.IsStrikeout = false;
+            font41.FontHeightInPoints = 11;
+            font41.FontName = "宋体";
 
 
+            stylecenter = workbook.CreateCellStyle();
+
+            stylecenter.VerticalAlignment = VerticalAlignment.Center;
+            stylecenter.Alignment = HorizontalAlignment.Center;
+            stylecenter.SetFont(font41); 
+
+
+            #endregion
 
             #region 头部标题
 
@@ -268,8 +290,18 @@ namespace MJAPI.Controllers
             stylec.Alignment = HorizontalAlignment.Center;
             stylec.SetFont(fontc);
 
-            stylec.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.Turquoise.Index;
-            stylec.FillPattern = FillPattern.SolidForeground;
+            stylec.FillForegroundColor = GetXLColour(workbook, Color.Silver); ;
+
+            stylec.BorderBottom = NPOI.SS.UserModel.BorderStyle.Thin;
+            stylec.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
+            stylec.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+            stylec.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+
+            stylec.BorderDiagonalLineStyle = NPOI.SS.UserModel.BorderStyle.Thin;
+
+            stylec.FillPattern = FillPattern.SolidForeground;//-------------------------------------------
+
+
             #endregion
 
             int n = 6;
@@ -286,9 +318,153 @@ namespace MJAPI.Controllers
             }
 
 
+            //
+            #region 水电即其它
+           
+            IRow row6 = worksheet.CreateRow(n);
+            IRow row7 = worksheet.CreateRow(n+1);
+            for (int i = 0; i < 11; i++)
+            {
+                row6.CreateCell(i);
+                row7.CreateCell(i);
+            }
+            ICell row6cell = row6.CreateCell(0);
+            row6cell.CellStyle = stylec;
+            row6cell.SetCellValue("水电和其它");
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n + 1, 0, 10));
+
+            n += 2;
+
+            IRow row8 = worksheet.CreateRow(n);
+            ICell row8cell0 = row8.CreateCell(0);
+            row8cell0.CellStyle = styleb;
+            row8cell0.SetCellValue("施工位置");
+            ICell row8cell1 = row8.CreateCell(1);
+            row8cell1.CellStyle = styleb;
+            row8cell1.SetCellValue("序号");
+            ICell row8cell2 = row8.CreateCell(2);
+            row8cell2.CellStyle = styleb;
+            row8cell2.SetCellValue("");
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 2, 3));
+
+            ICell row8cell4 = row8.CreateCell(4);
+            row8cell4.CellStyle = styleb;
+            row8cell4.SetCellValue("单位");
+
+            ICell row8cell5 = row8.CreateCell(5);
+            row8cell5.CellStyle = styleb;
+            row8cell5.SetCellValue("数量");
+
+            ICell row8cell6 = row8.CreateCell(6);
+            row8cell6.CellStyle = styleb;
+            row8cell6.SetCellValue("单价");
+
+            ICell row8cell7 = row8.CreateCell(7);
+            row8cell7.CellStyle = styleb;
+            row8cell7.SetCellValue("小计");
+
+
+            ICell row8cell8 = row8.CreateCell(8);
+            row8cell8.CellStyle = styleb;
+            row8cell8.SetCellValue("工艺描述");
+
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 8, 10));
+            n += 1;
+            foreach (var item in row6.Cells)
+            {
+                item.CellStyle = stylec;
+            }
+            foreach (var item in row7.Cells)
+            {
+                item.CellStyle = stylec;
+            }
+
+            DataTable dt = BLL.UserRoom.GetOther(projectid);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                n = Other(worksheet,n, dt.Rows[i],i+1);
+            }
+            #endregion
+
+
+            
+
+            #endregion
+
+            IRow row216 = worksheet.CreateRow(n);
+            row216.HeightInPoints = 15;
+            for (int i = 0; i < 11; i++)
+            {
+                row216.CreateCell(i).CellStyle =stylec ; ;
+            }
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 0, 10));
+            n += 1;
 
 
 
+            #region MyRegion
+            IFont font412 = workbook.CreateFont();
+            font412.Color=  IndexedColors.OliveGreen.Index;
+          
+            font412.IsStrikeout = false;
+            font412.FontHeightInPoints = 20;
+            font412.FontName = "宋体";
+
+
+            stylecenter2 = workbook.CreateCellStyle();
+            stylecenter2.SetFont(font412);
+            //stylecenter2.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.PaleBlue.Index;
+            stylecenter2.VerticalAlignment = VerticalAlignment.Center;
+
+            stylecenter2.Alignment = HorizontalAlignment.Center;
+          //  stylecenter2.FillPattern = FillPattern.SolidForeground;
+           
+
+
+            #endregion
+            #region MyRegion
+            n = Fotter(worksheet, n, "工程直接费用");
+            n = Fotter(worksheet, n, "管理费");
+            n = Fotter(worksheet, n, "税金");
+            n = Fotter(worksheet, n, "装修合同总价");
+            #endregion
+
+
+
+            IFont fontbb = workbook.CreateFont();
+            fontbb.Color = IndexedColors.OliveGreen.Index;
+            fontbb.IsStrikeout = false;
+            fontbb.FontHeightInPoints = 11;
+            fontbb.FontName = "宋体";
+            fontbb.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.Bold;
+            ICellStyle stylebb = workbook.CreateCellStyle();
+            stylebb.WrapText = true;
+            stylebb.VerticalAlignment = VerticalAlignment.Top;
+            stylebb.Alignment = HorizontalAlignment.Left;
+            stylebb.SetFont(fontbb);
+
+
+
+       
+         
+            IRow row217 = worksheet.CreateRow(n);
+            row217.HeightInPoints = 250;
+            for (int i = 0; i < 11; i++)
+            {
+                row217.CreateCell(i).CellStyle = stylebb;
+
+
+            }
+
+
+        
+
+
+            #region 尾部
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 0, 10));
+            row217.GetCell(0).SetCellValue(@"预算说明:                                                                                                    1、本预算书所列项目及涉及的图纸、施工中增减项目的文字、表格等资料，经双方签字确认后，均作为甲、乙方施工、付款、验收、保修的依据。                                                                                                     2、预算书中的工程量与现场施工的工程量有误差时，以现场实际工程量为准，误差由甲、乙双方共同办理增减项调整工程造价。增减项费用在中期款计算、支付。                                                                                        3.计算乳胶漆面积时，如包套，门窗部分按实际面积的50%减除。如遇特殊墙面（如：沙灰墙、保温墙、防水腻子等）需要找平或贴布处理，详见相关项目报价。                                                                                        4、基于水电改造项目的相关细节，在甲乙双方签订家装合同、本工程预算书时无法确定，本预算书所列示的为乙方水电改造项目的收款标准及计算规则，水电改造的实际工程造价，应在工程开工后在现场依据甲方要求确定工程项目签定水电改造工程确认单最后依据本预算书单价进行水电改造工程的结算。水电改造工程不计算为增项，单独结算。改造完工后一周内付款。                               5、物业收取的装修押金（可退）、装修管理费、垃圾外运费由甲方交纳，如因我公司施工人员违反物业规定造成罚款，由我公司承担.施工期间的水费，电费由客户承担。                                                                                  6.以上报价不含地砖、地板、橱柜、灯具、五金件、洁具、开关面板、艺术玻璃等主材，需乙方提供主材，另签代购协议。            7.请不要接受任何口头承若，所承诺的内容必须在合同或报价中注明。                                                     8.交工程款特别提示:甲方交工程款时，应直接到公司财务处交纳或转账，如有特殊情况本人不能亲自到公司交纳者，事先电话通知，乙方派专人到工地收款，收款时以盖有“北京首标装饰设计有限公司财务专用章” 
+	#endregion的收据为凭证，白条无效。                           9.本预算书为甲乙双方签订的《北京市家庭居室装饰装修工程施工合同》的附件，甲方及乙方指定代理人签字有效。  "); 
             #endregion
 
 
@@ -316,6 +492,68 @@ namespace MJAPI.Controllers
             }
 
 
+        }
+
+        private static int Fotter(ISheet worksheet, int n,string str)
+        {
+            IRow row217 = worksheet.CreateRow(n);
+            row217.HeightInPoints = 45;
+            for (int i = 0; i < 11; i++)
+            {
+                row217.CreateCell(i).CellStyle=stylecenter2;
+            }
+
+            row217.GetCell(0).SetCellValue(str);
+
+            worksheet.AddMergedRegion(new  CellRangeAddress(n, n, 0, 1));
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 0, 1));
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 2, 7));
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 8, 10));
+            n += 1;
+            return n;
+        }
+
+        private static int Other(ISheet worksheet, int n,System.Data.DataRow row,int index)
+        {
+            var obj = new { gy = row["extension"].ToSafeString(), dw = row["Unit"].ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡"), number = row["extension1"].ToSafeString().Todouble(), dj = row["price"].ToSafeString().Todouble(), xj = row["extension2"].ToSafeString().Todouble(), gyms = row["desc"].ToSafeString() };
+
+            IRow row8 = worksheet.CreateRow(n);
+            row8.HeightInPoints = 30;
+            ICell row8cell0 = row8.CreateCell(0);
+            row8cell0.CellStyle = stylecenter;
+            row8cell0.SetCellValue("");
+            ICell row8cell1 = row8.CreateCell(1);
+            row8cell1.CellStyle = stylecenter;
+            row8cell1.SetCellValue(index);
+            ICell row8cell2 = row8.CreateCell(2);
+            row8cell2.CellStyle = stylecenter;
+            row8cell2.SetCellValue(obj.gy);
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 2, 3));
+
+            ICell row8cell4 = row8.CreateCell(4);
+            row8cell4.CellStyle = stylecenter;
+            row8cell4.SetCellValue(obj.dw);
+
+            ICell row8cell5 = row8.CreateCell(5);
+            row8cell5.CellStyle = stylecenter;
+            row8cell5.SetCellValue(obj.number);
+
+            ICell row8cell6 = row8.CreateCell(6);
+            row8cell6.CellStyle = stylecenter;
+            row8cell6.SetCellValue(obj.dj);
+
+            ICell row8cell7 = row8.CreateCell(7);
+            row8cell7.CellStyle = stylecenter;
+            row8cell7.SetCellValue(obj.xj);
+
+
+            ICell row8cell8 = row8.CreateCell(8);
+            row8cell8.CellStyle = stylecenter;
+            row8cell8.SetCellValue(obj.gyms);
+
+            worksheet.AddMergedRegion(new CellRangeAddress(n, n, 8, 10));
+            n += 1;
+            return n;
         }
 
         private static void ProjectDetail(ISheet worksheet, ICellStyle styleb, System.Data.DataTable dt)
@@ -507,6 +745,7 @@ namespace MJAPI.Controllers
             #region 房间顶部
             IRow row6 = worksheet.CreateRow(n);
             ICell row6cell = row6.CreateCell(0);
+            row6.CreateCell(1);
             row6cell.CellStyle = stylec;
             row6cell.SetCellValue(obj.rommname);
 
@@ -516,17 +755,20 @@ namespace MJAPI.Controllers
 
             ICell row6qmjv = row6.CreateCell(3);
             row6qmjv.CellStyle = stylec;
-            row6qmjv.SetCellValue(obj.qmj);
+            row6qmjv.SetCellValue(obj.qmj.Todouble());
 
 
             ICell row6dmj = row6.CreateCell(4);
             row6dmj.CellStyle = stylec;
             row6dmj.SetCellValue("地面积：");
 
+            row6.CreateCell(5);
+
             ICell row6dmjv = row6.CreateCell(6);
             row6dmjv.CellStyle = stylec;
-            row6dmjv.SetCellValue(obj.dmj);
+            row6dmjv.SetCellValue( obj.dmj.Todouble());
 
+            row6.CreateCell(7);
 
             ICell row6gyzj = row6.CreateCell(8);
             row6gyzj.CellStyle = stylec;
@@ -535,8 +777,8 @@ namespace MJAPI.Controllers
 
             ICell row6gyzjv = row6.CreateCell(9);
             row6gyzjv.CellStyle = stylec;
-            row6gyzjv.SetCellValue(obj.gyzj);
-
+            row6gyzjv.SetCellValue( obj.gyzj.Todouble());
+            row6.CreateCell(10);
 
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 4, 5));
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 6, 7));
@@ -544,13 +786,19 @@ namespace MJAPI.Controllers
             worksheet.AddMergedRegion(new CellRangeAddress(n, n + 1, 0, 1));
             n += 1;
             IRow row7 = worksheet.CreateRow(n);
+
+            for (int i = 0; i < 11; i++)
+            {
+                row7.CreateCell(i);
+            }
+
             ICell row7qmj = row7.CreateCell(2);
             row7qmj.CellStyle = stylec;
             row7qmj.SetCellValue("顶面积：");
 
             ICell row7qmjv = row7.CreateCell(3);
             row7qmjv.CellStyle = stylec;
-            row7qmjv.SetCellValue(obj.tmj);
+            row7qmjv.SetCellValue(obj.tmj.Todouble());
 
 
             ICell row7dmj = row7.CreateCell(4);
@@ -559,7 +807,7 @@ namespace MJAPI.Controllers
 
             ICell row7dmjv = row7.CreateCell(6);
             row7dmjv.CellStyle = stylec;
-            row7dmjv.SetCellValue(obj.zc);
+            row7dmjv.SetCellValue( obj.zc.Todouble());
 
 
             ICell row7gyzj = row7.CreateCell(8);
@@ -569,12 +817,20 @@ namespace MJAPI.Controllers
 
             ICell row7gyzjv = row7.CreateCell(9);
             row7gyzjv.CellStyle = stylec;
-            row7gyzjv.SetCellValue(obj.zczj);
+            row7gyzjv.SetCellValue(obj.zczj.Todouble());
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 4, 5));
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 6, 7));
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 9, 10));
             #endregion
 
+            foreach (var item in row6.Cells)
+            {
+                item.CellStyle = stylec;
+            }
+            foreach (var item in row7.Cells)
+            {
+                item.CellStyle = stylec;
+            }
             #region 顶部
             n += 1;
             IRow row8 = worksheet.CreateRow(n);
@@ -652,6 +908,7 @@ namespace MJAPI.Controllers
         {
             var obj = new { gy = row["extension"].ToSafeString(), dw = row["Unit"].ToSafeString(), number = row["extension1"].ToSafeString(), dj = row["price"].ToSafeString(), xj = row["extension2"].ToSafeString(), gyms = row["desc"].ToSafeString() };
             IRow row9 = worksheet.CreateRow(n);
+            row9.HeightInPoints = 30;
             ICell row9cell0 = row9.CreateCell(0);
             row9cell0.SetCellValue(o);
 
@@ -664,22 +921,66 @@ namespace MJAPI.Controllers
 
 
             ICell row9cell4 = row9.CreateCell(4);
-            row9cell4.SetCellValue(obj.dw);//
+            row9cell4.SetCellValue(obj.dw.Replace("m&sup2;", "㎡").Replace("平米", "㎡"));//
 
 
             ICell row9cell5 = row9.CreateCell(5);
-            row9cell5.SetCellValue(obj.number);//
+            row9cell5.SetCellValue(obj.number.Todouble());//
 
 
             ICell row9cell6 = row9.CreateCell(6);
-            row9cell6.SetCellValue(obj.dj);//
+            row9cell6.SetCellValue(obj.dj.Todouble());//
 
             ICell row9cell7 = row9.CreateCell(7);
-            row9cell7.SetCellValue(obj.xj);//
+            row9cell7.SetCellValue(obj.xj.Todouble());//
 
             ICell row9cell8 = row9.CreateCell(8);
             row9cell8.SetCellValue(obj.gyms);//
+
+
+            //ICellStyle style4 = workbook.CreateCellStyle();
+
+            //style4.VerticalAlignment = VerticalAlignment.Center;
+            //style4.Alignment = HorizontalAlignment.Center;
+            //style4.SetFont(font4);
+            foreach (var item in row9.Cells)
+            {
+
+                item.CellStyle = stylecenter;
+
+            }
             worksheet.AddMergedRegion(new CellRangeAddress(n, n, 8, 10));
         }
+
+
+        private static short GetXLColour(HSSFWorkbook workbook, Color SystemColour)
+        {
+            short s = 0;
+            HSSFPalette XlPalette = workbook.GetCustomPalette();
+            HSSFColor XlColour = XlPalette.FindColor(SystemColour.R, SystemColour.G, SystemColour.B);
+            if (XlColour == null)
+            {
+                if (NPOI.HSSF.Record.PaletteRecord.STANDARD_PALETTE_SIZE < 255)
+                {
+                    if (NPOI.HSSF.Record.PaletteRecord.STANDARD_PALETTE_SIZE < 64)
+                    {
+                        //NPOI.HSSF.Record.PaletteRecord.STANDARD_PALETTE_SIZE = 64;
+                        //NPOI.HSSF.Record.PaletteRecord.STANDARD_PALETTE_SIZE += 1;
+                        XlColour = XlPalette.AddColor(SystemColour.R, SystemColour.G, SystemColour.B);
+                    }
+                    else
+                    {
+                        XlColour = XlPalette.FindSimilarColor(SystemColour.R, SystemColour.G, SystemColour.B);
+                    }
+
+                    s = XlColour.Indexed;
+                }
+
+            }
+            else
+                s = XlColour.Indexed;
+
+            return s;
+        }  
     }
 }

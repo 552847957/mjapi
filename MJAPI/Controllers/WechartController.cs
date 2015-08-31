@@ -64,9 +64,19 @@ namespace MJAPI.Controllers
             return "";
         }
 
-        public string Login6()
+        public string Login6()//LuckDraw
         {
             Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/App/LuckDraw?response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+            return "";
+        }
+
+        public string Login7(string id)
+        {
+            if (id.IsEmpty())
+            {
+                id = "dpzc";
+            }
+            Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c2f2e7b5b62daa1&redirect_uri=http://mobile.mj100.com/App/Bargain?response_type=code&scope=snsapi_base&state=" + id + "#wechat_redirect");
             return "";
         }
 

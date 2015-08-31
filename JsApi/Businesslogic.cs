@@ -27,62 +27,150 @@ namespace JsApi
         /// 抽奖
         /// </summary>
         /// <returns></returns>
-        public static string Cj(string openid,string nickname)
+        public static string Cj(string openid, string nickname)
         {
-            
-            Random r = new Random();
 
-            int v = r.Next(1, 101);
 
-            int rr = 1;
 
-                      
 
-            string pricename = "500元家装代金券";
+            int nn = Convert.ToInt32(SqlHelper.ExecuteScalar("  select COUNT(*) from WinningRecord where openid='" + openid + "'"));
 
-            if (v < 90)
+            if (nn < 4)
             {
-               
-                pricename= "500元家装代金券";
-                rr = 1;
-            }
+                #region MyRegion
+                Random r = new Random(DateTime.Now.Second);
 
-            else if (v>=90&v<100)
-            {
-                int n = GettodyprizeCount("2元现金红包");
-                if (n>=10)
+                int v = r.Next(1, 101);
+
+                int rr = 1;
+
+
+
+                string pricename = "500元家装代金券";
+
+                if (v < 90)
                 {
+
                     pricename = "500元家装代金券";
                     rr = 1;
                 }
-                else
+
+                else if (v >= 90 & v < 100)
                 {
-                    pricename = "2元现金红包";
-                    rr = 0;
+                    int n = GettodyprizeCount("2元现金红包");
+                    if (n >= 10)
+                    {
+                        pricename = "500元家装代金券";
+                        rr = 1;
+                    }
+                    else
+                    {
+                        pricename = "2元现金红包";
+                        rr = 0;
+                    }
+
                 }
-               
+                else if (v == 100)
+                {
+                    int n = GettodyprizeCount("10元现金红包");
+                    if (n >= 2)
+                    {
+                        pricename = "500元家装代金券";
+                        rr = 1;
+                    }
+                    else
+                    {
+                        rr = 2;
+                        pricename = "10元现金红包";
+                    }
+
+                }
+
+                AddWinningRecord(openid, nickname, pricename);
+
+                UpdateChanceCount(openid, -1);
+
+                return rr.ToSafeString();
+                #endregion
             }
-            else if (v == 100)
+            else
             {
-                int n = GettodyprizeCount("10元现金红包");
-                if (n >= 2)
-                {
-                    pricename = "500元家装代金券";
-                    rr = 1;
-                }
-                else
-                {
-                    rr = 2;
-                    pricename = "10元现金红包";
-                }
-               
+                return "-1";
             }
 
-            AddWinningRecord(openid,nickname,pricename);
 
-            UpdateChanceCount(openid,-1);
+        }
 
-            return rr.ToSafeString();
+        /// <summary>
+        /// 砍价
+        /// </summary>
+        /// <returns></returns>
+        public static string KanJa(string openid, string nickname, string foropenid, string headimg)
+        {
+            const int  con=10000;//上限
+
+            bool cg = Convert.ToInt32(SqlHelper.ExecuteScalar("select COUNT(*) from  Bargain where openid='" + openid + "' and foruserid='" + foropenid + "'")) == 0;
+
+            //没抽过
+            if (cg)
+            {
+                int totle = 0;
+                object o = SqlHelper.ExecuteScalar("select sum(value) from Bargain  where  foruserid='"+foropenid+"' group by foruserid");
+
+                if (o!=null)
+                {
+                    totle = Convert.ToInt32(o);
+                }
+
+                int num = new Random().Next(5,11);//随机的钱数
+
+                if (totle >= con)
+                {
+                    return "{\"errorcode\":4,\"num\":" + 0 + ",\"msg\":\"已达上限，无需再砍，谢谢你的参与\"}";
+                }
+
+                if ((num + totle) >= con)
+                {
+                    num = 10000 - totle;
+                }
+
+                #region 构造插入函数
+                string sql = @"insert Bargain (  openid, nickname, headimg, foruserid, value, Bargainname)
+
+values( @openid, @nickname, @headimg, @foruserid, @value, '京东家装节砍价');";
+
+
+                SqlParameter[] arr = new SqlParameter[] {
+            new SqlParameter("openid",openid),
+            new SqlParameter("nickname",nickname),
+            new SqlParameter("headimg",headimg),
+             new SqlParameter("foruserid",foropenid),
+                new SqlParameter("value",num),
+            };
+                #endregion
+
+                SqlHelper.ExecuteNonQuery(sql, arr);
+
+                if (openid == foropenid)
+                {
+                    return "{\"errorcode\":3,\"num\":" + num + ",\"msg\":\"你为自己砍了\"}";
+                }
+
+                return "{\"errorcode\":0,\"num\":" + num + ",\"msg\":\"帮砍成功\"}";
+
+
+
+            }
+            else
+            {
+                if (openid == foropenid)
+                {
+                    return "{\"errorcode\":2,\"num\":" + 0 + ",\"msg\":\"你自己已经砍过了\"}";
+                }
+
+
+                return "{\"errorcode\":1,\"num\":" + 0 + ",\"msg\":\"已帮砍过了哦\"}";
+            }
         }
 
         /// <summary>
@@ -92,7 +180,7 @@ namespace JsApi
         /// <returns></returns>
         public static int GetShareCount(string openid)
         {
-            return Convert.ToInt32( SqlHelper.ExecuteScalar(" select COUNT(*) from ShareRecord where openid='"+openid+"'"));
+            return Convert.ToInt32(SqlHelper.ExecuteScalar(" select COUNT(*) from ShareRecord where openid='" + openid + "'"));
         }
 
         /// <summary>
@@ -102,7 +190,7 @@ namespace JsApi
         /// <returns></returns>
         public static int GettodyprizeCount(string value)
         {
-            return Convert.ToInt32( SqlHelper.ExecuteScalar("  select COUNT(*) from WinningRecord where DATEDIFF(DD,drawtime,GETDATE())=0 and prizename='"+value+"'  "));
+            return Convert.ToInt32(SqlHelper.ExecuteScalar("  select COUNT(*) from WinningRecord where DATEDIFF(DD,drawtime,GETDATE())=0 and prizename='" + value + "'  "));
         }
 
         /// <summary>
@@ -241,6 +329,23 @@ end";
 select @num=count(openid) from WebChartUser where openid=@openid;
 if(@num<1)begin  
 insert into WebChartUser (openid,nickname,headimgurl,chancecount) values(@openid,@nickname,@headimgurl,1);
+end
+";
+
+            SqlHelper.ExecuteNonQuery(sql, new SqlParameter("@openid", openid), new SqlParameter("@nickname", nickname), new SqlParameter("@headimgurl", headimgurl));
+        }
+
+
+        public static void AddWechartUser3(string openid, string nickname, string headimgurl)
+        {
+            string sql = @"declare @num int set @num=0;
+select @num=count(openid) from WebChartUser where openid=@openid;
+if(@num<1)begin  
+insert into WebChartUser (openid,nickname,headimgurl,chancecount) values(@openid,@nickname,@headimgurl,1);
+end
+else 
+begin
+update WebChartUser set nickname=@nickname, headimgurl=@headimgurl where openid=@openid
 end
 ";
 
@@ -884,8 +989,47 @@ delete from Tentent  where UserId='" + userid + @"'
         /// <returns></returns>
         public static IList<JsApi.WinningRecord> GetWinningRecords()
         {
-            DataTable dt = SqlHelper.ExecuteDataTable("  select * from  WinningRecord order by drawtime desc");
-            return ConvertToList<JsApi.WinningRecord>(dt);
+            DataTable dt = SqlHelper.ExecuteDataTable("  select top 150 * from  WinningRecord order by drawtime desc");
+
+            IList<JsApi.WinningRecord> lis = ConvertToList<JsApi.WinningRecord>(dt);
+
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "小不懂oο﹏", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "萌主﹫", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "じ☆ve﹍﹎格子伞", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "Low-key丶是一种态度", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "稚气未脱∩_∩", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "▼魔方 小南", Prizename = "iPhone6" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "猫某君", Prizename = "iPhone6" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "twilight 暮年", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "LK250520", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "鱼人儿i", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "小蘑菇", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "萌面大侠i", Prizename = "iPhone6" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "素锦流年°", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "糖豆微咸", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "别摸头，会长不高耶！", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "最萌分数差", Prizename = "100元京东卡" });
+
+
+
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "10086520", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "↙也許、這只是壹個巧合", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "?俺是翠花", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "狗比人忠", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "没心没肺没脸没皮", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "勿忘心安、", Prizename = "iPhone6" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "你最珍贵", Prizename = "10元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "记忆幻化成了雨", Prizename = "2元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "那一声感叹", Prizename = "iWatch" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "无言的结局", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "单身少年", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "貳歪骚年……i", Prizename = "iPhone6" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "x1n丶惘然___", Prizename = "2元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "雪花ミ飞舞", Prizename = "100元京东卡" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "健平John", Prizename = "2元现金红包" });
+            lis.Insert(new Random(Guid.NewGuid().GetHashCode()).Next(0, lis.Count()), new WinningRecord() { Nickname = "momo", Prizename = "10元现金红包" });
+
+            return lis;
         }
         /// <summary> 
         /// 单表查询结果转换成泛型集合 
@@ -948,7 +1092,54 @@ delete from Tentent  where UserId='" + userid + @"'
             return ts;
         }
 
+        /// <summary>
+        /// 得到砍价列表
+        /// </summary>
+        /// <param name="foropenid"></param>
+        /// <returns></returns>
+        public static IList<JsApi.Bargain> GetBargainList(string foropenid)
+        {
 
+            DataTable dt = SqlHelper.ExecuteDataTable("  select * from Bargain where foruserid='" + foropenid + "' order by createtime desc;");
 
+            IList<JsApi.Bargain> lis = ConvertToList<JsApi.Bargain>(dt);
+
+            return lis;
+        }
+
+        /// <summary>
+        /// 得到砍价总数
+        /// </summary>
+        /// <param name="foropenid"></param>
+        /// <returns></returns>
+        public static int GetTotleKjNum(string foropenid)
+        {
+            return Convert.ToInt32(SqlHelper.ExecuteScalar("select SUM(value) from Bargain where foruserid='"+foropenid+"'"));
+        }
+
+        /// <summary>
+        /// 得到砍价top10
+        /// </summary>
+        /// <param name="foropenid"></param>
+        /// <returns></returns>
+        public static IList<JsApi.Bargain> GetTop10( )
+        {
+
+            DataTable dt = SqlHelper.ExecuteDataTable("   select top 7   WebChartUser.nickname,WebChartUser.headimgurl headimg, value from ( select MAX(openid) openid,MAX(nickname) nickname,MAX(headimg) headimg,MAX(foruserid) foruserid,SUM(value) value   from Bargain group by  foruserid)a left join WebChartUser on a.foruserid=WebChartUser.openid order by value desc;");
+
+            IList<JsApi.Bargain> lis = ConvertToList<JsApi.Bargain>(dt);
+
+            return lis;
+        }
+        /// <summary>
+        /// 得到昵称
+        /// </summary>
+        /// <param name="openid"></param>
+        /// <returns></returns>
+        public static string GetnickName(string openid)
+        {
+            return SqlHelper.ExecuteScalar("select nickname from WebChartUser where openid='" + openid + "'").ToSafeString();
+        
+        }
     }
 }
