@@ -853,6 +853,7 @@ namespace MJAPI.Controllers
 
                 if (Lu.openid.IsEmpty())
                 {
+                    Session["Lu"] = null;
                     return Redirect("http://mobile.mj100.com/wechart/login7/");
                 }
             }

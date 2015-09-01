@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html class="expanded" lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/style_f97d27f.css">
+    <link rel="stylesheet" type="text/css" href="/css/style_506ec5b.css">
+</head>
+<body>
+    <div class="service-cont-item js-service-cont-item pb20 dn" style="display: block;">
+        <h3 class="lead-title"><span class="lead-cont lead-document">API列表</span></h3>
+        <dl id="js-interface-list" class="interface-list">
+            <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                    用户登录
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/login</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">loginname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">登录名</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">pwd</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">用户明文密码</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/login?loginname=don@mj100.com&pwd=a123456&token=token</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                            {
+"errorcode": 0,
+"desingerid": "477",
+"name": "don",
+"email": "tiry@mj100.com",
+"phone": "15138214873",
+"headimg": "http://www.mj100.com/GEEKPRO/img/head/201508/051107045708.jpg",
+"servicerange": "北京市"
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+       
+        </dl>
+
+    </div>
+</body>
+</html>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
+    $(function () {
+        $(".interface-name").toggle(function () {
+            $(".js-interface-list").hide();
+            $(this).next("div").show();
+
+        }, function () {
+
+            $(this).next("div").hide();
+        });
+
+    });
+</script>
+
+

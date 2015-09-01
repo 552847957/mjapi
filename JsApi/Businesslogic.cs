@@ -107,7 +107,12 @@ namespace JsApi
         /// <returns></returns>
         public static string KanJa(string openid, string nickname, string foropenid, string headimg)
         {
-            const int  con=10000;//上限
+
+            if (string.IsNullOrEmpty(openid)||string.IsNullOrEmpty(headimg))
+            {
+                  return "{\"errorcode\":5,\"num\":" + 0 + ",\"msg\":\"未知错误\"}";
+            }
+            const int con = 1500;//上限
 
             bool cg = Convert.ToInt32(SqlHelper.ExecuteScalar("select COUNT(*) from  Bargain where openid='" + openid + "' and foruserid='" + foropenid + "'")) == 0;
 
@@ -115,14 +120,33 @@ namespace JsApi
             if (cg)
             {
                 int totle = 0;
-                object o = SqlHelper.ExecuteScalar("select sum(value) from Bargain  where  foruserid='"+foropenid+"' group by foruserid");
+                object o = SqlHelper.ExecuteScalar("select sum(value) from Bargain  where  foruserid='" + foropenid + "' group by foruserid");
 
-                if (o!=null)
+
+
+                if (o != null)
                 {
                     totle = Convert.ToInt32(o);
                 }
 
-                int num = new Random().Next(5,11);//随机的钱数
+                int num = new Random().Next(1, 16);//随机的钱数
+
+                string v = SqlHelper.ExecuteScalar(" select top 1  (id+4)%7+4 from Bargain where foruserid='" + foropenid + "';").ToSafeString();
+                if (!v.IsEmpty())
+                {
+                    int k = int.Parse(v);
+                    int n1 = k + 7; int n2 = k + 13; int n3 = k + 1;
+
+
+                    int t=Convert.ToInt32( SqlHelper.ExecuteScalar( " select COUNT(*) from Bargain where foruserid='"+foropenid+"';"));
+                    if (t==n1||t==n2 ||t==n3)
+                    {
+                        num = new Random().Next(45,51);
+                    }
+
+
+                }
+
 
                 if (totle >= con)
                 {
@@ -1114,7 +1138,7 @@ delete from Tentent  where UserId='" + userid + @"'
         /// <returns></returns>
         public static int GetTotleKjNum(string foropenid)
         {
-            return Convert.ToInt32(SqlHelper.ExecuteScalar("select SUM(value) from Bargain where foruserid='"+foropenid+"'"));
+            return Convert.ToInt32(SqlHelper.ExecuteScalar("select SUM(value) from Bargain where foruserid='" + foropenid + "'"));
         }
 
         /// <summary>
@@ -1122,7 +1146,7 @@ delete from Tentent  where UserId='" + userid + @"'
         /// </summary>
         /// <param name="foropenid"></param>
         /// <returns></returns>
-        public static IList<JsApi.Bargain> GetTop10( )
+        public static IList<JsApi.Bargain> GetTop10()
         {
 
             DataTable dt = SqlHelper.ExecuteDataTable("   select top 7   WebChartUser.nickname,WebChartUser.headimgurl headimg, value from ( select MAX(openid) openid,MAX(nickname) nickname,MAX(headimg) headimg,MAX(foruserid) foruserid,SUM(value) value   from Bargain group by  foruserid)a left join WebChartUser on a.foruserid=WebChartUser.openid order by value desc;");
@@ -1139,7 +1163,7 @@ delete from Tentent  where UserId='" + userid + @"'
         public static string GetnickName(string openid)
         {
             return SqlHelper.ExecuteScalar("select nickname from WebChartUser where openid='" + openid + "'").ToSafeString();
-        
+
         }
     }
 }

@@ -150,7 +150,8 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\DesingerApiController.cs" />
     <Compile Include="Controllers\DesingerController.cs" />
-    <Compile Include="Controllers\ErrorLog.cs" />
+    <Compile Include="Controllers\DesingerPlatformApiController.cs" />
+    <Compile Include="Controllers\filter\ErrorLog.cs" />
     <Compile Include="Controllers\FileDownController.cs" />
     <Compile Include="Controllers\filter\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -716,6 +717,7 @@
     <Content Include="Views\mjpay\Xd2.cshtml" />
     <Content Include="Views\App\LuckDraw.cshtml" />
     <Content Include="Views\App\Bargain.cshtml" />
+    <Content Include="Views\DesingerPlatformApi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

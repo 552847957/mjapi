@@ -72,6 +72,7 @@ namespace MJAPI.Controllers
 
         public string Login7(string id)
         {
+            Session["Lu"] = null;
             if (id.IsEmpty())
             {
                 id = "dpzc";
