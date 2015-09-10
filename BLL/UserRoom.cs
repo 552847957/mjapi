@@ -472,6 +472,9 @@ namespace BLL
                 UpdateProduct(oldpid, newpid, lx, DemandId);
             }
         }
+
+
+
         public static void TestMethod(object data)
         {
             string datastr = data as string;
@@ -1197,11 +1200,11 @@ left join Product on a.ProjectId=Product.ProductId");
         /// <returns></returns>
         public static DataTable GetOther(string projectid)
         {
-            return SqlHelper.ExecuteDataTable(@"select a.Types, a.Extension1 , a.Extension2, a.Extension,Product.Unit,Product.Price, Product.Extension1 as [desc] 
+            return SqlHelper.ExecuteDataTable(@"select a.Extension3, a.Extension4, a.Types, a.Extension1 , a.Extension2, a.Extension,Product.Unit,Product.Price, Product.Extension1 as [desc] 
  
   from  
  
- (select   *  from  DemandYppCenter  where TypeId='"+projectid+@"') a
+ (select   *  from  DemandYppCenter  where TypeId='" +projectid+@"') a
 
 left join Product on a.ProjectId=Product.ProductId where Types<>'qm' and Types<>'dm'  and  Types<>'ld'" );
         }

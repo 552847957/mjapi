@@ -418,7 +418,7 @@ namespace MJAPI.Controllers
             stylecenter2.VerticalAlignment = VerticalAlignment.Center;
 
             stylecenter2.Alignment = HorizontalAlignment.Center;
-          //  stylecenter2.FillPattern = FillPattern.SolidForeground;
+           // stylecenter2.FillPattern = FillPattern.SolidForeground;
            
 
 
@@ -515,7 +515,32 @@ namespace MJAPI.Controllers
 
         private static int Other(ISheet worksheet, int n,System.Data.DataRow row,int index)
         {
-            var obj = new { gy = row["extension"].ToSafeString(), dw = row["Unit"].ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡"), number = row["extension1"].ToSafeString().Todouble(), dj = row["price"].ToSafeString().Todouble(), xj = row["extension2"].ToSafeString().Todouble(), gyms = row["desc"].ToSafeString() };
+
+            string dw = row["Unit"].ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡");
+
+            if (dw.IsEmpty())
+            {
+                dw = row["extension3"].ToSafeString().Replace("m&sup2;", "㎡").Replace("平米", "㎡");
+            }
+            double dj = row["price"].ToSafeString().Todouble();
+
+            if (dj==0)
+            {
+                dj = row["extension4"].ToSafeString().Todouble();
+            }
+
+
+            double xj = row["extension2"].ToSafeString().Todouble();
+
+            if (xj==0)
+            {
+                xj=row["extension2"].ToSafeString().Todouble();
+            }
+
+            var obj = new { gy = row["extension"].ToSafeString(), dw =dw, number = row["extension1"].ToSafeString().Todouble(), dj = dj, xj = row["extension2"].ToSafeString().Todouble(), gyms = row["desc"].ToSafeString() };
+             
+
+
 
             IRow row8 = worksheet.CreateRow(n);
             row8.HeightInPoints = 30;

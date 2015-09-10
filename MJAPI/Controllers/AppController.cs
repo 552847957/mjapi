@@ -835,8 +835,11 @@ namespace MJAPI.Controllers
         public ActionResult Bargain(string code,string state)
         {
 
+            System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "waht.txt",  code + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+            try
+            {
 
-
+           
             #region 缓存用户
             if (Session["Lu"] != null)
             {
@@ -924,7 +927,12 @@ namespace MJAPI.Controllers
            
 
             return View();
-
+            }
+            catch (Exception e)
+            {
+                System.IO.File.AppendAllText(HttpContext.Server.MapPath("") + "waht.txt", e.Message + "     :" + DateTime.Now.ToSafeString() + "\r\n\r\n");
+                throw;
+            }
            
         }
 

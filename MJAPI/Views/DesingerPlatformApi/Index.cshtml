@@ -74,8 +74,1389 @@
                 </div>
             </dt>
 
+                        <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   订单管理数据
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/OrderManagementData</p>
+                    <p class="interface-line"><strong>请求方法：</strong>GET/POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识/设计师id</td>
+                                </tr>
+                                 
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/OrderManagementData?desingerid=123</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                            {
+"errorcode": 0,
+"all": 41,
+"newest": 2,
+"orders": 1,
+"complete": 38,
+"data": [
+{
+"createtime": "8月13日 13:15",
+"address": "建国路93号",
+"area": "180",
+"theme": "中国风",
+"budget": "8-25",
+"phone": "18810616681",
+"functionrooms": [
+"客餐厅",
+"主卧室",
+"厨房",
+"卫生间"
+],
+"issend": 0,
+"orderid": "100",
+"layoutpic": "",
+"timeofappointment": "09月07日上午"
+}
+ 
+]
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            
+                        <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   意见反馈
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Feedback</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">content</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">提交的意见</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Feedback</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                            {
+"errcode": 0,
+"msg": "提交成功."
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
        
+
+
+
+
+            
+                        <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   主题套装列表
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Topiclist</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">roomname</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">房间</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">theme</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">主题</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">housetype</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">户型</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">area</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">面积</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Topiclist</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                        {
+"errorcode": 0,
+"data": [
+{
+"name": "宜家风主题样板间",
+"pic": "http://www.mj100.com/UploadFile/610/201506/7722.jpg",
+"area": "89.7",
+"totalprice": "8888",
+"roomids": "3752,3753,3754,3755,3756",
+"issuit": 1
+},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{}]}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+            
+                        <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   主题套装详情
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Packagedetails</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">roomids</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">主题房间房间id列表</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">name</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">主题名</td>
+                                </tr>
+                               
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Packagedetails?roomids=3798,3801,3803,3806,3809&name=%E6%B5%8B%E8%AF%95%E6%88%BF%E9%97%B4</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                     {
+"errorcode": 0,
+"name": "测试房间",
+"data": [
+{
+"did": "3798",
+"roomtype": "客餐厅",
+"roomName": "英伦风",
+"price": "810",
+"mj": "48.2",
+"frontCover": "http://www.mj100.com/UploadFile/610/201507/1-kt-3-s-p-5312.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201507/1-kt-3-s-p-9188.jpg",
+"http://www.mj100.com/UploadFile/610/201507/2-kt-4-s-p-0364.jpg",
+"http://www.mj100.com/UploadFile/610/201507/3-kt-5-s-p-0389.jpg",
+"http://www.mj100.com/UploadFile/610/201507/4-kt-9-s-p-7255.jpg",
+"http://www.mj100.com/UploadFile/610/201507/5-kt-8-s-p-0498.jpg",
+"http://www.mj100.com/UploadFile/610/201507/6-kt-6-s-p-9027.jpg",
+"http://www.mj100.com/UploadFile/610/201507/7-kt-7-s-p-1282.jpg",
+"http://www.mj100.com/UploadFile/610/201507/8-kt-10-s-p-2381.jpg",
+"http://www.mj100.com/UploadFile/610/201507/9-kt-1-s-z-3909.jpg"
+],
+"des": "英伦风主题客餐厅"
+},
+{
+"did": "3801",
+"roomtype": "卧室",
+"roomName": "英伦风",
+"price": "1050",
+"mj": "16.7",
+"frontCover": "http://www.mj100.com/UploadFile/610/201507/1-ws-1-s-p-8098.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201507/1-ws-1-s-p-5451.jpg",
+"http://www.mj100.com/UploadFile/610/201507/2-ws-2-s-p-1365.jpg",
+"http://www.mj100.com/UploadFile/610/201507/3-ws-4-s-p-6651.jpg",
+"http://www.mj100.com/UploadFile/610/201507/4-ws-1-s-z-0981.jpg"
+],
+"des": "英伦风主题卧室"
+},
+{
+"did": "3803",
+"roomtype": "书房",
+"roomName": "英伦风",
+"price": "1210",
+"mj": "12.4",
+"frontCover": "http://www.mj100.com/UploadFile/610/201507/1-sf-1-s-p-0076.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201507/1-sf-1-s-p-7439.jpg",
+"http://www.mj100.com/UploadFile/610/201507/2-sf-3-s-p-7967.jpg",
+"http://www.mj100.com/UploadFile/610/201507/4-sf-5-s-p-0716.jpg",
+"http://www.mj100.com/UploadFile/610/201507/5-sf-1-s-z-1311.jpg"
+],
+"des": "英伦风主题书房"
+},
+{
+"did": "3806",
+"roomtype": "厨房",
+"roomName": "英伦风",
+"price": "6890",
+"mj": "7.3",
+"frontCover": "http://www.mj100.com/UploadFile/610/201507/1-cf-1-s-p-8197.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201507/1-cf-1-s-p-8615.jpg",
+"http://www.mj100.com/UploadFile/610/201507/2-cf-4-s-p-9892.jpg",
+"http://www.mj100.com/UploadFile/610/201507/3-cf-5-s-p-6277.jpg",
+"http://www.mj100.com/UploadFile/610/201507/4-cf-1-s-z-5706.jpg"
+],
+"des": "英伦风主题厨房"
+},
+{
+"did": "3809",
+"roomtype": "卫生间",
+"roomName": "英伦风",
+"price": "5380",
+"mj": "5.1",
+"frontCover": "http://www.mj100.com/UploadFile/610/201507/1-wsj-s-p-01-8138.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201507/1-wsj-s-p-01-5513.jpg",
+"http://www.mj100.com/UploadFile/610/201507/1-wsj-s-z-01-0800.jpg"
+],
+"des": "英伦风主题卫生间"
+}
+]
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+            
+                        <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   备选房间方案列表
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/GetModelRoomList?roomtype=kct</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">roomtype</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">roomtype  只可传 kct , cf  ,wsj , znf  ,ws  ,sf  分别对应 客餐厅  厨房  卫生间  子女房  卧室  书房 </td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/GetModelRoomList?roomtype=kct</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                       
+ [
+{
+"did": "3764",
+"roomtype": "客餐厅",
+"roomName": "E系列",
+"price": "510",
+"mj": "39.5",
+"frontCover": "http://www.mj100.com/UploadFile/610/201409/kt-1-s-p-033324.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201409/kt-1-s-p-033324.jpg",
+"http://www.mj100.com/UploadFile/610/201409/kt-1-s-z-033328.jpg"
+],
+"beused": "0"
+},
+{
+"did": "3582",
+"roomtype": "客餐厅",
+"roomName": "E系列",
+"price": "510",
+"mj": "39.5",
+"frontCover": "http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-033331.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-033331.jpg",
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-z-033333.jpg"
+],
+"beused": "0"
+},
+{
+"did": "3595",
+"roomtype": "客餐厅",
+"roomName": "C系列",
+"price": "550",
+"mj": "39.5",
+"frontCover": "http://www.mj100.com/UploadFile/610/201409/kt-1-s-p-023117.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201409/kt-1-s-p-023117.jpg",
+"http://www.mj100.com/UploadFile/610/201409/kt-1-s-z-023120.jpg"
+],
+"beused": "0"
+},
+{
+"did": "3770",
+"roomtype": "客餐厅",
+"roomName": "C系列",
+"price": "550",
+"mj": "39.5",
+"frontCover": "http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-023118.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-023118.jpg",
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-z-023121.jpg"
+],
+"beused": "0"
+}]
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   备选房间方案详情
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/GetModelDetail?did=3582</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">did</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">备选方案did</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/GetModelDetail?did=3582</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                       本页JSON数据由FeHelper进行自动格式化，若有任何问题，点击这里提交 意见反馈
+{
+"modleroom": {
+"did": "3582",
+"roomtype": "客餐厅",
+"roomName": "E系列",
+"price": "510",
+"frontCover": "http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-033331.jpg",
+"pics": [
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-033331.jpg",
+"http://www.mj100.com/UploadFile/610/201409/kt-2-s-z-033333.jpg"
+],
+"mj": "39.5",
+"gyzj": "15139.5"
+},
+"jiancai": {
+"TheWall": [
+{
+"productid": "2843",
+"num": "1",
+"price": "188.23",
+"unit": "套",
+"tp": "TheWall",
+"netprice": "188.23",
+"pname": "罗格朗开关插座五金包开关插座客餐厅套包3",
+"bnmae": "TCL罗格朗",
+"pmodel": "开关插座客餐厅套包3",
+"gg": "86*86mm",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201504/011758079210.jpg"
+},
+{
+"productid": "2484",
+"num": "84",
+"price": "932.4",
+"unit": "㎡",
+"tp": "TheWall",
+"netprice": "11.1",
+"pname": "多乐士乳胶漆竹炭清新居五合一A899",
+"bnmae": "多乐士",
+"pmodel": "竹炭清新居五合一A899",
+"gg": "17L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201502/101454212569.jpg"
+}
+],
+"TheTop": [
+{
+"productid": "2484",
+"num": "39.5",
+"price": "438.45",
+"unit": "㎡",
+"tp": "TheTop",
+"netprice": "11.1",
+"pname": "多乐士乳胶漆竹炭清新居五合一A899",
+"bnmae": "多乐士",
+"pmodel": "竹炭清新居五合一A899",
+"gg": "17L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201502/101454212569.jpg"
+}
+],
+"TheGround": [
+{
+"productid": "2675",
+"num": "39.5",
+"price": "3476",
+"unit": "㎡",
+"tp": "TheGround",
+"netprice": "88",
+"pname": "生活家强化复合木地板轻舞飞扬",
+"bnmae": "生活家",
+"pmodel": "轻舞飞扬",
+"gg": "1215*169*12mm",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201503/021444002994.jpg"
+}
+]
+},
+"gongyi": {
+"TheWall": [
+{
+"tp": "TheWall",
+"extension": "铲除原腻子层",
+"univalent": "84",
+"unit": "㎡",
+"price": "672",
+"ProductAmount": "拆除"
+},
+{
+"tp": "TheWall",
+"extension": "墙面基层石膏找平（均厚≤10mm，最厚处≤20mm）",
+"univalent": "84",
+"unit": "㎡",
+"price": "2184",
+"ProductAmount": "贴墙纸"
+},
+{
+"tp": "TheWall",
+"extension": "墙面基层批刮耐水腻子",
+"univalent": "84",
+"unit": "㎡",
+"price": "2268",
+"ProductAmount": "乳胶漆"
+},
+{
+"tp": "TheWall",
+"extension": "墙面乳胶漆涂刷",
+"univalent": "84",
+"unit": "㎡",
+"price": "672",
+"ProductAmount": "乳胶漆"
+}
+],
+"TheTop": [
+{
+"tp": "TheTop",
+"extension": "铲除原腻子层",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "316.0",
+"ProductAmount": "拆除"
+},
+{
+"tp": "TheTop",
+"extension": "顶面基层石膏找平（均厚≤5mm，最厚处≤10mm）",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "1185.0",
+"ProductAmount": "乳胶漆"
+},
+{
+"tp": "TheTop",
+"extension": "顶面基层处理披刮耐水腻子",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "1145.5",
+"ProductAmount": "乳胶漆"
+},
+{
+"tp": "TheTop",
+"extension": "顶面乳胶漆涂刷",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "355.5",
+"ProductAmount": "乳胶漆"
+},
+{
+"tp": "TheTop",
+"extension": "墙、顶面阴、阳角周正找平",
+"univalent": "36.5",
+"unit": "米",
+"price": "219.0",
+"ProductAmount": "乳胶漆"
+}
+],
+"TheGround": [
+{
+"tp": "TheGround",
+"extension": "地面水泥沙浆找平(均厚≤25mm)",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "1382.5",
+"ProductAmount": "铺地板"
+}
+],
+"TheCircuit": [
+{
+"tp": "TheCircuit",
+"extension": "客餐厅水电改造",
+"univalent": "39.5",
+"unit": "㎡",
+"price": "4740.0",
+"ProductAmount": ""
+}
+]
+}
+}
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   推荐主材
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/tjzc?productid=902</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">productid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">主材/建材productid</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/tjzc?productid=902</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                       [
+{
+"productid": "905",
+"unit": "m²",
+"netprice": "2.1",
+"pname": "多乐士超易洗墙面漆乳胶漆",
+"bnmae": "多乐士",
+"pmodel": "超易洗墙面漆",
+"gg": "5L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201403/QZTL_C_2014032615125703331163.jpg"
+},
+{
+"productid": "908",
+"unit": "m²",
+"netprice": "5.7",
+"pname": "多乐士金装无添加5合1（防水）墙面漆乳胶漆",
+"bnmae": "多乐士",
+"pmodel": "金装无添加5合1（防水）墙面漆",
+"gg": "5L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201403/QZTL_C_2014032615125403644009.jpg"
+},
+{
+"productid": "909",
+"unit": "m²",
+"netprice": "1.7",
+"pname": "多乐士家丽安抗污净味墙面漆乳胶漆",
+"bnmae": "多乐士",
+"pmodel": "家丽安抗污净味墙面漆",
+"gg": "18L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201403/QZTL_C_2014032615125903303276.jpg"
+},
+{
+"productid": "2483",
+"unit": "m²",
+"netprice": "13.2",
+"pname": "多乐士乳胶漆竹炭清新居五合一A895+A931",
+"bnmae": "多乐士",
+"pmodel": "竹炭清新居五合一A895+A931",
+"gg": "15L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201502/101454215097.jpg"
+},
+{
+"productid": "2484",
+"unit": "m²",
+"netprice": "11.1",
+"pname": "多乐士乳胶漆竹炭清新居五合一A899",
+"bnmae": "多乐士",
+"pmodel": "竹炭清新居五合一A899",
+"gg": "17L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201502/101454212569.jpg"
+},
+{
+"productid": "2485",
+"unit": "m²",
+"netprice": "4.6",
+"pname": "多乐士乳胶漆五合一A611",
+"bnmae": "多乐士",
+"pmodel": "五合一A611",
+"gg": "5L",
+"smallpic": "http://www.mj100.com/admin/UploadFile/550/201502/101454235946.jpg"
+}
+]
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+                          <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                   添加设计师自己的模块
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/AddDesingerModular</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">par</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">  //par = "{\"desingerid\":\"10010\","tempid":"没值的时候不填",\"kct\":\"2\",\"sf\":\"4\"}";</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/par=</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errcode": 0,
+"msg": "添加模块成功",
+"tempid": "8818",
+"data": [
+{
+"userroomid": "45091",
+"roomName": "客餐厅",
+"demandId": "6211",
+"FrontCover": "",
+"mj": ""
+},
+{
+"userroomid": "45092",
+"roomName": "书房",
+"demandId": "6211",
+"FrontCover": "",
+"mj": ""
+}
+]
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+            
+                          <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  使用备选方案
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://localhost:13888/DesingerPlatformApi/Usageplan</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">par</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">  par = { "tempid":"临时标识","data":[ {"userroomid":"1", "did":"2", "mj":"100", "products":[] }]};</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Usageplan?par=</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errcode": 0,
+"msg": "操作成功"
+
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                  设计师刚添加的模块
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/GetDesingerModular?tempid=6211</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">tempid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5"> 临时id  </td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/GetDesingerModular?tempid=6211</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errorcode": 0,
+"data": [
+{
+"userroomid": "45089",
+"roomName": "客餐厅",
+"demandId": "6211",
+"FrontCover": "http://www.mj100.com/UploadFile/610/201409/kt-2-s-p-033331.jpg",
+"mj": "100",
+"totleprice": "51100",
+"theme": "E系列"
+},
+{
+"userroomid": "45090",
+"roomName": "书房",
+"demandId": "6211",
+"FrontCover": "",
+"mj": "",
+"totleprice": "",
+"theme": ""
+},
+{
+"userroomid": "45091",
+"roomName": "客餐厅",
+"demandId": "6211",
+"FrontCover": "",
+"mj": "",
+"totleprice": "",
+"theme": ""
+},
+{
+"userroomid": "45092",
+"roomName": "书房",
+"demandId": "6211",
+"FrontCover": "",
+"mj": "",
+"totleprice": "",
+"theme": ""
+}
+]
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                删除设计师定义的模块
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/DeleteSingleModule?userroomid=6211</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">tempid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5"> 临时id  </td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/DeleteSingleModule?userroomid=6211</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errorcode": 0,
+ "msg":"删除成功"
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+              一键保存方案
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/savescheme</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">par</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">  格式 ： {"desingerid":"10086","pic":"http://www.mj100.com/img/index/l_2bg.png","name":"新古风","totlearea":"100","totleprice":"3000","data":[{"room":"kct","did":"3582","area":"100"}，{"room":"kct","did":"3582","area":"500"}]}  </td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/savescheme</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errorcode": 0,
+ "msg":"操作成功"
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+
+
+               <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                实名认证
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Identityauthentication</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">name</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师实名</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">idnumber</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">身份证号</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">z</td>
+                                    <td class="td-2">文件类型</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">身份证正面</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">f</td>
+                                    <td class="td-2">文件类型</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">身份证反面</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Identityauthentication</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errorcode": 0,
+ "msg":"操作成功"
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                添加收藏
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/AddCollection</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师id</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">name</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">收藏的套装名或房间名</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">pic</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">一张代表的图片</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">mj</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">套装或房间面积</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">totleprice</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">总价格</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">ids</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">要收藏的房间id列表</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/AddCollection</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ {
+"errorcode": 0,
+ "msg":"操作成功"
+}
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                我的搭配/设计师的搭配
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Myplan</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师id</td>
+                                </tr>
+                                 
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Myplan</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+            
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+                我的收藏/设计师自己的收藏
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Mycollection</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师id</td>
+                                </tr>
+                                 
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Mycollection</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+             
+             <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+               更新设计师标签
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/UpdateTags</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师id</td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td class="td-1">tags</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师新选择的标签 以英文逗号拼接 如 前卫,文艺,电影</td>
+                                </tr>
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/UpdateTags</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
         </dl>
 
     </div>

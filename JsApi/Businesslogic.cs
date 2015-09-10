@@ -107,7 +107,10 @@ namespace JsApi
         /// <returns></returns>
         public static string KanJa(string openid, string nickname, string foropenid, string headimg)
         {
-
+            if (headimg.IsEmpty())
+            {
+                headimg = "http://www.mj100.com/img/header/z17.png";
+            }
             if (string.IsNullOrEmpty(openid)||string.IsNullOrEmpty(headimg))
             {
                   return "{\"errorcode\":5,\"num\":" + 0 + ",\"msg\":\"未知错误\"}";
@@ -712,7 +715,7 @@ delete from Tentent  where UserId='" + userid + @"'
 
             JsApi.DesignerGrade d = JsApi.Businesslogic.GetDesingerGradeext(userid);
 
-            return Commen.HttpRequest.PostMa("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + JsApi.JsToken.GetApptoken(), new Template.Notice5(openid, "http://mobile.mj100.com/wechart/login5" + userid, "#FF0000", "点击进入服务查询了解最新的服务进度>>", d.DID, d.MPhone, DateTime.Now.ToSafeString(), "我们已为您分配好您的专属设计师啦！设计师上门量尺前会与您电话联系，请保持电话畅通！").ToString(), Encoding.UTF8);
+            return Commen.HttpRequest.PostMa("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + JsApi.JsToken.GetApptoken(), new Template.Notice5(openid, "http://mobile.mj100.com/wechart/login5/" + userid, "#FF0000", "点击进入服务查询了解最新的服务进度>>", d.DID, d.MPhone, DateTime.Now.ToSafeString(), "我们已为您分配好您的专属设计师啦！设计师上门量尺前会与您电话联系，请保持电话畅通！").ToString(), Encoding.UTF8);
 
         }
         /// <summary>

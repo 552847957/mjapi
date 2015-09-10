@@ -188,7 +188,7 @@ namespace MJAPI.Controllers
 
             string filename = Guid.NewGuid().ToString().Substring(0, 6) + projectid + fileext;
 
-            MakeSmallImg(file.InputStream,3,5);
+           
 
             file.SaveAs(path + filename);
 

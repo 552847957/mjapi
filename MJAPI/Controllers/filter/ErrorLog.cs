@@ -89,7 +89,7 @@ namespace MJAPI.Controllers
 
             //System.IO.File.AppendAllText(filterContext.HttpContext.Server.MapPath("desinger") + "log.txt", filterContext.Exception + ":" + filterContext.Controller + ":" + (string)filterContext.RouteData.Values["action"] + ":" + DateTime.Now.ToSafeString() + "\r\n\r\n");
             // return "{\"success\":\"false\",\"msg\":\"userid不能为空\"}"; ;
-            filterContext.HttpContext.Response.Write("{\"errcode\":1,\"msg\":\"" + filterContext.Exception.Message + "\"}");
+            filterContext.HttpContext.Response.Write("{\"errorcode\":1,\"msg\":\"" + filterContext.Exception.Message + "\"}");
             filterContext.HttpContext.Response.End();
 
             //写入日志 记录

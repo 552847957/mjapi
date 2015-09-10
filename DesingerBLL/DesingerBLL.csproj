@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{fdb61381-a368-4e29-ab71-7ba15af7839b}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commen\Commen.csproj">
       <Project>{a86a8c4f-78a3-4cf9-9614-1329755b7f5b}</Project>
       <Name>Commen</Name>
