@@ -230,7 +230,7 @@ namespace BLL
 
 
             #region 查询
-            string sql = @"select Extension1, unit, roomId, did,Extension5 as roomtype, roomName,frontCover,Extension13,Extension14,
+            string sql = @"select Extension2, Extension1, unit, roomId, did,Extension5 as roomtype, roomName,frontCover,Extension13,Extension14,
  round((CAST(Extension1 as float)+CAST(Extension2 as float))/CAST(unit as float),0) 
  as price from Room where did=@did";
 
@@ -253,7 +253,7 @@ namespace BLL
                     lispic.Add(htp + arr[i]);
                 }
 
-                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = S(row["price"].ToSafeString()), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, mj =row["unit"].ToSafeString(), gyzj =  row["Extension1"].ToSafeString() };
+                var room = new { did = row["did"].ToSafeString(), roomtype = row["roomtype"].ToSafeString(), roomName = row["roomName"].ToSafeString(), price = S(row["price"].ToSafeString()), frontCover = htp + row["frontCover"].ToSafeString(), pics = lispic, mj = row["unit"].ToSafeString(), gyzj = row["Extension1"].ToSafeString(), jczj = row["Extension2"].ToSafeString() };
                 
             
 

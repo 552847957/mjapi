@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace MJAPI.Controllers
 {
     [DesingerPlatformException]
-    
+
     public class DesingerPlatformApiController : Controller
     {
         //
@@ -31,7 +31,7 @@ namespace MJAPI.Controllers
         [Yz]
         public string Login(string loginname, string pwd)
         {
-            return DesingerBLL.DesignerPlatform.Login(loginname,pwd); ;
+            return DesingerBLL.DesignerPlatform.Login(loginname, pwd); ;
         }
 
 
@@ -54,10 +54,10 @@ namespace MJAPI.Controllers
         /// <param name="housetype">户型</param>
         /// <param name="area">面积</param>
         /// <returns></returns>
-        public  string Topiclist(string roomname, string theme, string housetype, string area)
+        public string Topiclist(string roomname, string theme, string housetype, string area)
         {
 
-            return DesingerBLL.DesignerPlatform.Topiclist(roomname,theme,housetype,area);
+            return DesingerBLL.DesignerPlatform.Topiclist(roomname, theme, housetype, area);
         }
 
 
@@ -67,9 +67,9 @@ namespace MJAPI.Controllers
         /// <param name="roomids"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public   string Packagedetails(string roomids, string name)
+        public string Packagedetails(string roomids, string name)
         {
-            return DesingerBLL.DesignerPlatform.Packagedetails(roomids,name);
+            return DesingerBLL.DesignerPlatform.Packagedetails(roomids, name);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string GetModelRoomList(string roomtype, string price)
         {
-            return  DesingerBLL.DesignerPlatform.GetModelRoomS2(roomtype,price);
+            return DesingerBLL.DesignerPlatform.GetModelRoomS2(roomtype, price);
         }
 
 
@@ -93,7 +93,7 @@ namespace MJAPI.Controllers
         public string GetModelDetail(string did)
         {
             return DesingerBLL.DesignerPlatform.GetModelDetail(did);
-        
+
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace MJAPI.Controllers
         {
             if (productid.IsEmpty())
             {
-                return  "{\"errorcode\":1,\"msg\":\"参数有空值\"}"; ;
+                return "{\"errorcode\":1,\"msg\":\"参数有空值\"}"; ;
             }
             return DesingerBLL.DesignerPlatform.RecommendZc(productid);
         }
@@ -138,7 +138,7 @@ namespace MJAPI.Controllers
 
             return bll.GetUserModule(tempid); ;
         }
-             
+
 
         /// <summary>
         /// 使用备选方案
@@ -150,7 +150,7 @@ namespace MJAPI.Controllers
             DesingerBLL.DesignerPlatform bll = new DesingerBLL.DesignerPlatform();
 
             return bll.SyFj(par);
-        
+
         }
 
 
@@ -168,6 +168,8 @@ namespace MJAPI.Controllers
 
         }
 
+
+
         /// <summary>
         /// 删除设计师定义的一个模块
         /// </summary>
@@ -178,6 +180,27 @@ namespace MJAPI.Controllers
             return DesingerBLL.DesignerPlatform.DeleteSingleModule(userroomid);
         }
 
+        /// <summary>
+        /// 给用户发送提醒
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string Remind(string id, string openid)
+        {
+            //id是userid  
+
+
+            openid = JsApi.Businesslogic.GetAppid(id);
+
+            if (!string.IsNullOrEmpty(openid))
+            {
+                //发送提醒
+                return JsApi.Businesslogic.Remind(id, openid);
+            }
+
+            return "{\"eroorcode\":0,\"msg\":\"操作成功\"}";
+
+        }
 
         /// <summary>
         /// 保存方案
@@ -201,9 +224,9 @@ namespace MJAPI.Controllers
         /// <param name="userdemnadid">用户需求id</param>
         /// <param name="olddemandid">将要被复制的需求id</param>
         /// <returns></returns>
-        public string Schemereplication(string userid ,string userdemnadid,string olddemandid)
+        public string Schemereplication(string userid, string userdemnadid, string olddemandid)
         {
-            if (userdemnadid==olddemandid)
+            if (userdemnadid == olddemandid)
             {
                 return "";
             }
@@ -211,14 +234,14 @@ namespace MJAPI.Controllers
 
             return DesingerBLL.DesignerPlatform.CopyDemand(userid, userdemnadid, olddemandid);
 
-           // return DesingerBLL.DesignerPlatform.CopyDemand("8849","6292","6213");
+            // return DesingerBLL.DesignerPlatform.CopyDemand("8849","6292","6213");
         }
 
         /// <summary>
         /// 身份认证
         /// </summary>
         /// <returns></returns>
-        public string Identityauthentication(string desingerid, string name ,string idnumber)
+        public string Identityauthentication(string desingerid, string name, string idnumber)
         {
 
 
@@ -263,7 +286,7 @@ namespace MJAPI.Controllers
             #endregion
 
 
-            return DesingerBLL.DesignerPlatform.UpdateDesinger(desingerid,name,idnumber,url,url1);
+            return DesingerBLL.DesignerPlatform.UpdateDesinger(desingerid, name, idnumber, url, url1);
         }
 
 
@@ -277,21 +300,21 @@ namespace MJAPI.Controllers
         /// <param name="totleprice"></param>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public string AddCollection(string desingerid,string pic,string name,string mj,string totleprice,string ids)
-        { 
-        DesingerBLL.DesignerPlatform bll=new DesingerBLL.DesignerPlatform ();
-        return bll.AddCol(desingerid, "", pic, name, mj, totleprice, "0", "1", ids);
+        public string AddCollection(string desingerid, string pic, string name, string mj, string totleprice, string ids)
+        {
+            DesingerBLL.DesignerPlatform bll = new DesingerBLL.DesignerPlatform();
+            return bll.AddCol(desingerid, "", pic, name, mj, totleprice, "0", "1", ids);
         }
 
 
-        
+
 
         /// <summary>
         /// 我的收藏/设计师自己的收藏
         /// </summary>
         /// <param name="desingerid"></param>
         /// <returns></returns>
-        public   string Mycollection(string desingerid)
+        public string Mycollection(string desingerid)
         {
 
 
@@ -299,6 +322,16 @@ namespace MJAPI.Controllers
             return DesingerBLL.DesignerPlatform.Mycollection(desingerid);
         }
 
+        /// <summary>
+        /// 删除方案和收藏
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string DeleteColOrPlan(string desingerid, string id)
+        {
+            return DesingerBLL.DesignerPlatform.DeleteColOrPlan(desingerid, id);
+        }
 
         /// <summary>
         /// 更新设计师标签
@@ -308,7 +341,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public string UpdateTags(string desingerid, string tags)
         {
-            return DesingerBLL.DesignerPlatform.UpdateTags(desingerid,tags);
+            return DesingerBLL.DesignerPlatform.UpdateTags(desingerid, tags);
         }
         /// <summary>
         /// 意见反馈
@@ -317,7 +350,7 @@ namespace MJAPI.Controllers
         /// <returns></returns>
         public JsonResult Feedback(string content)
         {
-            return Json(new {errorcode=0,msg="提交意见成功" });
+            return Json(new { errorcode = 0, msg = "提交意见成功" });
         }
 
     }

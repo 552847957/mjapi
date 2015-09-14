@@ -73,38 +73,61 @@ namespace DesingerBLL
         /// <returns></returns>
         public static string OrderManagementData(string desingerid)
         {
+            if (CheckParm(new Dictionary<string, string>() {{"desingerid",desingerid} }))
+            {
+                return errormsg;
+            }
 
-
-
-            #region 订单实体项
-            var item = new
-              {
-                  createtime = "8月13日 13:15",
-                  address = "建国路93号",
-                  area = "180",
-                  theme = "中国风",
-                  budget = "8-25",
-                  phone = "18810616681",
-                  functionrooms = new string[] { "客餐厅", "主卧室", "厨房", "卫生间" },
-                  issend = 0,
-                  orderid = "100",
-                  layoutpic = "",
-                  timeofappointment = DateTime.Now.AddDays(1).ToString("MM月dd日上午")
-
-              };
+            #region 构造sql
+            string sql = @"    select a.Extension5, a.DemandShowroomId, a.UserId, a.Extension2, a.CreateTime,WebChartUser.functionrooms,WebChartUser.area,WebChartUser.themes,WebChartUser.budget,
+  WebChartUser.sendid from (select top 100 * from DemandShowRooms where Extension15='" +desingerid+@"'  order by
+ 
+  DemandShowroomId desc) a left join WebChartUser on a.UserId=WebChartUser.userid"; 
             #endregion
 
 
+            DataTable dt = SqlHelper.ExecuteDataTable(sql);
+
+           
+
+
             List<object> lis = new List<object>();
-            lis.Add(item);
-            lis.Add(item);
-            lis.Add(item);
+            
 
             var obj = new { errorcode = 0, all = 41, newest = 2, orders = 1, complete = 38, data = lis };
 
 
 
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var row=dt.Rows[i];
 
+
+
+                var dic = GetPhoneAndYytime(row["UserId"].ToSafeString());
+                #region 订单实体项
+                var item = new
+                {
+                    urserid = row["UserId"].ToSafeString(),
+                    demandid = Convert.ToDateTime(row["CreateTime"].ToSafeString().IsEmpty() ? DateTime.Now.AddDays(-1).ToString() : row["CreateTime"].ToSafeString()).ToString("MM月dd日 HH:mm"),
+                    createtime = row["DemandShowroomId"].ToSafeString(),
+                    address = row["extension2"].ToSafeString(),
+                    area = row["area"].ToSafeString(),
+                    theme = row["themes"].ToSafeString(),
+                    budget = row["budget"].ToSafeString(),
+                    phone = dic["phone"],
+                    functionrooms = row["functionrooms"].ToSafeString(),
+                    issend = row["sendid"].ToSafeString() == row["UserId"].ToSafeString()?1:0,
+                    orderid = row["DemandShowroomId"].ToSafeString(),
+                    layoutpic = row["extension5"].ToSafeString().IsEmpty() ? "http://mobile.mj100.com/HMobile/images/eg.png" : row["extension5"].ToSafeString(),
+                    timeofappointment = dic["timeofappointment"],
+                    shoupic=row["themes"].ToSafeString().IsEmpty()?0:1,
+                    isorder= dic["isorder"]
+                };
+                #endregion
+
+                lis.Add(item);
+            }
 
 
 
@@ -112,6 +135,42 @@ namespace DesingerBLL
             return JsonConvert.SerializeObject(obj);
         }
 
+
+        public static Dictionary<string, string> GetPhoneAndYytime(string userid)
+        {
+            DataTable t1 = SqlHelper.ExecuteDataTable("select * from Users where  UserId='"+userid+"';");
+
+            DataTable t2 = SqlHelper.ExecuteDataTable("select * from Tentent   where UserId='"+userid+"' ");
+
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            if (t1.Rows.Count>0)
+            {
+                dic.Add("phone", t1.Rows[0]["UserMPhone"].ToSafeString());
+
+            }
+            else
+            {
+                dic.Add("phone", "");
+            }
+
+            if (t2.Rows.Count > 0)
+            {
+                dic.Add("timeofappointment", t2.Rows[0]["Extension3"].ToSafeString());
+
+                dic.Add("isorder", "1");
+            }
+            else {
+                dic.Add("timeofappointment", "");
+                dic.Add("isorder", "0");
+            }
+
+           
+
+
+            return dic;
+        }
 
         /// <summary>
         /// 主题套装列表
@@ -461,7 +520,7 @@ namespace DesingerBLL
 
                 //   id	desingerid	demandid	pic	name	area	totleprice	issave	isCollection	collectionids	createtime
 
-                var obj = new { name = row["name"].ToSafeString(), pic = row["pic"].ToSafeString(), area = row["area"].ToSafeString(), totleprice = row["totleprice"].ToSafeString(), demandid = row["demandid"].ToSafeString() };
+                var obj = new {id=row["id"].ToSafeString(), name = row["name"].ToSafeString(), pic = row["pic"].ToSafeString(), area = row["area"].ToSafeString(), totleprice = row["totleprice"].ToSafeString(), demandid = row["demandid"].ToSafeString() };
 
                 lis.Add(obj);
 
@@ -494,7 +553,7 @@ namespace DesingerBLL
 
                 //   id	desingerid	demandid	pic	name	area	totleprice	issave	isCollection	collectionids	createtime
 
-                var obj = new { name = row["name"].ToSafeString(), pic = row["pic"].ToSafeString(), area = row["area"].ToSafeString(), totleprice = row["totleprice"].ToSafeString(), roomids = row["collectionids"].ToSafeString() };
+                var obj = new {id=row["id"].ToSafeString(), name = row["name"].ToSafeString(), pic = row["pic"].ToSafeString(), area = row["area"].ToSafeString(), totleprice = row["totleprice"].ToSafeString(), roomids = row["collectionids"].ToSafeString() };
 
                 lis.Add(obj);
 
@@ -1199,6 +1258,25 @@ end";
 
         }
         #endregion
+
+
+        /// <summary>
+        /// 删除收藏或者方案
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static string DeleteColOrPlan(string desingerid,string id)
+        {
+
+             string sql = "delete from Collectionproject where id='"+id+"'";
+
+             SqlHelper.ExecuteNonQuery(sql);
+
+             return "{\"errcode\":0,\"msg\":\"操作成功\"}";
+        }
+
+
 
 
         /// <summary>

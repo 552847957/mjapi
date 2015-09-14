@@ -469,6 +469,8 @@ delete from [DemandShowRooms]  where DemandShowroomId=@DemandShowroomId   --删�
 
             RemindCC(phone);
         }
+
+
         /// <summary>
         /// 提交需求
         /// </summary>
@@ -710,6 +712,9 @@ delete from Tentent  where UserId='" + userid + @"'
         /// <returns></returns>
         public static string Remind(string userid, string openid)
         {
+            #region 更新是否发送
+            SqlHelper.ExecuteNonQuery("UPDATE WebChartUser set sendid='" + userid + "' where openid='" + openid + "'"); 
+            #endregion
 
             //查询出设计师的信息  id  name    电话
 
