@@ -309,6 +309,16 @@
 <script>
     $(function () {
         $('.l_helpPrice').on('click', function () {
+
+             @{
+                    TimeSpan s = DateTime.Now - Convert.ToDateTime("2015/10/7");
+                    double d = s.TotalDays;
+                 }
+
+            if (parseFloat('@d') > 0) {
+                $.MsgBox.Alert("提示", "活动已结束");
+                return;
+            }
             if ('@isgz' == 'True') {
 
             } else if ('@isgz' != 'True' ) {

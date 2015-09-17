@@ -241,6 +241,16 @@
             };
 
             $('.pointer').click(function () {
+
+                @{
+                    TimeSpan s = DateTime.Now - Convert.ToDateTime("2015/10/7");
+                    double d = s.TotalDays;
+                 }
+
+                if (parseFloat('@d')>0) {
+                    $.MsgBox.Alert("提示", "活动已结束");
+                    return;
+                }
                 if ('@lu.subscribe' == '0') {
 
                     $('#fMask').show();
@@ -374,7 +384,7 @@
                 }
                 else
                 {
-                <a href="javascript:;">还要？9月1日再来</a> 
+                <a style="display:none" href="javascript:;">还要？9月1日再来</a> 
                 }
                     
  }

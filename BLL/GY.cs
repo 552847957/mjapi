@@ -56,6 +56,53 @@ namespace BLL
 
         }
 
+
+        public string GetGyMx2(string did)
+        {
+            #region sql语句
+            string sql = @"select  types,YPPCenter.extension,YPPCenter.extension1 as univalent,unit,YPPCenter.extension2 as price,ProductAmount  from YPPCenter      left join product   on yppcenter.projectid=product.productid
+ where YPPCenter.TypeId=@did ";
+            SqlParameter[] arr = new SqlParameter[] { 
+            new SqlParameter("@did",did)
+            };
+
+            DataTable dt = SqlHelper.ExecuteDataTable(sql, arr);
+
+            #endregion
+            //     Num	price	ShowroomId	Bname	Pmodel	unit	netPrice	extension	Marketprice	pname	cName	ProductId	projectTypeId	SmallPic	tp
+
+
+            #region 按组序列化
+            Dictionary<string, List<object>> dic = new Dictionary<string, List<object>>();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow row = dt.Rows[i];
+
+                //types	extension	univalent	unit	price	ProductAmount
+
+                var zxobj = new { tp = ExChange(row["types"].ToSafeString()), type = ExChange2(row["types"].ToSafeString()), extension = row["extension"].ToSafeString(), univalent = row["univalent"].ToSafeString(), unit = row["unit"].ToSafeString(), price = row["price"].ToSafeString(), ProductAmount = row["ProductAmount"].ToSafeString(), };
+
+                if (dic.ContainsKey(zxobj.tp))
+                {
+                    List<object> listemp = dic[zxobj.tp];
+                    listemp.Add(zxobj);
+                    dic[zxobj.tp] = listemp;
+                }
+                else
+                {
+                    List<object> listemp = new List<object>();
+                    listemp.Add(zxobj);
+                    dic.Add(zxobj.tp, listemp);
+                }
+            }
+            #endregion
+
+
+            return JsonConvert.SerializeObject(dic);
+
+        }
+
         public Dictionary<string, List<object>> GetGyMxExt(string did)
         {
             #region sql语句
@@ -150,5 +197,47 @@ namespace BLL
             return returnstr;
         }
 
+
+
+        public string ExChange2(string input)
+        {
+            string returnstr = input;
+
+            switch (input)
+            {
+                case "qm":
+                    returnstr = "墙面";//TheWall
+                    //returnstr = "TheWall";//TheWall
+                    break;
+                case "dm":
+                    returnstr = "顶面";//TheTop
+                    //returnstr = "TheTop";//TheTop
+                    break;
+                case "ld":
+                    returnstr = "地面";//TheGround
+                    //returnstr = "TheGround";//TheGround
+                    break;
+                case "jj":
+                    returnstr = "洁具";//TheSanitary 
+                    //returnstr = "TheSanitary";//TheSanitary 
+                    break;
+                case "ju":
+                    returnstr = "家具";//TheFurniture
+                    // returnstr = "TheFurniture";//TheFurniture
+                    break;
+                case "cj":
+                    returnstr = "厨具";//ThekitchenWare
+                    // returnstr = "ThekitchenWare";//ThekitchenWare
+
+                    break;
+                case "sd":
+                    returnstr = "电路";
+                    break;
+                default:
+                    break;
+            }
+
+            return returnstr;
+        }
     }
 }

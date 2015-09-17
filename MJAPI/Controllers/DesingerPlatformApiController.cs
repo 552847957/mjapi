@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -90,9 +91,9 @@ namespace MJAPI.Controllers
         /// </summary>
         /// <param name="did"></param>
         /// <returns></returns>
-        public string GetModelDetail(string did)
+        public string GetModelDetail(string did, string desingerid="")
         {
-            return DesingerBLL.DesignerPlatform.GetModelDetail(did);
+            return DesingerBLL.DesignerPlatform.GetModelDetail(did, desingerid);
 
         }
 
@@ -232,7 +233,7 @@ namespace MJAPI.Controllers
             }
 
 
-            return DesingerBLL.DesignerPlatform.CopyDemand(userid, userdemnadid, olddemandid);
+            return DesingerBLL.DesignerPlatform.CopyDemand( userdemnadid, olddemandid);
 
             // return DesingerBLL.DesignerPlatform.CopyDemand("8849","6292","6213");
         }
@@ -303,7 +304,7 @@ namespace MJAPI.Controllers
         public string AddCollection(string desingerid, string pic, string name, string mj, string totleprice, string ids)
         {
             DesingerBLL.DesignerPlatform bll = new DesingerBLL.DesignerPlatform();
-            return bll.AddCol(desingerid, "", pic, name, mj, totleprice, "0", "1", ids);
+            return bll.AddCol(desingerid, "", pic, name, mj, totleprice, "0", "1", ids,0);
         }
 
 
@@ -322,6 +323,8 @@ namespace MJAPI.Controllers
             return DesingerBLL.DesignerPlatform.Mycollection(desingerid);
         }
 
+
+
         /// <summary>
         /// 删除方案和收藏
         /// </summary>
@@ -332,6 +335,18 @@ namespace MJAPI.Controllers
         {
             return DesingerBLL.DesignerPlatform.DeleteColOrPlan(desingerid, id);
         }
+
+        /// <summary>
+        /// 装修清单json版
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public string DecorateList(string userid)
+        {
+            return new DesingerBLL.DesignerPlatform().DecorateList(userid);
+
+        }
+
 
         /// <summary>
         /// 更新设计师标签
@@ -353,5 +368,158 @@ namespace MJAPI.Controllers
             return Json(new { errorcode = 0, msg = "提交意见成功" });
         }
 
+        /// <summary>
+        /// 发送验证码  手机或者邮箱
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string SendVerificationCode(string input)
+        {
+
+            return DesingerBLL.DesignerPlatform.SendMsg(input);
+
+        }
+
+        /// <summary>
+        /// 设计师注册
+        /// </summary>
+        /// <param name="loginname"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public string Register(string loginname, string pwd,string yzm)
+        {
+            bool shpuji = Regex.IsMatch(loginname, @"^\d{11}$");
+            bool youxiang = Regex.IsMatch(loginname, @"^.+@.+$");
+
+            #region 看验证码是否正确
+            if (Commen.DataCache.GetCache("desinger" + loginname) == null)
+            {
+                return "{\"errorcode\":\"1\",\"msg\":\"验证码错误\"}";
+            }
+            if (Commen.DataCache.GetCache("desinger" + loginname).ToSafeString() != yzm)
+            {
+                return "{\"errorcode\":\"1\",\"msg\":\"验证码错误\"}";
+            } 
+            #endregion
+
+            if (shpuji)
+            {
+                return DesingerBLL.DesignerPlatform.Adddesinger(loginname, "", pwd, "", "", loginname);
+            }
+            else if (youxiang)
+            {
+                return DesingerBLL.DesignerPlatform.Adddesinger(loginname, "", pwd, "", loginname, "");
+            }
+
+            return "";
+        }
+
+
+        /// <summary>
+        /// 发送找回密码验证码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string RetrievepasswordSMS(string input)
+        {
+
+            return DesingerBLL.DesignerPlatform.SendMsgGetPwd(input);
+        }
+
+        /// <summary>
+        /// 验证找回密码验证码是否正确
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public string VerifyUserCode(string input,string code)
+        {
+            bool shpuji = Regex.IsMatch(input, @"^\d{11}$");
+            bool youxiang = Regex.IsMatch(input, @"^.+@.+$");
+
+
+            if (Commen.DataCache.GetCache("desingerpwd" + input) == null)
+            {
+                return "{\"errorcode\":1,\"msg\":\"验证码错误\"}";
+            }
+            if (Commen.DataCache.GetCache("desingerpwd" + input).ToSafeString() != code)
+            {
+                return "{\"errorcode\":1,\"msg\":\"验证码错误\"}";
+            }
+
+
+            return "{\"errorcode\":0,\"msg\":\"验证码正确\"}";
+        
+        }
+
+        /// <summary>
+        /// 更新密码
+        /// </summary>
+        /// <param name="loginname">登录名/手机号/邮箱</param>
+        /// <param name="newpwd">新密码</param>
+        /// <param name="code">收到的验证码</param>
+        /// <returns></returns>
+        public string UpdatePwd(string loginname, string newpwd, string code)
+        {
+            return DesingerBLL.DesignerPlatform.UpdatePwd(loginname,newpwd,code);
+        
+        }
+
+
+
+        /// <summary>
+        /// 生成装修清单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public string Generatinglist(string demandid)
+        {
+            return DesingerBLL.DesignerPlatform.Generatinglist(demandid);
+        }
+
+        /// <summary>
+        /// 替换建材
+        /// </summary>
+        /// <param name="desingerid"></param>
+        /// <param name="did"></param>
+        /// <param name="originalid"></param>
+        /// <param name="newproductid"></param>
+        /// <returns></returns>
+        public string Replacementbuildingmaterials(string desingerid,string did, string originalid, string newproductid)
+        {
+            if (originalid==newproductid)
+            {
+                return "{\"errorcode\":1,\"msg\":\"你没替换任何建材\"}";
+            }
+
+            #region 取字典
+            Dictionary<string, string> dicp = new Dictionary<string, string>();
+            object o = Commen.DataCache.GetCache(desingerid + did);
+            if (o != null)
+            {
+                dicp = o as Dictionary<string, string>;
+
+                if (dicp.ContainsKey(originalid))
+                {
+                    dicp[originalid] = newproductid;
+                }
+                else
+                {
+                    dicp.Add(originalid,newproductid);
+                }
+
+                Commen.DataCache.SetCache(desingerid + did, dicp, DateTime.Now.AddHours(1), TimeSpan.Zero);
+            }
+            else
+            {
+
+                dicp.Add(originalid,newproductid);
+
+
+                Commen.DataCache.SetCache(desingerid + did, dicp, DateTime.Now.AddHours(1), TimeSpan.Zero);
+            }
+            #endregion
+            return "{\"errorcode\":0,\"msg\":\"ok,服务器已缓存\"}"; ;
+        }
     }
 }

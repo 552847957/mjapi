@@ -492,10 +492,10 @@ values('" + rname + "','" + rxname + "','" + b + "','" + e + "','" + rlx + "1" +
                 string sql = "insert into DesignerGrade(Extension5,mPhone,Extension6,Dgrade,cTime,Extension7)values(@phone,@phone,@yzm,@city,'" + DateTime.Now.ToString("yyyy-MM-dd") + "',@fromid);";
 
                 SqlParameter[] psarms = new SqlParameter[] { 
-            new SqlParameter("@phone",phone),
-             new SqlParameter("@yzm",yzm.To16Md5()),
-            new SqlParameter("@city",city),
-               new SqlParameter("@fromid",fromid)
+                new SqlParameter("@phone",phone),
+                new SqlParameter("@yzm",yzm.To16Md5()),
+                new SqlParameter("@city",city),
+                new SqlParameter("@fromid",fromid)
             };
                 return SqlHelper.ExecuteNonQuery(sql, psarms);
 

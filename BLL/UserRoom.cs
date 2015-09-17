@@ -657,6 +657,7 @@ end";
             #endregion
 
             object o = SqlHelper.ExecuteScalar("select Netprice from Products where PID=@pid", new SqlParameter("@pid", Newpid));
+          
             #region 循环更新
             double dj = Convert.ToDouble(o);//单价
 
