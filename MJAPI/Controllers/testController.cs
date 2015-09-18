@@ -207,8 +207,61 @@ namespace MJAPI.Controllers
 
 
             return Commen.HttpRequest.GetResponseString("https://api.weixin.qq.com/cgi-bin/user/info?access_token=iF4UhkMfgQHp6cKD0iWfGT7hMw0A189LzNz3T6klXdXYiqRvziknHx-3FnyebIhUO3u_0VFVlhbGIie8NYgryH480XVE35WSVh0lzS5-GGs&openid=o8r91jtiU-jL0DAQoCgMexSNuNXU&lang=zh_CN");
-        
+
+        }
+
+
+
+        public string Test0()
+        {
+
+            string o = "[{\"code\":\"b2b5f451-becd-460f-af02-a1e4a110000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a120000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a310000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a320000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a330000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a350000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a370000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a440000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a130000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a140000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a210000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a220000\",\"value\":123},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a230000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a340000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a360000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a410000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a420000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a430000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a460000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a150000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a450000\",\"value\":32},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a500000\",\"value\":123},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a510000\",\"value\":13},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a520000\",\"value\":14},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a530000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a540000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a610000\",\"value\":15},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a620000\",\"value\":23},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a630000\",\"value\":13},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a640000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a650000\",\"value\":29}]";
+
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            List<Temp> lis= js.Deserialize<List<Temp>>(o);
+
+            float sum = 0;
+            foreach (var item in lis)
+            {
+                sum += item.value;
+            }
+
+            Dictionary<string, Temp> dic = new Dictionary<string, Temp>();
+            foreach (var item in lis)
+            {
+                Temp newtemp = new Temp();
+                newtemp.code = item.code;
+                newtemp.value = item.value;
+                newtemp.sum = sum;
+                newtemp.Proportion =  newtemp.value / sum;
+                dic.Add(item.code,newtemp);
+            }
+
+            return "";
+        }
+
+        public class Temp
+        {
+
+
+            public float sum;
+            /// <summary>
+            /// code
+            /// </summary>
+            public string code = "";
+
+            /// <summary>
+            /// 值
+            /// </summary>
+            public float value;
+
+            /// <summary>
+            /// 比例
+            /// </summary>
+            public float Proportion;
         }
 
     }
+   
 }

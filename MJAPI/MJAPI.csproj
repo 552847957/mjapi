@@ -412,7 +412,6 @@
     <Content Include="HMobile\order.html" />
     <Content Include="HMobile\zDesigner.html" />
     <Content Include="HMobile\zWait.html" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="img\b.png" />
     <Content Include="img\headImg.png" />
     <Content Include="img\joinDesi\l_clo.png" />

@@ -225,12 +225,10 @@ namespace MJAPI.Controllers
         /// <param name="userdemnadid">用户需求id</param>
         /// <param name="olddemandid">将要被复制的需求id</param>
         /// <returns></returns>
-        public string Schemereplication(string userid, string userdemnadid, string olddemandid)
+        public string Schemereplication( string userdemnadid, string olddemandid)
         {
-            if (userdemnadid == olddemandid)
-            {
-                return "";
-            }
+           
+           
 
 
             return DesingerBLL.DesignerPlatform.CopyDemand( userdemnadid, olddemandid);
@@ -308,6 +306,17 @@ namespace MJAPI.Controllers
         }
 
 
+        /// <summary>
+        /// 将设计师的方案复制给用户
+        /// </summary>
+        /// <param name="newdemandid"></param>
+        /// <param name="olddemandid"></param>
+        /// <returns></returns>
+        public string CopyDemand(string newdemandid, string olddemandid)
+        {
+
+            return DesingerBLL.DesignerPlatform.CopyDemand(newdemandid,olddemandid);
+        }
 
 
         /// <summary>

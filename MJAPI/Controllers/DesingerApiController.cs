@@ -69,10 +69,10 @@ namespace MJAPI.Controllers
         /// </summary>
         /// <param name="desingerid"></param>
         /// <returns></returns>
-        public JsonResult TheThingsToDoInTheNearFuture30(string desingerid)
+        public JsonResult TheThingsToDoInTheNearFuture30(string desingerid ,string startday, string endday,string projectid)
         {
 
-            return Myjson(DesingerBLL.Desinger.GetTodaythings30(desingerid));
+            return Myjson(DesingerBLL.Desinger.GetTodaythings30(desingerid,startday,endday,projectid));
 
         }
 

@@ -2302,7 +2302,7 @@
               <dt class="interface-item">
                 <h4 class="interface-name js-name">
                     <i class="caret caret-down" caret-b-000=""></i>
-                    所有项目未来三十天  
+                    所有项目未来三十天  ||  扩展 开始起止时间可以自定义   也可以具体的指定某一个项目
                 </h4>
                 <div class="interface-detail dn js-detail" style="display: none;">
                     <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30</p>
@@ -2319,20 +2319,40 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                startday=2015-9-17&endday=2015-9-18
                                 <tr>
                                     <td class="td-1">desingerid  </td>
                                     <td class="td-2">string</td>
                                     <td class="td-3">是</td>
                                     <td class="td-5">设计师唯一标识/设计师id</td>
                                 </tr>
-
+                                <tr>
+                                    <td class="td-1">startday  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">可调开始时间  格式如下  2015-9-17</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-1">endday  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">可调结束时间 格式如下  2015-9-20</td>
+                                </tr>
+                                 <tr>
+                                    <td class="td-1">projectid  </td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">否</td>
+                                    <td class="td-5">某一个项目的projectid  不填默认全部项目</td>
+                                </tr>
 
                             </tbody>
                         </table>
                     </div>
                     <div class="interface-line">
                         <strong class="db mb10">请求示例：</strong>
-                        <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30?desingerid=2</pre>
+                         <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30?desingerid=2</pre>
+                         <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30?desingerid=2&startday=2015-9-17&endday=2015-9-18</pre>
+                         <pre>http://mobile.mj100.com/desingerapi/TheThingsToDoInTheNearFuture30?desingerid=2&projectid=6212</pre>
                     </div>
                     <div class="interface-line">
                         <strong class="db mb10">JSON返回示例：</strong>

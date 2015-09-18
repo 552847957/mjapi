@@ -160,6 +160,7 @@ namespace MJAPI.Controllers
                     xh = row["pmodel"].ToSafeString(), 
                     num = row["num"].ToSafeString().Todouble(),
                     dw = ddww.Replace("m&sup2;", "㎡").Replace("平米", "㎡"),
+                    dj = row["Netprice"].ToSafeString().Todouble(),
                     xj = row["price"].ToSafeString().Todouble(),
                     adress = row["Evaluation"].ToSafeString(), 
                     rq = "",
@@ -172,9 +173,9 @@ namespace MJAPI.Controllers
                 s2_m.CreateCell(3).SetCellValue(obj.zcmc);
                 s2_m.CreateCell(4).SetCellValue(obj.pp);
                 s2_m.CreateCell(5).SetCellValue(obj.xh);
-
                 s2_m.CreateCell(6).SetCellValue(obj.num);
                 s2_m.CreateCell(7).SetCellValue(obj.dw);
+
                 s2_m.CreateCell(8).SetCellValue(obj.xj);
                 s2_m.CreateCell(9).SetCellValue(obj.adress);
                 s2_m.CreateCell(10).SetCellValue(obj.rq);

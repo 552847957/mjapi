@@ -546,6 +546,13 @@
                                     <td class="td-3">是</td>
                                     <td class="td-5">备选方案did</td>
                                 </tr>
+
+                                 <tr>
+                                    <td class="td-1">desingerid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师唯一标识</td>
+                                </tr>
                                  
 
                             </tbody>
@@ -969,7 +976,7 @@
               <dt class="interface-item">
                 <h4 class="interface-name js-name">
                     <i class="caret caret-down" caret-b-000=""></i>
-                  设计师刚添加的模块
+                 通过demandid换取设计师自己搭配的某一个方案, 接口里的tempid就是设计师自己搭配方案的 demandid
                 </h4>
                 <div class="interface-detail dn js-detail" style="display: none;">
                     <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/GetDesingerModular?tempid=6211</p>
@@ -2011,6 +2018,67 @@
                     <div class="interface-line">
                         <strong class="db mb10">请求示例：</strong>
                         <pre>http://mobile.mj100.com/DesingerPlatformApi/Replacementbuildingmaterials</pre>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">JSON返回示例：</strong>
+                        <pre>
+                  
+ 
+                       </pre>
+                    </div>
+                </div>
+            </dt>
+
+
+
+            
+              <dt class="interface-item">
+                <h4 class="interface-name js-name">
+                    <i class="caret caret-down" caret-b-000=""></i>
+             将设计师的方案复制给用户
+                </h4>
+                <div class="interface-detail dn js-detail" style="display: none;">
+                    <p class="interface-line"><strong>接口地址：</strong>http://mobile.mj100.com/DesingerPlatformApi/Schemereplication</p>
+                    <p class="interface-line"><strong>请求方法：</strong>POST</p>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求参数：</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>参数名</th>
+                                    <th>类型</th>
+                                    <th>必填</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                   
+                                </tr>
+                                 
+                                <tr>
+                                    <td class="td-1">userdemnadid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">用户的需求id demandid  订单数据里可以拿到</td>
+                                </tr>
+
+                                 <tr>
+                                    <td class="td-1">olddemandid</td>
+                                    <td class="td-2">string</td>
+                                    <td class="td-3">是</td>
+                                    <td class="td-5">设计师自己搭配方案的demandid   搭配完可以拿到</td>
+                                </tr>
+
+                                
+                                 
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="interface-line">
+                        <strong class="db mb10">请求示例：</strong>
+                        <pre>http://mobile.mj100.com/DesingerPlatformApi/Schemereplication</pre>
                     </div>
                     <div class="interface-line">
                         <strong class="db mb10">JSON返回示例：</strong>
