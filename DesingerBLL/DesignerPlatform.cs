@@ -1896,9 +1896,20 @@ end";
         /// <returns></returns>
         public static string CopyDemand( string newdemandid, string olddemandid)
         {
-            string nuserid = SqlHelper.ExecuteScalar("select UserId from DemandShowRooms where  DemandShowroomId='" + newdemandid + "'").ToSafeString();
-            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "Pro_copydemand", new SqlParameter("@nuserid", ""), new SqlParameter("@newdemandid", ""), new SqlParameter("@olddemandid", "")).ToString();
 
+            if (CheckParm(new Dictionary<string, string> { {"newdemandid",newdemandid},{"olddemandid",olddemandid}}))
+            {
+                return errormsg;
+            }
+            if (newdemandid.Trim()==olddemandid.Trim())
+            {
+                 return "{\"errorcode\":1,\"msg\":\"参数异常\"}";
+            }
+            string nuserid = SqlHelper.ExecuteScalar("select UserId from DemandShowRooms where  DemandShowroomId='" + newdemandid + "'").ToSafeString();
+            SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, "Pro_copydemand", new SqlParameter("@nuserid", nuserid), new SqlParameter("@newdemandid", newdemandid), new SqlParameter("@olddemandid", olddemandid)).ToString();
+
+
+            return "{\"errorcode\":0,\"msg\":\"ok\"}";
 
         }
 

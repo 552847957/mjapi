@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -210,6 +212,58 @@ namespace MJAPI.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input">json字符串</param>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        public string GetValueByKey(string input, string key)
+        {
+            string o = "[{\"code\":\"b2b5f451-becd-460f-af02-a1e4a110000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a120000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a310000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a320000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a330000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a350000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a370000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a440000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a130000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a140000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a210000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a220000\",\"value\":123},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a230000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a340000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a360000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a410000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a420000\",\"value\":2},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a430000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a460000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a150000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a450000\",\"value\":32},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a500000\",\"value\":123},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a510000\",\"value\":13},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a520000\",\"value\":14},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a530000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a540000\",\"value\":12},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a610000\",\"value\":15},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a620000\",\"value\":23},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a630000\",\"value\":13},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a640000\",\"value\":21},{\"code\":\"b2b5f451-becd-460f-af02-a1e4a650000\",\"value\":29}]";
+
+
+            return GetHashtable(o)["b2b5f451-becd-460f-af02-a1e4a330000"].ToSafeString();
+            key = "b2b5f451-becd-460f-af02-a1e4a330000";
+
+            input = o;
+
+            Regex r = new Regex("\"code\":\\s*\"" + key + "\",\\s*\"value\":(.+?)\\s*}", RegexOptions.Singleline);
+
+            if (r.IsMatch(input))
+            {
+                return r.Match(input).Groups[1].Value;
+            }
+            return "";
+
+        }
+
+        /// <summary>
+        /// 得到一个Hashtable
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public Hashtable GetHashtable(string input)
+        {
+            Hashtable ht = new Hashtable();
+
+            Regex r = new Regex("{\\s*\"code\":\\s*\"(.+?)\",\\s*\"value\":(.+?)\\s*}", RegexOptions.Singleline);
+
+
+            MatchCollection col = r.Matches(input);
+
+            foreach (Match item in col)
+            {
+                if (!ht.ContainsKey(item))
+                {
+                    ht.Add(item.Groups[1].Value, item.Groups[2].Value);
+
+                }
+            }
+
+
+            return ht;
+        }
 
 
         public string Test0()
@@ -219,7 +273,8 @@ namespace MJAPI.Controllers
 
 
             JavaScriptSerializer js = new JavaScriptSerializer();
-            List<Temp> lis= js.Deserialize<List<Temp>>(o);
+
+            List<Temp> lis = js.Deserialize<List<Temp>>(o);
 
             float sum = 0;
             foreach (var item in lis)
@@ -234,8 +289,8 @@ namespace MJAPI.Controllers
                 newtemp.code = item.code;
                 newtemp.value = item.value;
                 newtemp.sum = sum;
-                newtemp.Proportion =  newtemp.value / sum;
-                dic.Add(item.code,newtemp);
+                newtemp.Proportion = newtemp.value / sum;
+                dic.Add(item.code, newtemp);
             }
 
             return "";
@@ -263,5 +318,5 @@ namespace MJAPI.Controllers
         }
 
     }
-   
+
 }

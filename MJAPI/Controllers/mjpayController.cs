@@ -80,6 +80,8 @@ namespace MJAPI.Controllers
             string timeStamp = TenpayUtil.getTimestamp();
             string nonceStr = TenpayUtil.getNoncestr().ToUpper();
             SortedDictionary<string, string> sParams = new SortedDictionary<string, string>();
+
+
             sParams.Add("appId", tenpay.WeChartConfigItem.appid);
 
             sParams.Add("timeStamp", timeStamp);
@@ -426,7 +428,7 @@ namespace MJAPI.Controllers
 
 
         /// <summary>
-        /// 生成二维码
+        /// 第一种扫码生成二维码----生成二维码
         /// </summary>
         /// <returns></returns>
         public string GetCode()

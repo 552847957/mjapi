@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width;initial-scale=1" />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>黑龙江省中央财政森林公安转移支付信息系统</title>
+    
+
+
+    <style type="text/css">
+        .type-validation-error {
+            margin-left: 20px;
+            color: Red;
+        }
+
+        .field-validation-error {
+            color: Red;
+        }
+
+        .money-validation-error {
+            color: Red;
+        }
+
+        .count-validation-error {
+            color: Red;
+        }
+
+        #businessDiv select {
+            width: auto;
+        }
+
+        .link {
+            position: relative;
+        }
+
+        .js-add-attach .js-attch-native {
+            font-size: 26px;
+            position: absolute;
+            left: 5px;
+            right: 0;
+            top: 0;
+            filter: alpha(opacity=0);
+            -moz-opacity: 0;
+            opacity: 0;
+            width: 50px;
+        }
+
+        .m-attachment .js-attch-native {
+            display: none;
+        }
+
+        .m-attachment {
+            position: relative;
+            display: inline-block;
+            width: 17%;
+        }
+
+        .m-a-c {
+            display: block;
+            margin: 0 10px 10px 0;
+            color: #666;
+            overflow: hidden;
+            padding: 10px 30px 10px 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            border: 1px solid #B8C7D9;
+            background-color: #FFF;
+            line-height: 24px;
+        }
+
+            .m-a-c:hover {
+                background-color: #f4f4f4;
+            }
+
+        .m-attachment .js-remove {
+            position: absolute;
+            right: 40px;
+            top: 10px;
+        }
+
+        .js-show {
+            position: absolute;
+            right: 12px;
+            top: 10px;
+        }
+
+        .js-add-attach {
+            padding-left: 12px;
+            background: url(/Content/images/Message/atchm.gif) no-repeat 0 0;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .div-docRank {
+            border-bottom: solid 1px #ccc;
+            margin-top: 10px;
+            height: 30px;
+        }
+
+        .ul-docRank {
+            margin: 0 0 0 12px;
+            padding: 0;
+        }
+
+            .ul-docRank li {
+                float: left;
+                display: block;
+                width: 100px;
+                border: 1px solid #ccc;
+                border-radius: 4px 4px 0px 0px;
+                line-height: 30px;
+                border-bottom: 0;
+                margin-left: -1px;
+                text-align: center;
+            }
+
+                .ul-docRank li a {
+                    outline: none;
+                    display: block;
+                }
+
+        .active-tab-docRank {
+            font-weight: bold;
+            background-color: #f9f9f9;
+            margin-bottom: -1px;
+        }
+    </style>
+
+    <style type="text/css">
+        #menu li div {
+            display: none;
+        }
+
+        #SecondMenu {
+            margin-top: -5px;
+        }
+
+        .diaPwd {
+            width: 410px;
+            height: 390px;
+        }
+
+            .diaPwd .modal-body {
+                height: 320px;
+                max-height: 100%;
+            }
+
+        .diaAcc {
+            width: 610px;
+            height: 588px;
+        }
+
+            .diaAcc .modal-body {
+                height: 520px;
+                max-height: 100%;
+            }
+
+        [class^="icon-"],
+        [class*=" icon-"] {
+            background-image: url(/GAZYZF/Content/images/glyphicons-halflings.png);
+            background-position: 14px 14px;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+
+
+    <div class="control-group">
+        <label class="control-label">上传图片</label>
+
+        <!-- File Upload -->
+        <div class="controls">
+            <p class="right noborder">
+                <a class="link js-add-attach">添加 <span class="fileIpt">
+                    <input type="file" id="hehe" name="AddFile1" class="js-attch-native" onchange="addAttachs(this)"
+                        title="添加图片" style="cursor: pointer;" multiple="" />
+                </span></a>
+            </p>
+            <p class="right noborder attach-lists">
+            </p>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+     
+
+        var fileLen = 3;
+        //上传多个文件
+        function addAttachs(file) {
+           
+            var size = $(".divImg").size(); //上传文件个数
+            var iCount = size, path = $(file).val(), name, ext, mAttach, c_file = $(file).clone(true);
+            $(file).attr('name', "img" + iCount);
+            var title = c_file.attr('title');
+            if (file.files && file.files[0]) {
+                if (file.files[0].size > 3072000) {
+                    alert("上传文件不得超过3M");
+                    return false;
+                }
+            } else {
+                var filez = 0;
+                try {
+                    var fso = new ActiveXObject("Scripting.FileSystemObject");
+                    filez = fso.GetFile(filePath).size;
+                } catch (e) {
+                }
+                if (filez > 3072000) {
+                    alert("上传文件不得超过3M");
+                    return false;
+                }
+            }
+            if (path != "") {
+                ext = path.substring((path.lastIndexOf('.') + 1), path.length).toLowerCase();
+                name = path.substring((path.lastIndexOf('\\') + 1), path.length);
+            }
+
+            mAttach = '<span class="m-attachment js-attachment-cmp"  imgid="' + iCount + '" title="'
+                + name + '"><span class="m-a-c"><b class="fileicon ' + ext + '">&nbsp;</b>'
+                + name + '</span><a class="js-remove"href="javascript:;">删除</a> <a href="javascript:;" class="js-show">预览</a></span><img src="'+getObjectURL(file.files[0])+'" style="width:50px;height:50px">';
+
+            $(mAttach).append($(file).removeAttr('onchange')).appendTo($(".attach-lists"));
+            $(".fileIpt").append(c_file[0]);
+        }
+
+        //删除文件
+        $('.attach-lists').delegate('.js-remove', 'click', function () {
+            var cur = $(this).parents('.js-attachment-cmp');
+            $(".img_" + cur.attr("imgid")).remove();
+            cur.remove();
+        });
+    </script>
+</body> 
+</html>
+
+
+<script>
+
+
+    var getObjectURL = function (file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file)
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file)
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file)
+        }
+        return url
+    };
+
+
+</script>
+
+ 

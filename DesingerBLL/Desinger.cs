@@ -1155,8 +1155,43 @@ where DemandShowroomId is not null order by rzId desc";
 
 
 
-        public static string GetTodaythings30(string desingerid)
+        public static string GetTodaythings30(string desingerid,string startday="", string endday="",string projectid="")
         {
+            if (startday.IsEmpty())
+            {
+                startday = DateTime.Now.ToString("yyyy-MM-dd");
+            }
+            DateTime dtstart = DateTime.Now.AddHours(15);
+
+            if (!DateTime.TryParse(startday, out dtstart))
+            {
+                dtstart = DateTime.Now;
+            }
+            else {
+
+                 
+            }
+
+
+            DateTime dtend = DateTime.Now;
+
+            if (!DateTime.TryParse(endday, out dtend))
+            {
+                dtend = DateTime.Now.AddDays(30);
+            }
+            else {
+
+                dtend= dtend.AddDays(1);
+                
+            }
+
+           
+
+
+            TimeSpan span = dtend - dtstart;
+
+            int ok = (int)Math.Ceiling( span.TotalDays);
+
             #region 设计师所有的项目
 
             #region sql语句
@@ -1181,7 +1216,31 @@ on a.extension1=b.DemandShowroomId
 
 where DemandShowroomId is not null order by rzId desc";
             #endregion
+            if (!projectid.IsEmpty())
+            {
+                #region 一个房间的情况
+                sql = @"select * from 
 
+(select * from XState where reTime is not null and extension1 in ('" + projectid + @"') )
+
+ a
+ 
+left join 
+
+( 
+select DemandShowroomId,Extension12,Extension16,Extension15 
+from DemandShowRooms  where 
+DemandShowroomId='" + projectid + @"' and Extension12 is not null and Extension16 is not null
+) 
+
+b
+
+on a.extension1=b.DemandShowroomId 
+
+
+where DemandShowroomId is not null order by rzId desc"; 
+                #endregion
+            }
             DataTable dt = SqlHelper.ExecuteDataTable(sql, new SqlParameter("@desingerid", desingerid));
 
 
@@ -1215,7 +1274,7 @@ where DemandShowroomId is not null order by rzId desc";
                     reTime = row["reTime"].ToSafeString(),
                     rlx = row["rlx"].ToSafeString(),
                     rxName = row["rxName"].ToSafeString(),
-                    index = Math.Ceiling((DateTime.Now - Convert.ToDateTime(row["Extension16"].ToSafeString())).TotalDays)
+                    index = Math.Ceiling((dtstart - Convert.ToDateTime(row["Extension16"].ToSafeString())).TotalDays)+1
 
 
                 };
@@ -1419,11 +1478,11 @@ where DemandShowroomId is not null order by rzId desc";
             //#endregion 
             #endregion
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < ok; i++)
             {
                 sb.Append("{");
                 sb.Append("\"msg\":\"第" + (i + 1) + "天\",");
-                sb.Append("\"time\":\"" + DateTime.Now.AddDays(i).ToString("yy-MM-dd") + "\",");
+                sb.Append("\"time\":\"" + dtstart.AddDays(i).ToString("yy-MM-dd") + "\",");
                 sb.Append("\"data\":");
                 sb.Append(GetOneDayProjects(lis.Select(n => new Project()
                 {
@@ -1507,7 +1566,7 @@ where DemandShowroomId is not null order by rzId desc";
 
                 foreach (var dd in items)
                 {
-                    sb2.Append("{\"name\":\"" + dd.rbName + dd.rxName + "\",\"time\":\"" + Convert.ToDateTime(item.Value.Extension16).AddDays(double.Parse(dd.reTime) - 1).ToString("yyyy-MM-dd") + "\"},");
+                    sb2.Append("{\"name\":\"" + dd.rbName + dd.rxName + "\",\"time\":\"" + Convert.ToDateTime(item.Value.Extension16).AddDays( double.Parse(dd.reTime)-1).ToString("yyyy-MM-dd") + "\"},");
                 }
 
                 sb2.Append("]},");
@@ -1700,7 +1759,7 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 var row = dt.Rows[i];
 
-                var project = new { projectid = row["DemandShowroomId"].ToSafeString(), projectname = row["Extension12"].ToSafeString(), begintime = row["Extension16"].ToSafeString(), needdays = row["Extension1"].ToSafeString() };
+                var project = new { projectid = row["DemandShowroomId"].ToSafeString(), projectname = row["Extension12"].ToSafeString(), begintime = row["Extension16"].ToSafeString(), needdays = row["Extension1"].ToSafeString() ,num=0};
                 lis.Add(project);
             }
             StringBuilder sb = new StringBuilder();
