@@ -160,6 +160,7 @@
     <Compile Include="Controllers\mjpayController.cs" />
     <Compile Include="Controllers\testController.cs" />
     <Compile Include="Controllers\WechartController.cs" />
+    <Compile Include="Controllers\wxController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -761,6 +762,10 @@
     <ProjectReference Include="..\tenpay\tenpay.csproj">
       <Project>{35105397-456e-4bf7-8f5b-05001cc28078}</Project>
       <Name>tenpay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeiXinProcessing\WeiXinProcessing.csproj">
+      <Project>{535ef1ab-e64f-47e2-8be4-2c8e15f1dabd}</Project>
+      <Name>WeiXinProcessing</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

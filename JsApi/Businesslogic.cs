@@ -730,7 +730,7 @@ delete from Tentent  where UserId='" + userid + @"'
         /// <returns></returns>
         public static string RemindCC(string phone)
         {
-            Commen.HttpRequest.PostMa("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + JsApi.JsToken.GetApptoken(), new Template.Notice4("o8r91jtAdBIcUToNsAb8Rc6TK1m8", "http://img.mj100.com/weixin/ueditor/userlist.aspx", "#FF0000", "林丹丹女士你好,有人预约设计师啦，赶紧去后台查看最新", phone, phone, "上门量房", "上门量房时间待定，请及时联系客户", "无", "点击查看详情").ToString(), Encoding.UTF8);
+            Commen.HttpRequest.PostMa("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + JsApi.JsToken.GetApptoken(), new Template.Notice4("o8r91jv006I_SCONLoJw6eACZEVM", "http://img.mj100.com/weixin/ueditor/userlist.aspx", "#FF0000", "tony女士你好,有人预约设计师啦，赶紧去后台查看最新", phone, phone, "上门量房", "上门量房时间待定，请及时联系客户", "无", "点击查看详情").ToString(), Encoding.UTF8);
             return "";
         }
 

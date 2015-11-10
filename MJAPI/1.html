@@ -144,6 +144,7 @@
         .diaPwd {
             width: 410px;
             height: 390px;
+            
         }
 
             .diaPwd .modal-body {
@@ -187,6 +188,7 @@
                 </span></a>
             </p>
             <p class="right noborder attach-lists">
+
             </p>
         </div>
     </div>
@@ -228,7 +230,7 @@
 
             mAttach = '<span class="m-attachment js-attachment-cmp"  imgid="' + iCount + '" title="'
                 + name + '"><span class="m-a-c"><b class="fileicon ' + ext + '">&nbsp;</b>'
-                + name + '</span><a class="js-remove"href="javascript:;">删除</a> <a href="javascript:;" class="js-show">预览</a></span><img src="'+getObjectURL(file.files[0])+'" style="width:50px;height:50px">';
+                + name + '</span><a class="js-remove"href="javascript:;">删除</a> <a href="javascript:;" class="js-show">预览</a><img src="' + getObjectURL(file.files[0]) + '" style="width:50px;height:50px"></span>';
 
             $(mAttach).append($(file).removeAttr('onchange')).appendTo($(".attach-lists"));
             $(".fileIpt").append(c_file[0]);
@@ -247,6 +249,17 @@
 
 <script>
 
+    $(function () {
+
+
+      
+        $(".attach-lists").on('click', 'img', function () {
+            var src = $(this).attr("src");
+            
+            $("body").append("<div style='position:absolute;left:100px;top:50px'><img  src='" + src + "'/><div>");
+            
+        });
+    });
 
     var getObjectURL = function (file) {
         var url = null;

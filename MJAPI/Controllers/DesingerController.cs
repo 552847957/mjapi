@@ -27,7 +27,7 @@ namespace MJAPI.Controllers
                 id = "0";
             }
             ViewBag.id = id;
-
+        
 
             string timestamp = JsApi.JsToken.getTimestamp();
             string noncestr = JsApi.JsToken.getNoncestr();

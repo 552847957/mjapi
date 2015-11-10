@@ -180,7 +180,7 @@ values('" + rname + "','" + rxname + "','" + b + "','" + e + "','" + rlx + "1" +
 
             if (rlx == "jd")
             {
-                AddXmRyJd(rname, "1", "10", rlx, GetExtension(rname, j).ToString(), projectid);
+                AddXmRyJd(rname, "1", "65", rlx, GetExtension(rname, j).ToString(), projectid);
 
             }
             else
@@ -1155,7 +1155,7 @@ where DemandShowroomId is not null order by rzId desc";
 
 
 
-        public static string GetTodaythings30(string desingerid,string startday="", string endday="",string projectid="")
+        public static string GetTodaythings30(string desingerid, string startday = "", string endday = "", string projectid = "")
         {
             if (startday.IsEmpty())
             {
@@ -1167,9 +1167,10 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 dtstart = DateTime.Now;
             }
-            else {
+            else
+            {
 
-                 
+
             }
 
 
@@ -1179,18 +1180,21 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 dtend = DateTime.Now.AddDays(30);
             }
-            else {
+            else
+            {
 
-                dtend= dtend.AddDays(1);
-                
+                dtend = dtend.AddDays(1);
+
             }
 
-           
+
 
 
             TimeSpan span = dtend - dtstart;
 
-            int ok = (int)Math.Ceiling( span.TotalDays);
+            //这里改下时间起始
+
+            int ok = (int)Math.Ceiling(span.TotalDays);
 
             #region 设计师所有的项目
 
@@ -1238,7 +1242,7 @@ b
 on a.extension1=b.DemandShowroomId 
 
 
-where DemandShowroomId is not null order by rzId desc"; 
+where DemandShowroomId is not null order by rzId desc";
                 #endregion
             }
             DataTable dt = SqlHelper.ExecuteDataTable(sql, new SqlParameter("@desingerid", desingerid));
@@ -1274,7 +1278,7 @@ where DemandShowroomId is not null order by rzId desc";
                     reTime = row["reTime"].ToSafeString(),
                     rlx = row["rlx"].ToSafeString(),
                     rxName = row["rxName"].ToSafeString(),
-                    index = Math.Ceiling((dtstart - Convert.ToDateTime(row["Extension16"].ToSafeString())).TotalDays)+1
+                    index = Math.Ceiling((dtstart - Convert.ToDateTime(row["Extension16"].ToSafeString())).TotalDays) + 1
 
 
                 };
@@ -1566,7 +1570,7 @@ where DemandShowroomId is not null order by rzId desc";
 
                 foreach (var dd in items)
                 {
-                    sb2.Append("{\"name\":\"" + dd.rbName + dd.rxName + "\",\"time\":\"" + Convert.ToDateTime(item.Value.Extension16).AddDays( double.Parse(dd.reTime)-1).ToString("yyyy-MM-dd") + "\"},");
+                    sb2.Append("{\"name\":\"" + dd.rbName + dd.rxName + "\",\"time\":\"" + Convert.ToDateTime(item.Value.Extension16).AddDays(double.Parse(dd.reTime) - 1).ToString("yyyy-MM-dd") + "\"},");
                 }
 
                 sb2.Append("]},");
@@ -1759,7 +1763,7 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 var row = dt.Rows[i];
 
-                var project = new { projectid = row["DemandShowroomId"].ToSafeString(), projectname = row["Extension12"].ToSafeString(), begintime = row["Extension16"].ToSafeString(), needdays = row["Extension1"].ToSafeString() ,num=0};
+                var project = new { projectid = row["DemandShowroomId"].ToSafeString(), projectname = row["Extension12"].ToSafeString(), begintime = row["Extension16"].ToSafeString(), needdays = row["Extension1"].ToSafeString(), num = 0 };
                 lis.Add(project);
             }
             StringBuilder sb = new StringBuilder();
@@ -1773,7 +1777,7 @@ where DemandShowroomId is not null order by rzId desc";
   right join ( select Extension12, DemandShowroomId from DemandShowRooms 
  where
  Extension15='" + desingerid + @"' 
- )b  on xgrlrz.extension=b.DemandShowroomId where xgrlrz.createTime is not null and  DATEDIFF(  DD,CAST( createTime as date), GETDATE())=0  
+ )b  on xgrlrz.extension=b.DemandShowroomId where xgrlrz.isread='1'  
 ").ToSafeString() + ",");
             sb.Append("\"number1\":5,");
             sb.Append("\"number2\":12,");
@@ -2213,6 +2217,20 @@ where DemandShowroomId is not null order by rzId desc";
                 dt = SqlHelper.ExecuteDataTable("select * from View_sgrz  where rlx='jd'  ;");
             }
 
+            //rzId	rbName	rxName	rbTime	reTime	rlx	pics	extensioin	extension1	extension2	createTime
+            //5718	橱柜定制家具	NULL	NULL	NULL	xm	NULL	9	3017	NULL	2015-04-23
+
+
+            //List<object> lisjs = new List<object>();
+
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    var row=dt.Rows[i];
+            //    var obj = new { rzId = row[""].ToSafeString(), rbName = row[""].ToSafeString(), rxName = row[""].ToSafeString(), rbTime = row[""].ToSafeString(), reTime = row[""].ToSafeString(), rlx = row[""].ToSafeString(), pics = row[""].ToSafeString(), extensioin = row[""].ToSafeString(), extension1 = row[""].ToSafeString(), extension2 = row[""].ToSafeString(), createTime = row[""].ToSafeString() };
+
+            //    lisjs.Add(obj);
+            //}
+
             #region 构造结果字符串
 
             StringBuilder sb = new StringBuilder();
@@ -2226,13 +2244,19 @@ where DemandShowroomId is not null order by rzId desc";
                 //第i天      (i+1)天所处阶段    天数
                 //select rbName from View_sgrz  where rlx='jd' and 11>=rbTime and 15<=reTime;
 
-                DataRow[] rows = dt.Select((i + 1) + ">=rbTime and " + (i + 1) + "<=reTime");
-
+                // DataRow[] rows = dt.Select((i + 1) + ">=rbTime and " + (i + 1) + "<=reTime");
+                int ttt = i + 1;
+                DataRow[] rows = dt.Select(ttt + "<=reTime"); ;
+                 
                 string s = "";
 
                 foreach (var item in rows)
                 {
-                    s += item["rbName"].ToSafeString() + ",";
+                    if (item["rbTime"].Todouble()<=ttt)
+                    {
+                        s += item["rbName"].ToSafeString() + ",";
+                    }
+                    
                 }
 
                 DataRow[] rowpics = dtpic.Select("day='" + (i + 1) + "'");
@@ -2389,13 +2413,13 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 var row = dt.Rows[i];
 
-                int iss=0;
-                if (row["createTime"].ToSafeString()==DateTime.Now.ToString("yyyy-MM-dd"))
+                int iss = 0;
+                if (row["isread"].ToSafeString() == "1")
                 {
-                    iss=1;
+                    iss = 1;
                 }
 
-                lis.Add(new { newsid = row["id"].ToSafeString(), name = row["username"].ToSafeString().Replace("%40", "@"), projectname = row["Extension12"].ToSafeString(), time = row["createTime"].ToSafeString(), isread = iss});
+                lis.Add(new { newsid = row["id"].ToSafeString(), name = row["username"].ToSafeString().Replace("%40", "@"), projectname = row["Extension12"].ToSafeString(), time = row["createTime"].ToSafeString(), isread = iss });
 
             }
 
@@ -2439,7 +2463,7 @@ where DemandShowroomId is not null order by rzId desc";
                 obj = new { errorcode = 0, name = row["userName"].ToSafeString(), modification = Regex.Replace(row["con"].ToSafeString(), "", ""), delaydays = row["extension1"].ToSafeString(), reason = row["xgyy"].ToSafeString(), projectid = row["extension"].ToSafeString() };
             }
 
-
+            SqlHelper.ExecuteNonQuery("update xgrlrz set isread=0 where id='" + newsid + "'");
 
             return JsonConvert.SerializeObject(obj);
         }
@@ -2461,7 +2485,7 @@ where DemandShowroomId is not null order by rzId desc";
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var row = dt.Rows[i];
-                var obj = new { name = "刘伯温", modification = Regex.Replace(row["con"].ToSafeString(), "", ""), delaydays = row["extension1"].ToSafeString(), reason = row["xgyy"].ToSafeString(), projectid = row["extension"].ToSafeString(), time = row["createtime"].ToSafeString() };
+                var obj = new { name = row["userName"].ToSafeString(), modification = Regex.Replace(row["con"].ToSafeString(), "", ""), delaydays = row["extension1"].ToSafeString(), reason = row["xgyy"].ToSafeString(), projectid = row["extension"].ToSafeString(), time = row["createtime"].ToSafeString() };
 
 
                 lis.Add(obj);
@@ -2508,9 +2532,9 @@ where DemandShowroomId is not null order by rzId desc";
             //  select pic from xStatePic where demandId='4287' and day='0'
 
 
-            if (!Regex.IsMatch(projectid.ToSafeString(),@"^\d+$"))
+            if (!Regex.IsMatch(projectid.ToSafeString(), @"^\d+$"))
             {
-                 return "{\"errorcode\":1,\"msg\":\"projectid不合法\"}"; ;
+                return "{\"errorcode\":1,\"msg\":\"projectid不合法\"}"; ;
             }
             if (!Regex.IsMatch(dayindex.ToSafeString(), @"^\d+$"))
             {
@@ -2527,7 +2551,7 @@ where DemandShowroomId is not null order by rzId desc";
             string v = o.ToSafeString().Replace("," + picurl.Trim(), "").Replace(picurl.Trim(), "");
 
 
-            SqlHelper.ExecuteNonQuery("update xStatePic set pic='"+v+"'  where demandId='"+projectid+"' and day='"+dayindex+"'");
+            SqlHelper.ExecuteNonQuery("update xStatePic set pic='" + v + "'  where demandId='" + projectid + "' and day='" + dayindex + "'");
 
             return "{\"errorcode\":0,\"msg\":\"操作成功\"}"; ;
         }
