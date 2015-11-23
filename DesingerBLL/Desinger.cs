@@ -180,7 +180,7 @@ values('" + rname + "','" + rxname + "','" + b + "','" + e + "','" + rlx + "1" +
 
             if (rlx == "jd")
             {
-                AddXmRyJd(rname, "1", "65", rlx, GetExtension(rname, j).ToString(), projectid);
+                AddXmRyJd(rname, "1", "3", rlx, GetExtension(rname, j).ToString(), projectid);
 
             }
             else
@@ -1157,6 +1157,9 @@ where DemandShowroomId is not null order by rzId desc";
 
         public static string GetTodaythings30(string desingerid, string startday = "", string endday = "", string projectid = "")
         {
+
+
+
             if (startday.IsEmpty())
             {
                 startday = DateTime.Now.ToString("yyyy-MM-dd");
@@ -1187,6 +1190,19 @@ where DemandShowroomId is not null order by rzId desc";
 
             }
 
+            if (!projectid.IsEmpty())
+            {
+                DataTable dtproject = SqlHelper.ExecuteDataTable("select top 1  * from DemandShowRooms where DemandShowroomId='" + projectid + "'");
+
+                DateTime dtbegin = Convert.ToDateTime(dtproject.Rows[0]["Extension16"]);//项目开始时间
+
+                DateTime dtover = dtbegin.AddDays(Convert.ToInt32(dtproject.Rows[0]["Extension1"]));
+
+                if (dtend > dtover)
+                {
+                    dtend = dtover;
+                }
+            }
 
 
 
@@ -1806,7 +1822,7 @@ where DemandShowroomId is not null order by rzId desc";
             {
                 dt0 = DateTime.Now;
             }
-            int end = 65;
+            int end = 2;//项目结束时间
             if (int.TryParse(SqlHelper.ExecuteScalar("select Extension1 from DemandShowRooms where  DemandShowroomId='" + projectid + "'").ToSafeString(), out end))
             {
 
@@ -1855,12 +1871,35 @@ where DemandShowroomId is not null order by rzId desc";
 
             foreach (var item in jdRow)
             {
+                int n2 = int.Parse(item["rbTime"].ToSafeString()) - 1;
+
+                int n1 = int.Parse(item["reTime"].ToSafeString()) - 1;
+
                 string d1 = t.AddDays(int.Parse(item["rbTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd"); ;
 
                 string d2 = t.AddDays(int.Parse(item["reTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd"); ;
+                if (end >= n2 && end <= n1)
+                {
 
-                sb.Append("{\"name\":\"" + item["rbName"].ToSafeString() + "\",\"beiginday\":\"" + d1 + "\",\"endday\":\"" + d2 + "\",\"b\":" + item["rbTime"].ToSafeString() + ",\"e\":" + item["reTime"].ToSafeString() + "},");
 
+                  
+
+                    if (end < n1)
+                    {
+                        d2 = t.AddDays(end - 1).ToString("yyyy-MM-dd"); ;
+                        sb.Append("{\"name\":\"" + item["rbName"].ToSafeString() + "\",\"beiginday\":\"" + d1 + "\",\"endday\":\"" + d2 + "\",\"b\":" + item["rbTime"].ToSafeString() + ",\"e\":" + end + "},");
+                    }
+                    else
+                    {
+                        sb.Append("{\"name\":\"" + item["rbName"].ToSafeString() + "\",\"beiginday\":\"" + d1 + "\",\"endday\":\"" + d2 + "\",\"b\":" + item["rbTime"].ToSafeString() + ",\"e\":" + item["reTime"].ToSafeString() + "},");
+                    }
+
+
+                    //sb.Append("{\"name\":\"" + item["rbName"].ToSafeString() + "\",\"beiginday\":\"" + d1 + "\",\"endday\":\"" + d2 + "\",\"b\":" + item["rbTime"].ToSafeString() + ",\"e\":" + item["reTime"].ToSafeString() + "},");
+                }
+                else {
+                    sb.Append("{\"name\":\"" + item["rbName"].ToSafeString() + "\",\"beiginday\":\"" + d1 + "\",\"endday\":\"" + d2 + "\",\"b\":" + item["rbTime"].ToSafeString() + ",\"e\":" + item["reTime"].ToSafeString() + "},");
+                }
             }
 
             sb.Append("],");
@@ -1890,7 +1929,12 @@ where DemandShowroomId is not null order by rzId desc";
 
                     if (item["retime"].ToSafeString().Length != 0)
                     {
-                        xm.Append("{\"name\":\"" + item["rxname"].ToSafeString() + "\",\"time\":\"" + t.AddDays(int.Parse(item["reTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd") + "\",\"daysindex\":" + item["retime"].ToSafeString() + "},");
+                        double nn1 = item["reTime"].ToSafeString().Todouble();
+                        if (nn1<=end)
+                        {
+                            xm.Append("{\"name\":\"" + item["rxname"].ToSafeString() + "\",\"time\":\"" + t.AddDays(int.Parse(item["reTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd") + "\",\"daysindex\":" + item["retime"].ToSafeString() + "},");
+                        }
+                       
                     }
 
 
@@ -1932,7 +1976,11 @@ where DemandShowroomId is not null order by rzId desc";
                     //循环每一个小项
                     if (item["retime"].ToSafeString().Length != 0)
                     {
-                        xm.Append("{\"name\":\"" + item["rxname"].ToSafeString() + "\",\"time\":\"" + t.AddDays(int.Parse(item["reTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd") + "\",\"daysindex\":" + item["retime"].ToSafeString() + "},");
+                        double nn1 = item["reTime"].ToSafeString().Todouble();
+                        if (nn1 <= end)
+                        {
+                            xm.Append("{\"name\":\"" + item["rxname"].ToSafeString() + "\",\"time\":\"" + t.AddDays(int.Parse(item["reTime"].ToSafeString()) - 1).ToString("yyyy-MM-dd") + "\",\"daysindex\":" + item["retime"].ToSafeString() + "},");
+                        }
                     }
 
                 }
@@ -2109,7 +2157,7 @@ where DemandShowroomId is not null order by rzId desc";
                       
                        new SqlParameter("@DemandShowroomId",DemandShowroomId)
             };
-            return SqlHelper.ExecuteNonQuery(sql, arr); ;
+            return SqlHelper.ExecuteNonQuery(sql, arr); 
 
         }
 
@@ -2247,72 +2295,83 @@ where DemandShowroomId is not null order by rzId desc";
                 // DataRow[] rows = dt.Select((i + 1) + ">=rbTime and " + (i + 1) + "<=reTime");
                 int ttt = i + 1;
                 DataRow[] rows = dt.Select(ttt + "<=reTime"); ;
-                 
+
                 string s = "";
+
+
+
+             
+
+                var ss = "";
 
                 foreach (var item in rows)
                 {
-                    if (item["rbTime"].Todouble()<=ttt)
+                    if (item["rbTime"].Todouble() <= ttt)
                     {
-                        s += item["rbName"].ToSafeString() + ",";
+                        //s += item["rbName"].ToSafeString() + ",";
+                        #region MyRegion
+                        DataRow[] rowpics = dtpic.Select("day='" + (i + 1) + "' and extension='" + item["rbName"].ToSafeString() + "'");
+
+                        string pics = "[]";
+
+                        if (rowpics.Count() > 0)
+                        {
+                            pics = rowpics[0]["pic"].ToSafeString();
+
+
+                            var arr = pics.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            string jk = "[";
+
+                            for (int j = 0; j < arr.Length; j++)
+                            {
+
+                                if (arr[j].Contains("http"))
+                                {
+                                    //jk += "\"" + arr[i].Replace("\\", "/") + "\",";
+                                    string v = arr[j].Replace("\\", "/");
+
+                                    string sm = "http://mobile.mj100.com/desingerapi/pic?url=" + v + "&w=260&h=166";
+
+                                    string ss1 = "{\"bigimg\":\"" + v + "\",\"smallimg\":\"" + sm + "\"},";
+
+                                    jk += ss1;
+                                }
+                                else
+                                {
+                                    // jk += "\"http://www.mj100.com/SGDaily/UploadFile/500/" + arr[i].Replace("\\", "/") + "\",";
+
+                                    string v = "http://www.mj100.com/SGDaily/UploadFile/500/" + arr[j].Replace("\\", "/");
+
+                                    string sm = "http://mobile.mj100.com/desingerapi/pic?url=" + v + "&w=260&h=166";
+
+                                    string ss1 = "{\"bigimg\":\"" + v + "\",\"smallimg\":\"" + sm + "\"},";
+                                    jk += ss1;
+                                }
+
+
+
+
+                            }
+                            jk += "]";
+
+                            pics = jk;
+                        }
+                        #endregion
+                        var obj = new { jd = item["rbName"].ToSafeString(), pic = pics, time = project.begintime.AddDays(i).ToString("yyyy-MM-dd"), dayindex = (i + 1) };
+                         ss += "{\"jd\":\"" + obj.jd + "\",\"pic\":" + pics.Replace(",]", "]") + ",\"time\":\"" + obj.time + "\",\"dayindex\":\"" + obj.dayindex + "\"},";
+
                     }
-                    
+
                 }
 
-                DataRow[] rowpics = dtpic.Select("day='" + (i + 1) + "'");
-
-                string pics = "[]";
-
-                if (rowpics.Count() > 0)
-                {
-                    pics = rowpics[0]["pic"].ToSafeString();
 
 
-                    var arr = pics.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                //var obj = new { jd = s.TrimEnd(','), pic = pics, time = project.begintime.AddDays(i).ToString("yyyy-MM-dd"), dayindex = (i + 1) };
 
-                    string jk = "[";
-
-                    for (int j = 0; j < arr.Length; j++)
-                    {
-
-                        if (arr[j].Contains("http"))
-                        {
-                            //jk += "\"" + arr[i].Replace("\\", "/") + "\",";
-                            string v = arr[j].Replace("\\", "/");
-
-                            string sm = "http://mobile.mj100.com/desingerapi/pic?url=" + v + "&w=260&h=166";
-
-                            string ss1 = "{\"bigimg\":\"" + v + "\",\"smallimg\":\"" + sm + "\"},";
-
-                            jk += ss1;
-                        }
-                        else
-                        {
-                            // jk += "\"http://www.mj100.com/SGDaily/UploadFile/500/" + arr[i].Replace("\\", "/") + "\",";
-
-                            string v = "http://www.mj100.com/SGDaily/UploadFile/500/" + arr[j].Replace("\\", "/");
-
-                            string sm = "http://mobile.mj100.com/desingerapi/pic?url=" + v + "&w=260&h=166";
-
-                            string ss1 = "{\"bigimg\":\"" + v + "\",\"smallimg\":\"" + sm + "\"},";
-                            jk += ss1;
-                        }
+             
 
 
-
-
-                    }
-                    jk += "]";
-
-                    pics = jk;
-                }
-
-
-
-
-                var obj = new { jd = s.TrimEnd(','), pic = pics, time = project.begintime.AddDays(i).ToString("yyyy-MM-dd"), dayindex = (i + 1) };
-
-                var ss = "{\"jd\":\"" + obj.jd + "\",\"pic\":" + pics.Replace(",]", "]") + ",\"time\":\"" + obj.time + "\",\"dayindex\":\"" + obj.dayindex + "\"},";
                 sb.Append(ss);
 
                 //lis.Add(obj);
@@ -2380,7 +2439,26 @@ where DemandShowroomId is not null order by rzId desc";
             return "";
         }
 
+        /// <summary>
+        /// 添加照片
+        /// </summary>
+        /// <returns></returns>
+        public static string InsertPic(string projectid, string day, string pic, string name )
+        {
+            string sql = "select rzPicId from xStatePic where demandId='" + projectid + "' and extension='"+name+"' and day='" + day + "' ;";
 
+            object o = SqlHelper.ExecuteScalar(sql);
+
+            if (o == null)
+            {
+                SqlHelper.ExecuteNonQuery("insert into xStatePic(demandId,day,pic,createTime,extension) values('" + projectid + "','" + day + "','" + pic + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','"+name+"');");
+            }
+            else
+            {
+                SqlHelper.ExecuteNonQuery("update xStatePic set pic=pic+'," + pic + "' where demandId='" + projectid + "' and extension='" + name + "' and day='" + day + "' ;");
+            }
+            return "";
+        }
         /// <summary>
         /// 得到新闻列表
         /// </summary>

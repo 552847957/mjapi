@@ -36,6 +36,7 @@ namespace DbHelper
             using (SqlConnection connection = CreateConnection())
             {
                 DataSet dataSet = new DataSet();
+                
                 SqlCommand cmd = new SqlCommand();
                 PrepareCommand(cmd, connection, cmdType, cmdText, cmdParms);
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))

@@ -162,7 +162,7 @@ namespace MJAPI.Controllers
         /// <param name="projectid"></param>
         /// <param name="dayindex"></param>
         /// <returns></returns>
-        public string UploadScheduleImg(string projectid, string dayindex)
+        public string UploadScheduleImg(string projectid, string dayindex,string name)
         {
             if (projectid.IsEmpty() || dayindex.IsEmpty())
             {
@@ -196,7 +196,7 @@ namespace MJAPI.Controllers
             string url = "http://mobile.mj100.com" + temppath.Replace("~", "") + filename;
 
 
-            DesingerBLL.Desinger.InsertPic(projectid, dayindex, url);
+            DesingerBLL.Desinger.InsertPic(projectid, dayindex, url,name);
 
 
             return "{\"errorcode\":0,\"msg\":\"上传成功\",\"url\":\"http://mobile.mj100.com" + temppath.Replace("~", "") + filename + "\",\"smallimg\":\"http://mobile.mj100.com/desingerapi/pic?url=" + url + "&w=260&h=166\"}";
